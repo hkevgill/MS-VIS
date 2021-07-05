@@ -63,6 +63,13 @@ peaks.if.peak.conflict.use.max<-T #If two peaks are within the tolerance window 
 #Single spectrum----
 fig.name.final<-paste(fig.name,".jpg") #adds file extension to file name
 
+# Heroku workaround to websocket connection resetting
+autoInvalidate <- reactiveTimer(10000)
+observe({
+    autoInvalidate()
+    cat(".")
+})
+
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
