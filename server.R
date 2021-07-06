@@ -25,11 +25,11 @@ fig.margin<-c(6,7,3,0.5) #figure margins c(bottom, left, top, right), vector of 
 # spectrum.xaxis.label<-"m/z" #Label below x-axis, character
 # spectrum.yaxis.label<-"Intensity" #Label next to y-axis, character
 # spectrum.main.label<-"Single Spectrum" #Label above mass spectrum, character
-spectrum.full.range<- FALSE #Whether the entire spectrum, or only a section of it should be displayed, boolean
-spectrum.upper.range.limit.xaxis<- 1530 #Upper end of the x-axis, numeric
-spectrum.lower.range.limit.xaxis<- 1480 #Lower end of the x-axis, numeric  
-spectrum.upper.range.limit.yaxis<-40000 #Upper end of the y-axis, numeric  
-spectrum.lower.range.limit.yaxis<-0 #Lower end of the y-axis, numeric  
+# spectrum.full.range<- FALSE #Whether the entire spectrum, or only a section of it should be displayed, boolean
+# spectrum.upper.range.limit.xaxis<- 1530 #Upper end of the x-axis, numeric
+# spectrum.lower.range.limit.xaxis<- 1480 #Lower end of the x-axis, numeric  
+#spectrum.upper.range.limit.yaxis<-40000 #Upper end of the y-axis, numeric  
+#spectrum.lower.range.limit.yaxis<-0 #Lower end of the y-axis, numeric  
 spectrum.axis.fontsize<-3 #Font size of the axis labels, numeric
 spectrum.title.fontsize<-2 #Font size of the main label
 spectrum.axis.ticks.size<-2 #Font size of the axis ticks, numeric
@@ -46,7 +46,7 @@ spectrum.yaxis.interval<-20000 #Interval of y-axis ticks (if custom axes is true
 ##Variables for peak labeling
 #peaks.mass.list.filepath<-"PTEN+p110a mix vs seq LP.xlsx" #Filepath of mass list 
 #peaks.sheet.name<-"180413_PTEN_1st_PI3K_High_01_%%" #Name of the xlsx sheet 
-peaks.selected.masses<-c(1496,1506) #m/z value of the peaks which should be labeled, numeric vector
+# eaks.selected.masses<-c(1496,1506) #m/z value of the peaks which should be labeled, numeric vector
 peaks.peak.tolerance<-2 #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
 peaks.label.line.width<-2 #line width of the line connecting the peak to the peak labels, numeric
 peaks.label.length<-c(0.1,0.1) #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
@@ -114,6 +114,26 @@ shinyServer(function(input, output) {
 
         #Color of the mass spectrum
         spectrum.mass.spectrum.color<-input$spectrumColour
+
+        #Whether the entire spectrum, or only a section of it should be displayed, boolean
+        spectrum.full.range<-input$spectrumFullRange
+
+        #Upper end of the x-axis, numeric
+        spectrum.upper.range.limit.xaxis<-input$spectrumRangeXAxis[2]
+        
+        #Lower end of the x-axis, numeric
+        spectrum.lower.range.limit.xaxis<-input$spectrumRangeXAxis[1]
+
+        #Upper end of the y-axis, numeric 
+        spectrum.upper.range.limit.yaxis<-input$spectrumRangeYAxis[2]
+        
+        #Lower end of the y-axis, numeric  
+        spectrum.lower.range.limit.yaxis<-input$spectrumRangeYAxis[1]
+
+        #Peak variables
+        
+        #m/z value of the peaks which should be labeled, numeric vector
+        peaks.selected.masses<-c(input$peaksSelectedMasses[1],input$peaksSelectedMasses[2])
         
         # Generate the jpg
         jpeg(filename = fig.name.final,

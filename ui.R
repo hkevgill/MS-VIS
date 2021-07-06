@@ -9,6 +9,7 @@
 
 library(shiny)
 library(colourpicker)
+library(shinyWidgets)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -57,7 +58,19 @@ shinyUI(fluidPage(
             # Input: ColourInput
             colourInput("spectrumColour", "Spectrum colour", value = "#BC5741", showColour = c("both", "text", "background"), palette = c("square", "limited"), allowTransparent = FALSE, returnName = FALSE),
 
+            # Input: Checkbox ----
+            checkboxInput("spectrumFullRange", "Spectrum full range", value = FALSE, width = NULL),
+
+            # Input: NumericRangeInput ----
+            numericRangeInput(inputId = "spectrumRangeXAxis", label = "Spectrum x-axis range limit", value = c(1480,1530)),
+
+            # Input: NumericRangeInput ----
+            numericRangeInput(inputId = "spectrumRangeYAxis", label = "Spectrum y-axis range limit", value = c(0,40000)),
+
             h3("Variables for peak labeling"),
+
+            # Input: NumericRangeInput ----
+            numericRangeInput(inputId = "peaksSelectedMasses", label = "Peaks Selected Masses", value = c(1496,1506)),
         ),
 
         # Show a plot of the generated distribution
