@@ -6,7 +6,8 @@ FROM virtualstaticvoid/heroku-docker-r:shiny
 #           )'
 
 RUN R -e 'install.packages(c(\
-              "readxl"\
+              "readxl",\
+              "colourpicker"\
             ) \
           )'
 

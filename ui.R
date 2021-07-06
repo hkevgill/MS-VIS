@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(colourpicker)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -52,6 +53,9 @@ shinyUI(fluidPage(
 
             # Input: Text ----
             textInput("spectrumMainLabel", "Spectrum main label", value = "Single Spectrum", width = NULL, placeholder = ""),
+
+            # Input: ColourInput
+            colourInput("spectrumColour", "Spectrum colour", value = "#BC5741", showColour = c("both", "text", "background"), palette = c("square", "limited"), allowTransparent = FALSE, returnName = FALSE),
 
             h3("Variables for peak labeling"),
         ),

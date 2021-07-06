@@ -33,7 +33,7 @@ spectrum.lower.range.limit.yaxis<-0 #Lower end of the y-axis, numeric
 spectrum.axis.fontsize<-3 #Font size of the axis labels, numeric
 spectrum.title.fontsize<-2 #Font size of the main label
 spectrum.axis.ticks.size<-2 #Font size of the axis ticks, numeric
-spectrum.mass.spectrum.color<- "tomato3" #Color of the mass spectrum, character or color hex code
+#spectrum.mass.spectrum.color<- "tomato3" #Color of the mass spectrum, character or color hex code
 spectrum.mass.spectrum.line.width<- 2 #Line width of the mass spectrum, numeric
 spectrum.custom.axes<-T #Whether or not the axis ticks are at custom points, boolean
 spectrum.custom.xaxis.pdj<-1 #Distance of the x-axis tick mark labels from the x-axis ticks (if custom axes is true), numeric
@@ -111,6 +111,9 @@ shinyServer(function(input, output) {
 
         #Label above mass spectrum, character
         spectrum.main.label<-input$spectrumMainLabel
+
+        #Color of the mass spectrum
+        spectrum.mass.spectrum.color<-input$spectrumColour
         
         # Generate the jpg
         jpeg(filename = fig.name.final,
