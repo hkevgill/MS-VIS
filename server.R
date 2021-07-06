@@ -20,11 +20,11 @@ fig.margin<-c(6,7,3,0.5) #figure margins c(bottom, left, top, right), vector of 
 
 ##Variables for spectrum plotting
 #spectrum.filepath<-"180413 PTEN 1st PI3K High_01_%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%_0_G12_1.txt" #Filepath of mass spectrum file, character
-spectrum.separator<-" " #separator in the mass spectrum csv file, character
-spectrum.headerTF<- FALSE #Whether or not the mass spectrum file has column headers, boolean
-spectrum.xaxis.label<-"m/z" #Label below x-axis, character
-spectrum.yaxis.label<-"Intensity" #Label next to y-axis, character
-spectrum.main.label<-"Single Spectrum" #Label above mass spectrum, character
+# spectrum.separator<-" " #separator in the mass spectrum csv file, character
+# spectrum.headerTF<- FALSE #Whether or not the mass spectrum file has column headers, boolean
+# spectrum.xaxis.label<-"m/z" #Label below x-axis, character
+# spectrum.yaxis.label<-"Intensity" #Label next to y-axis, character
+# spectrum.main.label<-"Single Spectrum" #Label above mass spectrum, character
 spectrum.full.range<- FALSE #Whether the entire spectrum, or only a section of it should be displayed, boolean
 spectrum.upper.range.limit.xaxis<- 1530 #Upper end of the x-axis, numeric
 spectrum.lower.range.limit.xaxis<- 1480 #Lower end of the x-axis, numeric  
@@ -78,6 +78,7 @@ shinyServer(function(input, output) {
         req(input$file1)
         req(input$file2)
         req(input$peaksSheetName)
+        req(input$spectrumXaxisLabel)
         
         inFile1 <- input$file1
         inFile2 <- input$file2
@@ -88,6 +89,28 @@ shinyServer(function(input, output) {
         spectrum.filepath<-inFile1$name
         peaks.mass.list.filepath<-inFile2$name
         peaks.sheet.name<-input$peaksSheetName
+
+        #spectrum variables
+        
+        #separator in the mass spectrum csv file, character
+        if (input$spectrumSeparator == "") {
+            spectrum.separator<-" "
+        }
+        else {
+            spectrum.separator<-input$spectrumSeparator
+        }
+
+        #Whether or not the mass spectrum file has column headers, boolean
+        spectrum.headerTF<-input$spectrumHeader
+
+        #Label below x-axis, character
+        spectrum.xaxis.label<-input$spectrumXaxisLabel
+
+        #Label next to y-axis, character
+        spectrum.yaxis.label<-input$spectrumYaxisLabel
+
+        #Label above mass spectrum, character
+        spectrum.main.label<-input$spectrumMainLabel
         
         # Generate the jpg
         jpeg(filename = fig.name.final,

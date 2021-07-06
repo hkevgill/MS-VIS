@@ -21,18 +21,39 @@ shinyUI(fluidPage(
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel(
+            h3("Files"),
+
             # Input: Select a file ----
-            fileInput("file1", "Upload a spectrum text file",
+            fileInput("file1", "Spectrum text file",
                       multiple = FALSE,
                       accept = c("text",
                                  "text/plain",
                                  "txt")),
             # Input: Select a file ----
-            fileInput("file2", "Upload a mass spec peaks excel file",
+            fileInput("file2", "Peaks excel file",
                       multiple = FALSE,
                       accept = c(".xlsx")),
             # Input: Text ----
-            textInput("peaksSheetName", "Peaks Sheet Name", value = "", width = NULL, placeholder = NULL),
+            textInput("peaksSheetName", "Peaks sheet name", value = "", width = NULL, placeholder = NULL),
+
+            h3("Variables for spectrum plotting"),
+
+            # Input: Text ----
+            textInput("spectrumSeparator", "Spectrum separator", value = "", width = NULL, placeholder = "space"),
+
+            # Input: Checkbox ----
+            checkboxInput("spectrumHeader", "Spectrum header", value = FALSE, width = NULL),
+
+            # Input: Text ----
+            textInput("spectrumXaxisLabel", "Spectrum x-axis label", value = "m/z", width = NULL, placeholder = ""),
+
+            # Input: Text ----
+            textInput("spectrumYaxisLabel", "Spectrum y-axis label", value = "Intensity", width = NULL, placeholder = ""),
+
+            # Input: Text ----
+            textInput("spectrumMainLabel", "Spectrum main label", value = "Single Spectrum", width = NULL, placeholder = ""),
+
+            h3("Variables for peak labeling"),
         ),
 
         # Show a plot of the generated distribution
