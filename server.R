@@ -46,17 +46,17 @@ spectrum.yaxis.interval<-20000 #Interval of y-axis ticks (if custom axes is true
 ##Variables for peak labeling
 #peaks.mass.list.filepath<-"PTEN+p110a mix vs seq LP.xlsx" #Filepath of mass list 
 #peaks.sheet.name<-"180413_PTEN_1st_PI3K_High_01_%%" #Name of the xlsx sheet 
-# eaks.selected.masses<-c(1496,1506) #m/z value of the peaks which should be labeled, numeric vector
-peaks.peak.tolerance<-2 #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
-peaks.label.line.width<-2 #line width of the line connecting the peak to the peak labels, numeric
-peaks.label.length<-c(0.1,0.1) #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
+# peaks.selected.masses<-c(1496,1506) #m/z value of the peaks which should be labeled, numeric vector
+# peaks.peak.tolerance<-2 #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
+# peaks.label.line.width<-2 #line width of the line connecting the peak to the peak labels, numeric
+# peaks.label.length<-c(0.1,0.1) #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
 peaks.label.spread<- 0.075 #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
 peaks.label.line.lty<-3 #Line type of the line connecting the peak to the peak labels, numeric
 peaks.label.line.col<-"black" #Line type of the line connecting the peak to the peak labels, character or color hex code
-peaks.first.label<- c("Peak 1","Peak 2") #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
-peaks.second.label<- c("2nd Label P1","2nd Label P2") #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+#peaks.first.label<- c("Peak 1","Peak 2") #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+#peaks.second.label<- c("2nd Label P1","2nd Label P2") #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
 peaks.labels.on<- c(1,1,1,1,1) #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
-peaks.label.position<-c("r","R") #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
+# peaks.label.position<-c("r","R") #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
 peaks.fontsize<-2.5 #Fontsize of the peak labels, numeric
 peaks.if.peak.conflict.use.max<-T #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
 
@@ -133,7 +133,35 @@ shinyServer(function(input, output) {
         #Peak variables
         
         #m/z value of the peaks which should be labeled, numeric vector
-        peaks.selected.masses<-c(input$peaksSelectedMasses[1],input$peaksSelectedMasses[2])
+        if (input$peaksSelectedMasses == "") {
+            peaks.selected.masses<-c(0)
+        }
+        else {
+            peaks.selected.masses<-c(as.numeric(unlist(strsplit(input$peaksSelectedMasses,","))))
+        }
+        
+        #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
+        if (input$peaksLabelLength == "") {
+            peaks.label.length<-c(0)
+        }
+        else {
+            peaks.label.length<-c(as.numeric(unlist(strsplit(input$peaksLabelLength,","))))
+        }
+        
+        #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+        peaks.first.label<-c(unlist(strsplit(input$peaksFirstLabel,",")))
+        
+        #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+        peaks.second.label<-c(unlist(strsplit(input$peaksSecondLabel,",")))
+        
+        #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
+        peaks.label.position<-c(unlist(strsplit(input$peaksLabelPosition,",")))
+        
+        #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
+        peaks.peak.tolerance<-as.numeric(input$peakTolerance)
+        
+        #line width of the line connecting the peak to the peak labels, numeric
+        peaks.label.line.width<-as.numeric(input$peakLabelLineWidth)
         
         # Generate the jpg
         jpeg(filename = fig.name.final,
