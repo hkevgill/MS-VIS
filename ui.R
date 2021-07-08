@@ -18,7 +18,7 @@ shinyUI(fluidPage(
     ),
 
     # Application title
-    titlePanel("MALDI Visualizer"),
+    titlePanel("Mass Spectrum"),
 
     # Sidebar with a slider input for number of bins
     sidebarLayout(
