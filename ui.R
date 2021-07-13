@@ -14,7 +14,7 @@ library(shinyWidgets)
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
     tags$head(
-        tags$link(rel = "stylesheet", type = "text/css", href = "main.css")
+        tags$link(rel = "stylesheet", type = "text/css", href = "main.css"),
     ),
 
     # Application title
@@ -24,7 +24,7 @@ shinyUI(fluidPage(
     sidebarLayout(
         sidebarPanel(
             h3("Files"),
-
+            
             # Input: Select a file ----
             tags$div(title="Mass spectrum file",
                 fileInput("file1", "Upload a spectrum text file",
@@ -93,8 +93,85 @@ shinyUI(fluidPage(
                 numericRangeInput(inputId = "spectrumRangeYAxis", label = "Spectrum y-axis range limit", value = c(0,40000)),
             ),
             
+            # Input: SliderInput ----
+            tags$div(title="Font size of the axis labels",
+                sliderInput("spectrumAxisFontSize", "Spectrum axis font size:",
+                            min = 1, max = 5,
+                            value = 3, step = 0.1),
+            ),
+            
+            # Input: SliderInput ----
+            tags$div(title="Font size of the main label",
+                sliderInput("spectrumTitleFontSize", "Spectrum title font size:",
+                            min = 1, max = 5,
+                            value = 2, step = 0.1),
+            ),
+            
+            # Input: SliderInput ----
+            tags$div(title="Font size of the axis ticks",
+                sliderInput("spectrumAxisTickFontSize", "Spectrum axis tick font size:",
+                            min = 1, max = 5,
+                            value = 2, step = 0.1),
+            ),
+            
+            # Input: SliderInput ----
+            tags$div(title="Line width of the mass spectrum",
+                sliderInput("spectrumLineWidth", "Spectrum line width:",
+                            min = 1, max = 5,
+                            value = 2, step = 0.1),
+            ),
+            
+            # Input: MaterialSwitch ----
+            tags$div(title="Whether or not the axis ticks are at custom points",
+                materialSwitch(
+                    inputId = "spectrumCustomAxes",
+                    label = "Spectrum custom axes", 
+                    status = "primary",
+                    right = TRUE,
+                    value = TRUE
+                ),
+            ),
+            
+            # Input: SliderInput ----
+            tags$div(title="Distance of the x-axis tick mark labels from the x-axis ticks (if custom axes is true)",
+                sliderInput("spectrumCustomXAxisPdj", "Spectrum custom x-axis pdj:",
+                            min = 0.1, max = 5,
+                            value = 1, step = 0.1),
+            ),
+            
+            # Input: SliderInput ----
+            tags$div(title="Distance of the y-axis tick mark labels from the y-axis ticks (if custom axes is true)",
+                sliderInput("spectrumCustomYAxisPdj", "Spectrum custom y-axis pdj:",
+                            min = -5, max = 5,
+                            value = -1, step = 0.1),
+            ),
+            
+            # Input: SliderInput ----
+            tags$div(title="Distance of the axis label to the axis (if custom axes is true)",
+                sliderInput("spectrumCustomAxisAnnLine", "Spectrum custom axis ann line:",
+                            min = 1, max = 10,
+                            value = 5, step = 0.1),
+            ),
+            
+            # Input: SliderInput ----
+            tags$div(title="Distance of the main label from the mass spectrum",
+                sliderInput("spectrumCustomAxisAnnTitleLine", "Spectrum custom axis ann title line:",
+                            min = 0.1, max = 10,
+                            value = 1, step = 0.1),
+            ),
+            
+            # Input: TextInput ----
+            tags$div(title="Interval of x-axis ticks (if custom axes is true)",
+                     textInput(inputId = "spectrumXAxisInterval", label = "Spectrum x-axis interval", value = "20", placeholder = ""),
+            ),
+            
+            # Input: TextInput ----
+            tags$div(title="Interval of y-axis ticks (if custom axes is true)",
+                     textInput(inputId = "spectrumYAxisInterval", label = "Spectrum y-axis interval", value = "20000", placeholder = ""),
+            ),
+            
             h3("Variables for peak labeling"),
-
+            
             # Input: Text ----
             tags$div(title="Where the peak labels should be displayed. r or l displays them to the right or left of the peak maximum. R or L displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)",
                      textInput(inputId = "peaksLabelPosition", label = "Peaks Label position", value = "", placeholder = "Example: r,R, must match length of Peaks Selected Masses"),
@@ -102,14 +179,29 @@ shinyUI(fluidPage(
             
             # Input: Text ----
             tags$div(title="m/z value of the peaks which should be labeled",
-                textInput(inputId = "peaksSelectedMasses", label = "Peaks Selected Masses", value = "", placeholder = "Example: 1496, 1506"),
+                     textInput(inputId = "peaksSelectedMasses", label = "Peaks Selected Masses", value = "", placeholder = "Example: 1496, 1506"),
             ),
-
+            
             # Input: Text ----
             tags$div(title="Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)",
-                textInput(inputId = "peaksLabelLength", label = "Peaks Label Length", value = "", placeholder = "Example: 0.1,0.1, must match length of Peaks Selected Masses"),
+                     textInput(inputId = "peaksLabelLength", label = "Peaks Label Length", value = "", placeholder = "Example: 0.1,0.1, must match length of Peaks Selected Masses"),
             ),
-
+            
+            # Input: Text ----
+            tags$div(title="Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart",
+                     textInput(inputId = "peaksLabelSpread", label = "Peaks Label Spread", value = "0.075", placeholder = ""),
+            ),
+            
+            # Input: Text ----
+            tags$div(title="Line type of the line connecting the peak to the peak labels",
+                     textInput(inputId = "peaksLabelLineType", label = "Peaks Label Line Type", value = "3", placeholder = ""),
+            ),
+            
+            # Input: ColourInput ----
+            tags$div(title="Line colour of the line connecting the peak to the peak labels",
+                     colourInput("peakslabelLineColour", "PeaksLabel Line colour", value = "#000000", showColour = c("both", "text", "background"), palette = c("square", "limited"), allowTransparent = FALSE, returnName = FALSE),
+            ),
+            
             # Input: Text ----
             tags$div(title="First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector",
                      textInput(inputId = "peaksFirstLabel", label = "Peaks First Label", value = "", placeholder = "Example: Peak 1,Peak 2, must match length of Peaks Selected Masses"),
@@ -119,21 +211,48 @@ shinyUI(fluidPage(
             tags$div(title="Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector",
                      textInput(inputId = "peaksSecondLabel", label = "Peaks Second Label", value = "", placeholder = "Example: 2nd Label P1,2nd Label P2, must match length of Peaks Selected Masses"),
             ),
-
+            
+            # Input: Checkbox Group Buttons ----
+            tags$div(title="Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio)",
+                     checkboxGroupButtons(
+                         inputId = "peaksLabelsOn",
+                         label = "Peak Labels Enabled", 
+                         choices = c("1st Label", "2nd label", "m/z ratio", "intensity", "S/N ratio"),
+                         status = "primary",
+                         selected = c("1st Label", "m/z ratio", "intensity", "S/N ratio")
+                     ),
+            ),
+            
             # Input: Text ----
             tags$div(title="Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2)",
                      textInput(inputId = "peakTolerance", label = "Peak Tolerance", value = "2", placeholder = ""),
             ),
-
+            
             # Input: Text ----
             tags$div(title="line width of the line connecting the peak to the peak labels",
                      textInput(inputId = "peakLabelLineWidth", label = "Peak Label Line Width", value = "2", placeholder = ""),
+            ),
+            
+            # Input: Text ----
+            tags$div(title="Fontsize of the peak labels",
+                     textInput(inputId = "peaksFontSize", label = "Peaks Font Size", value = "2.5", placeholder = ""),
+            ),
+            
+            # Input: MaterialSwitch ----
+            tags$div(title="If two peaks are within the tolerance window for peak picking, the higher one is selected",
+                     materialSwitch(
+                         inputId = "peakConflictUseMax",
+                         label = "Peaks Conflict: Use Max Peak", 
+                         status = "primary",
+                         right = TRUE,
+                         value = TRUE
+                     ),
             ),
         ),
 
         # Show a plot of the generated distribution
         mainPanel(
-            imageOutput("myImage")
+            tags$div(class="image-fixed-container", imageOutput("myImage"))
         )
     )
 ))

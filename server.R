@@ -28,20 +28,20 @@ fig.margin<-c(6,7,3,0.5) #figure margins c(bottom, left, top, right), vector of 
 # spectrum.full.range<- FALSE #Whether the entire spectrum, or only a section of it should be displayed, boolean
 # spectrum.upper.range.limit.xaxis<- 1530 #Upper end of the x-axis, numeric
 # spectrum.lower.range.limit.xaxis<- 1480 #Lower end of the x-axis, numeric  
-#spectrum.upper.range.limit.yaxis<-40000 #Upper end of the y-axis, numeric  
-#spectrum.lower.range.limit.yaxis<-0 #Lower end of the y-axis, numeric  
-spectrum.axis.fontsize<-3 #Font size of the axis labels, numeric
-spectrum.title.fontsize<-2 #Font size of the main label
-spectrum.axis.ticks.size<-2 #Font size of the axis ticks, numeric
-#spectrum.mass.spectrum.color<- "tomato3" #Color of the mass spectrum, character or color hex code
-spectrum.mass.spectrum.line.width<- 2 #Line width of the mass spectrum, numeric
-spectrum.custom.axes<-T #Whether or not the axis ticks are at custom points, boolean
-spectrum.custom.xaxis.pdj<-1 #Distance of the x-axis tick mark labels from the x-axis ticks (if custom axes is true), numeric
-spectrum.custom.yaxis.pdj<-(-1) #Distance of the y-axis tick mark labels from the y-axis ticks (if custom axes is true), numeric
-spectrum.custom.axis.ann.line<-5 #Distance of the axis label to the axis (if custom axes is true), numeric
-spectrum.custom.axis.ann.title.line<- 1 #Distance of the main label from the mass spectrum, numeric
-spectrum.xaxis.interval<-20 #Interval of x-axis ticks (if custom axes is true), numeric
-spectrum.yaxis.interval<-20000 #Interval of y-axis ticks (if custom axes is true), numeric
+# spectrum.upper.range.limit.yaxis<-40000 #Upper end of the y-axis, numeric  
+# spectrum.lower.range.limit.yaxis<-0 #Lower end of the y-axis, numeric  
+# spectrum.axis.fontsize<-3 #Font size of the axis labels, numeric
+# spectrum.title.fontsize<-2 #Font size of the main label
+# spectrum.axis.ticks.size<-2 #Font size of the axis ticks, numeric
+# spectrum.mass.spectrum.color<- "tomato3" #Color of the mass spectrum, character or color hex code
+# spectrum.mass.spectrum.line.width<- 2 #Line width of the mass spectrum, numeric
+# spectrum.custom.axes<-T #Whether or not the axis ticks are at custom points, boolean
+# spectrum.custom.xaxis.pdj<-1 #Distance of the x-axis tick mark labels from the x-axis ticks (if custom axes is true), numeric
+# spectrum.custom.yaxis.pdj<-(-1) #Distance of the y-axis tick mark labels from the y-axis ticks (if custom axes is true), numeric
+# spectrum.custom.axis.ann.line<-5 #Distance of the axis label to the axis (if custom axes is true), numeric
+# spectrum.custom.axis.ann.title.line<- 1 #Distance of the main label from the mass spectrum, numeric
+# spectrum.xaxis.interval<-20 #Interval of x-axis ticks (if custom axes is true), numeric
+# spectrum.yaxis.interval<-20000 #Interval of y-axis ticks (if custom axes is true), numeric
 
 ##Variables for peak labeling
 #peaks.mass.list.filepath<-"PTEN+p110a mix vs seq LP.xlsx" #Filepath of mass list 
@@ -50,15 +50,15 @@ spectrum.yaxis.interval<-20000 #Interval of y-axis ticks (if custom axes is true
 # peaks.peak.tolerance<-2 #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
 # peaks.label.line.width<-2 #line width of the line connecting the peak to the peak labels, numeric
 # peaks.label.length<-c(0.1,0.1) #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
-peaks.label.spread<- 0.075 #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
-peaks.label.line.lty<-3 #Line type of the line connecting the peak to the peak labels, numeric
-peaks.label.line.col<-"black" #Line type of the line connecting the peak to the peak labels, character or color hex code
-#peaks.first.label<- c("Peak 1","Peak 2") #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
-#peaks.second.label<- c("2nd Label P1","2nd Label P2") #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
-peaks.labels.on<- c(1,1,1,1,1) #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
+# peaks.label.spread<- 0.075 #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
+# peaks.label.line.lty<-3 #Line type of the line connecting the peak to the peak labels, numeric
+# peaks.label.line.col<-"black" #Line type of the line connecting the peak to the peak labels, character or color hex code
+# peaks.first.label<- c("Peak 1","Peak 2") #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+# peaks.second.label<- c("2nd Label P1","2nd Label P2") #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+# peaks.labels.on<- c(1,1,1,1,1) #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
 # peaks.label.position<-c("r","R") #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
-peaks.fontsize<-2.5 #Fontsize of the peak labels, numeric
-peaks.if.peak.conflict.use.max<-T #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
+# peaks.fontsize<-2.5 #Fontsize of the peak labels, numeric
+# peaks.if.peak.conflict.use.max<-T #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
 
 #Single spectrum----
 fig.name.final<-paste(fig.name,".jpg") #adds file extension to file name
@@ -130,6 +130,39 @@ shinyServer(function(input, output) {
         #Lower end of the y-axis, numeric  
         spectrum.lower.range.limit.yaxis<-input$spectrumRangeYAxis[1]
 
+        #Font size of the axis labels, numeric
+        spectrum.axis.fontsize<-input$spectrumAxisFontSize
+
+        #Font size of the main label
+        spectrum.title.fontsize<-input$spectrumTitleFontSize
+
+        #Font size of the axis ticks, numeric
+        spectrum.axis.ticks.size<-input$spectrumAxisTickFontSize
+
+        #Line width of the mass spectrum, numeric
+        spectrum.mass.spectrum.line.width<- input$spectrumLineWidth
+
+        #Whether or not the axis ticks are at custom points, boolean
+        spectrum.custom.axes<-input$spectrumCustomAxes
+
+        #Distance of the x-axis tick mark labels from the x-axis ticks (if custom axes is true), numeric
+        spectrum.custom.xaxis.pdj<-input$spectrumCustomXAxisPdj
+
+        #Distance of the y-axis tick mark labels from the y-axis ticks (if custom axes is true), numeric
+        spectrum.custom.yaxis.pdj<-(input$spectrumCustomYAxisPdj)
+
+        #Distance of the axis label to the axis (if custom axes is true), numeric
+        spectrum.custom.axis.ann.line<-input$spectrumCustomAxisAnnLine
+
+        #Distance of the main label from the mass spectrum, numeric
+        spectrum.custom.axis.ann.title.line<-input$spectrumCustomAxisAnnTitleLine
+
+        #Interval of x-axis ticks (if custom axes is true), numeric
+        spectrum.xaxis.interval<-as.numeric(input$spectrumXAxisInterval)
+        
+        #Interval of y-axis ticks (if custom axes is true), numeric
+        spectrum.yaxis.interval<-as.numeric(input$spectrumYAxisInterval)
+
         #Peak variables
         
         #m/z value of the peaks which should be labeled, numeric vector
@@ -147,12 +180,38 @@ shinyServer(function(input, output) {
         else {
             peaks.label.length<-c(as.numeric(unlist(strsplit(input$peaksLabelLength,","))))
         }
+
+        #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
+        peaks.label.spread<-as.numeric(input$peaksLabelSpread)
+
+        #Line type of the line connecting the peak to the peak labels, numeric
+        peaks.label.line.lty<-as.numeric(input$peaksLabelLineType)
+
+        #Line type of the line connecting the peak to the peak labels, character or color hex code
+        peaks.label.line.col<-input$peakslabelLineColour
         
         #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
         peaks.first.label<-c(unlist(strsplit(input$peaksFirstLabel,",")))
         
         #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
         peaks.second.label<-c(unlist(strsplit(input$peaksSecondLabel,",")))
+
+        #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
+        l1<-0
+        l2<-0
+        l3<-0
+        l4<-0
+        l5<-0
+        
+        for (i in seq_len(length(input$peaksLabelsOn))) {
+            if (input$peaksLabelsOn[i] == "1st Label") {l1<-1}
+            if (input$peaksLabelsOn[i] == "2nd label") {l2<-1}
+            if (input$peaksLabelsOn[i] == "m/z ratio") {l3<-1}
+            if (input$peaksLabelsOn[i] == "intensity") {l4<-1}
+            if (input$peaksLabelsOn[i] == "S/N ratio") {l5<-1}
+        }
+        
+        peaks.labels.on<-c(l1,l2,l3,l4,l5)
         
         #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
         peaks.label.position<-c(unlist(strsplit(input$peaksLabelPosition,",")))
@@ -162,6 +221,12 @@ shinyServer(function(input, output) {
         
         #line width of the line connecting the peak to the peak labels, numeric
         peaks.label.line.width<-as.numeric(input$peakLabelLineWidth)
+
+        #Fontsize of the peak labels, numeric
+        peaks.fontsize<-as.numeric(input$peaksFontSize)
+
+        #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
+        peaks.if.peak.conflict.use.max<-input$peakConflictUseMax
         
         # Generate the jpg
         jpeg(filename = fig.name.final,

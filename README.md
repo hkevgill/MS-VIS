@@ -12,7 +12,7 @@ git clone https://github.com/hkevgill/docker-maldi-app.git
 ### Building App
 
 ```
-docker build -t mass-spectrum-image
+docker build -t mass-spectrum-image .
 ```
 
 ### Running App
