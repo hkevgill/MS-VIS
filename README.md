@@ -18,7 +18,7 @@ docker build -t mass-spectrum-image .
 ### Running App
 
 ```
-docker run --rm -itd -p 8080:8080 mass-spectrum-image
+docker run --rm -it -p 8080:8080 mass-spectrum-image
 ```
 
 ## Heroku deploy
