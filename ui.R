@@ -173,13 +173,14 @@ shinyUI(fluidPage(
             h3("Variables for peak labeling"),
             
             # Input: Text ----
-            tags$div(title="Where the peak labels should be displayed. r or l displays them to the right or left of the peak maximum. R or L displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)",
-                     textInput(inputId = "peaksLabelPosition", label = "Peaks Label position", value = "", placeholder = "Example: r,R, must match length of Peaks Selected Masses"),
-            ),
-            
-            # Input: Text ----
             tags$div(title="m/z value of the peaks which should be labeled",
                      textInput(inputId = "peaksSelectedMasses", label = "Peaks Selected Masses", value = "", placeholder = "Example: 1496, 1506"),
+            ),
+            
+
+            # Input: Text ----
+            tags$div(title="Where the peak labels should be displayed. r or l displays them to the right or left of the peak maximum. R or L displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)",
+                     textInput(inputId = "peaksLabelPosition", label = "Peaks Label position", value = "", placeholder = "Example: r,R, must match length of Peaks Selected Masses"),
             ),
             
             # Input: Text ----
