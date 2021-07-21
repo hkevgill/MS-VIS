@@ -170,6 +170,32 @@ shinyUI(fluidPage(
                      textInput(inputId = "spectrumYAxisInterval", label = "Spectrum y-axis interval", value = "20000", placeholder = ""),
             ),
             
+            # Input: MaterialSwitch ----
+            tags$div(title="Whether or not the spectrum should be normalized",
+                     materialSwitch(
+                         inputId = "spectrumNormalizeSpectrum",
+                         label = "Normalize spectrum", 
+                         status = "primary",
+                         right = TRUE,
+                         value = FALSE
+                     ),
+            ),
+            
+            # Input: SelectInput ----
+            tags$div(title="Which method to use for normalization (values of 1-3): 1= by max peak intensity in entire spectrum, 2= by max peak intensity in selected mass range, 3= by peak intensity of a selected peak",
+                selectInput("spectrumNormalizationMethod",
+                            "Spectrum normalization method",
+                            c("1" = 1,
+                              "2" = 2,
+                              "3" = 3),
+                            selected = "3"),
+            ),
+            
+            # Input: Text ----
+            tags$div(title="If spectrum.normalization.method=3, then this m.z value will be used for normalization",
+                     textInput(inputId = "spectrumNormalizationPeak", label = "Spectrum Normalization Peak", value = "", placeholder = ""),
+            ),
+            
             h3("Variables for peak labeling"),
             
             # Input: Text ----
@@ -248,6 +274,21 @@ shinyUI(fluidPage(
                          right = TRUE,
                          value = TRUE
                      ),
+            ),
+            
+            # Input: Text ----
+            tags$div(title="Number of signifcant digits the m/z value is rounded to",
+                     textInput(inputId = "peaksMzLabelSigFigs", label = "Peaks m/z label sig figs", value = "2", placeholder = ""),
+            ),
+            
+            # Input: Text ----
+            tags$div(title="Number of signifcant digits the intensity value is rounded to",
+                     textInput(inputId = "peaksIntLabelSigFigs", label = "Peaks Intensity label sig figs", value = "2", placeholder = ""),
+            ),
+            
+            # Input: Text ----
+            tags$div(title="Number of signifcant digits the S/N value is rounded to",
+                     textInput(inputId = "peaksSnLabelSigFigs", label = "Peaks S/N label sig figs", value = "0", placeholder = ""),
             ),
         ),
 

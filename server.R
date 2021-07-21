@@ -8,7 +8,10 @@
 #
 
 library(shiny)
-source("Mass Spectra Visualization V2.R")
+#source("Mass Spectra Visualization V2.R")
+source("Function_Read Mass List.R")
+source("Function_Plot single MS.R")
+source("Function_Overlay Peak List.R")
 
 #Variables from website-----
 ##Variables for jpeg creation
@@ -42,10 +45,13 @@ fig.margin<-c(6,7,3,0.5) #figure margins c(bottom, left, top, right), vector of 
 # spectrum.custom.axis.ann.title.line<- 1 #Distance of the main label from the mass spectrum, numeric
 # spectrum.xaxis.interval<-20 #Interval of x-axis ticks (if custom axes is true), numeric
 # spectrum.yaxis.interval<-20000 #Interval of y-axis ticks (if custom axes is true), numeric
+# spectrum.normalize.spectrum<-T #Whether or not the spectrum should be normalized, as TRUE/FALSE
+# spectrum.normalization.method<-3 #which method to use for normalization (values of 1-3): 1= by max peak intensity in entire spectrum, 2= by max peak intensity in selected mass range, 3= by peak intensity of a selected peak
+# spectrum.normalization.peak<-1506 #if spectrum.normalization.method=3, then this m.z value will be used for normalization
 
 ##Variables for peak labeling
-#peaks.mass.list.filepath<-"PTEN+p110a mix vs seq LP.xlsx" #Filepath of mass list 
-#peaks.sheet.name<-"180413_PTEN_1st_PI3K_High_01_%%" #Name of the xlsx sheet 
+# peaks.mass.list.filepath<-"PTEN+p110a mix vs seq LP.xlsx" #Filepath of mass list 
+# peaks.sheet.name<-"180413_PTEN_1st_PI3K_High_01_%%" #Name of the xlsx sheet 
 # peaks.selected.masses<-c(1496,1506) #m/z value of the peaks which should be labeled, numeric vector
 # peaks.peak.tolerance<-2 #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
 # peaks.label.line.width<-2 #line width of the line connecting the peak to the peak labels, numeric
@@ -59,6 +65,17 @@ fig.margin<-c(6,7,3,0.5) #figure margins c(bottom, left, top, right), vector of 
 # peaks.label.position<-c("r","R") #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
 # peaks.fontsize<-2.5 #Fontsize of the peak labels, numeric
 # peaks.if.peak.conflict.use.max<-T #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
+# peaks.mz.label.sigfigs<-2 #number of signifcant digits the m/z value is rounded to, numeric
+# peaks.int.label.sigfigs<-2 #number of signifcant digits the intensity value is rounded to, numeric
+# peaks.sn.label.sigfigs<-0 #number of signifcant digits the S/N value is rounded to, numeric
+
+#Variables for extra labels in plot
+extra.labels.on<-T #Should additional text be displayed in plot, as TRUE/FALSE
+extra.labels.text<-c("","") #Text displayed anywhere in the plot, vector of strings
+extra.labels.xpos<-c(1472,1490) #x-coordinates of labels, vector of numeric
+extra.labels.ypos<-c(5,3) #y-coordinates of labels, vector of numeric
+extra.labels.fontsize<-c(3,2) #fontsize of labels, vector of numeric
+extra.labels.col<-c("black","red") #color of labels, vector of color (text or hex)
 
 #Single spectrum----
 fig.name.final<-paste(fig.name,".jpg") #adds file extension to file name
@@ -78,7 +95,6 @@ shinyServer(function(input, output) {
         req(input$file1)
         req(input$file2)
         req(input$peaksSheetName)
-        req(input$spectrumXaxisLabel)
         
         inFile1 <- input$file1
         inFile2 <- input$file2
@@ -162,6 +178,15 @@ shinyServer(function(input, output) {
         
         #Interval of y-axis ticks (if custom axes is true), numeric
         spectrum.yaxis.interval<-as.numeric(input$spectrumYAxisInterval)
+        
+        #Whether or not the spectrum should be normalized, as TRUE/FALSE
+        spectrum.normalize.spectrum<-input$spectrumNormalizeSpectrum
+        
+        #Which method to use for normalization (values of 1-3): 1= by max peak intensity in entire spectrum, 2= by max peak intensity in selected mass range, 3= by peak intensity of a selected peak
+        spectrum.normalization.method<-input$spectrumNormalizationMethod
+        
+        #If spectrum.normalization.method=3, then this m.z value will be used for normalization
+        spectrum.normalization.peak<-as.numeric(input$spectrumNormalizationPeak)
 
         #Peak variables
         
@@ -228,61 +253,118 @@ shinyServer(function(input, output) {
         #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
         peaks.if.peak.conflict.use.max<-input$peakConflictUseMax
         
+        #Number of signifcant digits the m/z value is rounded to, numeric
+        peaks.mz.label.sigfigs<-as.numeric(input$peaksMzLabelSigFigs)
+        
+        #Number of signifcant digits the intensity value is rounded to, numeric
+        peaks.int.label.sigfigs<-as.numeric(input$peaksIntLabelSigFigs)
+        
+        #Number of signifcant digits the S/N value is rounded to, numeric
+        peaks.sn.label.sigfigs<-as.numeric(input$peaksSnLabelSigFigs)
+        
         # Generate the jpg
-        jpeg(filename = fig.name.final,
-             height = fig.height,
-             width = fig.width,
-             res=fig.res,
-             pointsize = 4,
-             units = "cm")
+        try(jpeg(filename = fig.name.final,
+                 height = fig.height,
+                 width = fig.width,
+                 res=fig.res,
+                 pointsize = 4,
+                 units = "cm"))
         
-        par(mar=fig.margin+0.1)
+        try(par(mar=fig.margin+0.1))
         
-        spectrum<-mass.spectrum.create(rawfile.path=spectrum.filepath,
-                                       separator=spectrum.separator,
-                                       headerTF=spectrum.headerTF,
-                                       PlotYN=TRUE,
-                                       xaxis.title=spectrum.xaxis.label,
-                                       yaxis.title=spectrum.yaxis.label,
-                                       spectrum.title=spectrum.main.label,
-                                       full.range=spectrum.full.range,
-                                       upper.range.limit=spectrum.upper.range.limit.xaxis,
-                                       lower.range.limit=spectrum.lower.range.limit.xaxis,
-                                       y.axis.lower.limit=spectrum.lower.range.limit.yaxis,
-                                       y.axis.upper.limit=spectrum.upper.range.limit.yaxis,
-                                       axis.fontsize=spectrum.axis.fontsize,
-                                       title.fontsize=spectrum.title.fontsize,
-                                       axis.ticks.fontsize=spectrum.axis.ticks.size,
-                                       spectrum.color=spectrum.mass.spectrum.color,
-                                       spectrum.line.width=spectrum.mass.spectrum.line.width,
-                                       custom.axis.ann = T,
-                                       custom.y.axis = spectrum.custom.axes,
-                                       custom.axis = spectrum.custom.axes,
-                                       custom.axis.pdj = spectrum.custom.xaxis.pdj,
-                                       custom.y.axis.pdj = spectrum.custom.yaxis.pdj,
-                                       custom.axis.ann.line = spectrum.custom.axis.ann.line,
-                                       custom.axis.ann.title.line = spectrum.custom.axis.ann.title.line,
-                                       xaxis.interval = spectrum.xaxis.interval,
-                                       yaxis.interval = spectrum.yaxis.interval)
+        spectrum.normalization.value<-NA
         
-        spectrum.label<-mass.spectrum.label.peaks(mass.list.filepath = peaks.mass.list.filepath,
-                                                  Sheet.name = peaks.sheet.name,
-                                                  mass.spectrum = spectrum,
-                                                  PlotYN = T,
-                                                  FullListYN = F,
-                                                  SelectedMasses = peaks.selected.masses,
-                                                  tolerance = peaks.peak.tolerance,
-                                                  label.line.width = peaks.label.line.width,
-                                                  label.length =peaks.label.length,
-                                                  label.spread = peaks.label.spread,
-                                                  label.line.lty = peaks.label.line.lty,
-                                                  label.line.col = peaks.label.line.col,
-                                                  label.title = peaks.first.label,
-                                                  label.second.title = peaks.second.label,
-                                                  labels.on = peaks.labels.on,
-                                                  label.position = peaks.label.position,
-                                                  fontsize = peaks.fontsize,
-                                                  if.peak.conflict.use.max = peaks.if.peak.conflict.use.max)
+        try(if(spectrum.normalize.spectrum==T){
+            masslist.norm<-read.mass.list(mass.list.filepath = peaks.mass.list.filepath,
+                                          Sheet.name = peaks.sheet.name,
+                                          FullListYN = T,
+                                          SelectedMasses = peaks.selected.masses,
+                                          tolerance = peaks.peak.tolerance,
+                                          if.peak.conflict.use.max = peaks.if.peak.conflict.use.max)
+            
+            if(spectrum.normalization.method==1){
+                spectrum.normalization.value<-max(masslist.norm$Intensity)        
+            }
+            
+            if(spectrum.normalization.method==2){
+                spectrum.normalization.value<-max(masslist.norm$Intensity[which(masslist.norm$m.z<spectrum.upper.range.limit.xaxis&
+                                                                                    masslist.norm$m.z>spectrum.lower.range.limit.xaxis)])        
+            }
+            
+            if(spectrum.normalization.method==3){
+                masslist.norm<-read.mass.list(mass.list.filepath = peaks.mass.list.filepath,
+                                              Sheet.name = peaks.sheet.name,
+                                              FullListYN = F,
+                                              SelectedMasses = spectrum.normalization.peak,
+                                              tolerance = peaks.peak.tolerance,
+                                              if.peak.conflict.use.max = peaks.if.peak.conflict.use.max)
+                
+                spectrum.normalization.value<-masslist.norm$Intensity        
+            }
+            
+        })
+        
+        try(spectrum<-mass.spectrum.create(rawfile.path=spectrum.filepath,
+                                           separator=spectrum.separator,
+                                           headerTF=spectrum.headerTF,
+                                           PlotYN=TRUE,
+                                           xaxis.title=spectrum.xaxis.label,
+                                           yaxis.title=spectrum.yaxis.label,
+                                           spectrum.title=spectrum.main.label,
+                                           full.range=spectrum.full.range,
+                                           upper.range.limit=spectrum.upper.range.limit.xaxis,
+                                           lower.range.limit=spectrum.lower.range.limit.xaxis,
+                                           y.axis.lower.limit=spectrum.lower.range.limit.yaxis,
+                                           y.axis.upper.limit=spectrum.upper.range.limit.yaxis,
+                                           axis.fontsize=spectrum.axis.fontsize,
+                                           title.fontsize=spectrum.title.fontsize,
+                                           axis.ticks.fontsize=spectrum.axis.ticks.size,
+                                           spectrum.color=spectrum.mass.spectrum.color,
+                                           spectrum.line.width=spectrum.mass.spectrum.line.width,
+                                           custom.axis.ann = T,
+                                           custom.y.axis = spectrum.custom.axes,
+                                           custom.axis = spectrum.custom.axes,
+                                           custom.axis.pdj = spectrum.custom.xaxis.pdj,
+                                           custom.y.axis.pdj = spectrum.custom.yaxis.pdj,
+                                           custom.axis.ann.line = spectrum.custom.axis.ann.line,
+                                           custom.axis.ann.title.line = spectrum.custom.axis.ann.title.line,
+                                           xaxis.interval = spectrum.xaxis.interval,
+                                           yaxis.interval = spectrum.yaxis.interval,
+                                           normalize.spectrum = spectrum.normalize.spectrum,
+                                           normalization.value = spectrum.normalization.value))
+        
+        try(spectrum.label<-mass.spectrum.label.peaks(mass.list.filepath = peaks.mass.list.filepath,
+                                                      Sheet.name = peaks.sheet.name,
+                                                      mass.spectrum = spectrum,
+                                                      PlotYN = T,
+                                                      FullListYN = F,
+                                                      SelectedMasses = peaks.selected.masses,
+                                                      tolerance = peaks.peak.tolerance,
+                                                      label.line.width = peaks.label.line.width,
+                                                      label.length =peaks.label.length,
+                                                      label.spread = peaks.label.spread,
+                                                      label.line.lty = peaks.label.line.lty,
+                                                      label.line.col = peaks.label.line.col,
+                                                      label.title = peaks.first.label,
+                                                      label.second.title = peaks.second.label,
+                                                      labels.on = peaks.labels.on,
+                                                      label.position = peaks.label.position,
+                                                      fontsize = peaks.fontsize,
+                                                      mz.label.sigfigs=peaks.mz.label.sigfigs,
+                                                      int.label.sigfigs=peaks.int.label.sigfigs,
+                                                      sn.label.sigfigs=peaks.sn.label.sigfigs,
+                                                      if.peak.conflict.use.max = peaks.if.peak.conflict.use.max,
+                                                      normalize.spectrum = spectrum.normalize.spectrum,
+                                                      normalization.value = spectrum.normalization.value))
+        
+        try(if(extra.labels.on==T){
+            text(x=extra.labels.xpos,
+                 y=extra.labels.ypos,
+                 labels = extra.labels.text,
+                 col = extra.labels.col,
+                 cex = extra.labels.fontsize,
+                 xpd=NA)
+        })
         
         dev.off()
         
