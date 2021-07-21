@@ -16,6 +16,7 @@ shinyUI(fluidPage(
     tags$head(
         tags$link(rel = "stylesheet", type = "text/css", href = "main.css"),
     ),
+    tags$head(HTML("<script type='text/javascript' src='main.js'></script>")),
 
     # Application title
     titlePanel("Mass Spectrum"),
@@ -46,7 +47,7 @@ shinyUI(fluidPage(
                 textInput("peaksSheetName", "Peaks sheet name", value = "", width = NULL, placeholder = NULL),
             ),
             
-            h3("Variables for spectrum plotting"),
+            HTML("<button class=\"accordion\">Spectrum plotting variables</button><div class=\"panel\">"),
             
             # Input: Text ----
             tags$div(title="Separator in the mass spectrum csv file",
@@ -196,7 +197,9 @@ shinyUI(fluidPage(
                      textInput(inputId = "spectrumNormalizationPeak", label = "Spectrum Normalization Peak", value = "", placeholder = ""),
             ),
             
-            h3("Variables for peak labeling"),
+            HTML("</div>"),
+            
+            HTML("<button class=\"accordion\">Peak labeling variables</button><div class=\"panel\">"),
             
             # Input: Text ----
             tags$div(title="m/z value of the peaks which should be labeled",
@@ -290,6 +293,8 @@ shinyUI(fluidPage(
             tags$div(title="Number of signifcant digits the S/N value is rounded to",
                      textInput(inputId = "peaksSnLabelSigFigs", label = "Peaks S/N label sig figs", value = "0", placeholder = ""),
             ),
+            
+            HTML("</div>"),
         ),
 
         # Show a plot of the generated distribution
