@@ -231,9 +231,9 @@ shinyServer(function(input, output) {
         for (i in seq_len(length(input$peaksLabelsOn))) {
             if (input$peaksLabelsOn[i] == "1st Label") {l1<-1}
             if (input$peaksLabelsOn[i] == "2nd label") {l2<-1}
-            if (input$peaksLabelsOn[i] == "m/z ratio") {l3<-1}
-            if (input$peaksLabelsOn[i] == "intensity") {l4<-1}
-            if (input$peaksLabelsOn[i] == "S/N ratio") {l5<-1}
+            if (input$peaksLabelsOn[i] == "m/z Ratio") {l3<-1}
+            if (input$peaksLabelsOn[i] == "Intensity") {l4<-1}
+            if (input$peaksLabelsOn[i] == "S/N Ratio") {l5<-1}
         }
         
         peaks.labels.on<-c(l1,l2,l3,l4,l5)
