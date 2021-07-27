@@ -257,20 +257,40 @@ shinyUI(fluidPage(
             ),
             
             # Input: Text ----
+            # tags$div(title="Number of digits after decimal point the m/z value is rounded to",
+            #          textInput(inputId = "peaksMzLabelSigFigs", label = "m/z Label Rounding", value = "2", placeholder = ""),
+            # ),
+            # 
+            # Input: SliderInput ----
             tags$div(title="Number of digits after decimal point the m/z value is rounded to",
-                     textInput(inputId = "peaksMzLabelSigFigs", label = "m/z Label Rounding", value = "2", placeholder = ""),
+                     sliderInput("peaksMzLabelSigFigs", "Round m/z value to this many digits:",
+                                 min = 0, max = 10,
+                                 value = 1, step = 1),
             ),
             
             # Input: Text ----
+            # tags$div(title="Number of digits after decimal point the intensity value is rounded to",
+            #          textInput(inputId = "peaksIntLabelSigFigs", label = "Intensity Label Rounding", value = "2", placeholder = ""),
+            # ),
+            
+            # Input: SliderInput ----
             tags$div(title="Number of digits after decimal point the intensity value is rounded to",
-                     textInput(inputId = "peaksIntLabelSigFigs", label = "Intensity Label Rounding", value = "2", placeholder = ""),
+                     sliderInput("peaksIntLabelSigFigs", "Round intensity value to this many digits:",
+                                 min = 0, max = 10,
+                                 value = 1, step = 1),
             ),
             
             # Input: Text ----
-            tags$div(title="Number of digits after decimal point the S/N value is rounded to",
-                     textInput(inputId = "peaksSnLabelSigFigs", label = "S/N Label Rounding", value = "0", placeholder = ""),
-            ),
+            # tags$div(title="Number of digits after decimal point the S/N value is rounded to",
+            #          textInput(inputId = "peaksSnLabelSigFigs", label = "S/N Label Rounding", value = "0", placeholder = ""),
+            # ),
             
+            # Input: SliderInput ----
+            tags$div(title="Number of digits after decimal point the S/N value is rounded to",
+                     sliderInput("peaksSnLabelSigFigs", "Round S/N value to this many digits:",
+                                 min = 0, max = 10,
+                                 value = 1, step = 1),
+            ),
             
             # Input: Text ----
             tags$div(title="First label of the peaks, must have as many entries as there are selected peaks",
@@ -301,20 +321,55 @@ shinyUI(fluidPage(
             tags$div(title="Distance of the peak labels from the peak (length of the line connecting the peak to the peak labels). Must have as many entries as there are selected peaks",
                      textInput(inputId = "peaksLabelLength", label = "Label Distance", value = "0.1", placeholder = "Example: 0.1,0.1, must match length of Peaks Selected Masses"),
             ),
+             
+            # Input: SliderInput ----
+            # tags$div(title="Distance of the peak labels from the peak (length of the line connecting the peak to the peak labels). Must have as many entries as there are selected peaks",
+            #          sliderInput("peaksLabelLength", "Label Distance:",
+            #                      min = 0, max = 1,
+            #                      value = 0.1, step = 0.05),
+            # ),
+
+            # # Input: Text ----
+            # tags$div(title="Line spacing within labels of one peak (Label1,Label2,S/N/Intensity,Area)",
+            #          textInput(inputId = "peaksLabelSpread", label = "Label Spacing", value = "0.05", placeholder = ""),
+            # ),
             
-            # Input: Text ----
+            # Input: SliderInput ----
             tags$div(title="Line spacing within labels of one peak (Label1,Label2,S/N/Intensity,Area)",
-                     textInput(inputId = "peaksLabelSpread", label = "Label Spacing", value = "0.05", placeholder = ""),
+                     sliderInput("peaksLabelSpread", "Label Spacing:",
+                                 min = 0, max = 0.3,
+                                 value = 0.05, step = 0.01),
             ),
             
-            # Input: Text ----
+            # # Input: Text ----
+            # tags$div(title="Line type of the line connecting the peak to the peak labels",
+            #          textInput(inputId = "peaksLabelLineType", label = "Label Line Type", value = "3", placeholder = ""),
+            # ),
+            
+            # Input: SelectInput ----
             tags$div(title="Line type of the line connecting the peak to the peak labels",
-                     textInput(inputId = "peaksLabelLineType", label = "Label Line Type", value = "3", placeholder = ""),
+                     selectInput("peaksLabelLineType",
+                                 "Label Line Type",
+                                 c("Blank" = 0,
+                                   "Solid" = 1,
+                                   "Dashed" = 2,
+                                   "Dotted" = 3,
+                                   "Dotdash" = 4,
+                                   "Longdash" = 5,
+                                   "Twodash" = 6),
+                                 selected = "2"),
             ),
             
-            # Input: Text ----
+            # # Input: Text ----
+            # tags$div(title="Line width of the line connecting the peak to the peak labels",
+            #          textInput(inputId = "peakLabelLineWidth", label = "Label Line Width", value = "1", placeholder = ""),
+            # ),
+            
+            # Input: SliderInput ----
             tags$div(title="Line width of the line connecting the peak to the peak labels",
-                     textInput(inputId = "peakLabelLineWidth", label = "Label Line Width", value = "1", placeholder = ""),
+                     sliderInput("peakLabelLineWidth", "Label Line Width:",
+                                 min = 0.01, max = 3,
+                                 value = 1, step = 0.1),
             ),
             
             # Input: ColourInput ----
@@ -324,11 +379,17 @@ shinyUI(fluidPage(
             
 
             
-            # Input: Text ----
-            tags$div(title="Fontsize of the peak labels",
-                     textInput(inputId = "peaksFontSize", label = "Label Font Size", value = "1.5", placeholder = ""),
-            ),
+            # # Input: Text ----
+            # tags$div(title="Fontsize of the peak labels",
+            #          textInput(inputId = "peaksFontSize", label = "Label Font Size", value = "1.5", placeholder = ""),
+            # ),
             
+            # Input: SliderInput ----
+            tags$div(title="Fontsize of the peak labels",
+                     sliderInput("peaksFontSize", "Label Font Size:",
+                                 min = 0.01, max = 3,
+                                 value = 1, step = 0.1),
+            ),
 
             HTML("</div>"),
             
