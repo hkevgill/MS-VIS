@@ -69,9 +69,31 @@ shinyUI(fluidPage(
                 textInput("spectrumXaxisLabel", "X-axis Label", value = "m/z", width = NULL, placeholder = ""),
             ),
             
+            # Input: SelectInput ----
+            tags$div(title="Highlight x-axis label",
+                     selectInput("spectrumXaxisLabelHighlight",
+                                 "Highlight X-axis Label",
+                                 c("None" = 0,
+                                   "Bold" = 1,
+                                   "Italic" = 2,
+                                   "Underline" = 3),
+                                 selected = "0"),
+            ),
+            
             # Input: Text ----
             tags$div(title="Label next to y-axis",
                 textInput("spectrumYaxisLabel", "Y-axis Label", value = "Intensity", width = NULL, placeholder = ""),
+            ),
+            
+            # Input: SelectInput ----
+            tags$div(title="Highlight y-axis label",
+                     selectInput("spectrumYaxisLabelHighlight",
+                                 "Highlight Y-axis Label",
+                                 c("None" = 0,
+                                   "Bold" = 1,
+                                   "Italic" = 2,
+                                   "Underline" = 3),
+                                 selected = "0"),
             ),
             
             # Input: SliderInput ----
@@ -86,6 +108,15 @@ shinyUI(fluidPage(
                 textInput("spectrumMainLabel", "Spectrum Title", value = "Single Spectrum", width = NULL, placeholder = ""),
             ),
             
+            # Input: SelectInput ----
+            tags$div(title="Highlight spectrum title",
+                     selectInput("spectrumMainLabelHighlight",
+                                 "Highlight Spectrum Title",
+                                 c("None" = 0,
+                                   "Italic" = 2,
+                                   "Underline" = 3),
+                                 selected = "0"),
+            ),
 
             # Input: SliderInput ----
             tags$div(title="Distance of the spetcrum title label from the mass spectrum",
