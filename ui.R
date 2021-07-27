@@ -284,7 +284,7 @@ shinyUI(fluidPage(
 
             # Input: Text ----
             tags$div(title="Where the peak labels should be displayed. 'r' or 'l' displays them to the right or left of the peak maximum, respectively. 'R' or 'L' displays them to the right or left of the peak at the centre of the y-axis, respectively. Numeric values, representing y-axis positions, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak). Must have as many entries (seprated by comma) as there are selected peaks",
-                     textInput(inputId = "peaksLabelPosition", label = "Label Position", value = "r", placeholder = "Example: r,R, must match length of Peaks Selected Masses"),
+                     textInput(inputId = "peaksLabelPosition", label = "Label Position", value = "l,r", placeholder = "Example: r,R, must match length of Peaks Selected Masses"),
             ),
             
             # Input: Text ----
@@ -325,12 +325,12 @@ shinyUI(fluidPage(
             
             # Input: Text ----
             tags$div(title="First label of the peaks, must have as many entries as there are selected peaks",
-                     textInput(inputId = "peaksFirstLabel", label = "1st Label", value = "1st label", placeholder = "Example: Peak 1,Peak 2, must match length of Peaks Selected Masses"),
+                     textInput(inputId = "peaksFirstLabel", label = "1st Label", value = "1st label Peak #1,1st label Peak #2", placeholder = "Example: Peak 1,Peak 2. Must have as many entries (seprated by comma) as there are selected peaks"),
             ),
             
             # Input: Text ----
             tags$div(title="Second label of the peaks, must have as many entries as there are selected peaks",
-                     textInput(inputId = "peaksSecondLabel", label = "2nd Label", value = "2nd label", placeholder = "Example: 2nd Label P1,2nd Label P2, must match length of Peaks Selected Masses"),
+                     textInput(inputId = "peaksSecondLabel", label = "2nd Label", value = "2nd label Peak #1,2nd label Peak #2", placeholder = "Example: 2nd Label P1,2nd Label P2. Must have as many entries (seprated by comma) as there are selected peaks"),
             ),
             
             # Input: Checkbox Group Buttons ----
@@ -340,7 +340,7 @@ shinyUI(fluidPage(
                          label = "Peak Labels Enabled", 
                          choices = c("1st Label", "2nd label", "m/z Ratio", "Intensity", "S/N Ratio"),
                          status = "primary",
-                         selected = c("1st Label", "m/z Ratio", "Intensity", "S/N Ratio")
+                         selected = c("1st Label", "2nd label", "m/z Ratio", "Intensity", "S/N Ratio")
                      ),
             ),
             
@@ -350,7 +350,7 @@ shinyUI(fluidPage(
             
             # Input: Text ----
             tags$div(title="Distance of the peak labels from the peak (length of the line connecting the peak to the peak labels). Must have as many entries as there are selected peaks",
-                     textInput(inputId = "peaksLabelLength", label = "Label Distance", value = "0.1", placeholder = "Example: 0.1,0.1, must match length of Peaks Selected Masses"),
+                     textInput(inputId = "peaksLabelLength", label = "Label Distance", value = "0.1,0.1", placeholder = "Example: 0.1,0.1, must match length of Peaks Selected Masses"),
             ),
              
             # Input: SliderInput ----
