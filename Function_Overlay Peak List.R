@@ -37,6 +37,29 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
   #labels.on= which information to display as vector (e.g. c(1,1,1,1,1), pos 1=title, pos 2=second label, pos 3=m/z, pos 4=intensity, pos 4=S/N)
   #label.position= label position left/toplef or right of peak as string.l=topleft of peak, L=left-middle of peak, r=topright of peak,R=middle-right of peak. Alternatively, a numerical value corresponding to the desired y-position can be given. If value is positive, label will be on the right, if it is negative, label is on the left.
   
+  #check legnths of label position vectors
+  reference.lenght<-length(SelectedMasses)
+  rep.times.label.position<-reference.lenght/length(label.position)
+  rep.times.label.length<-reference.lenght/length(label.length)
+  rep.times.label.title<-reference.lenght/length(label.title)
+  rep.times.label.second.title<-reference.lenght/length(label.second.title)
+  
+  if(rep.times.label.position>1){
+    label.position<-rep(label.position,times=ceiling(rep.times.label.position))
+  }
+  
+  if(rep.times.label.length>1){
+    label.length<-rep(label.length,times=ceiling(rep.times.label.length))
+  }
+  
+  if(rep.times.label.title>1){
+    label.title<-rep(label.title,times=ceiling(rep.times.label.title))
+  }
+  
+  if(rep.times.label.second.title>1){
+    label.second.title<-rep(label.second.title,times=ceiling(rep.times.label.second.title))
+  }
+  
   print(mass.list.filepath)
   print(Sheet.name)
   mass.list <- (readxl::read_excel(mass.list.filepath,sheet = Sheet.name,col_types="text",col_names=TRUE,trim_ws = TRUE))
@@ -155,7 +178,8 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
       mass.list.picked.peaks$position.label[[i]]<-position.label
       mass.list.picked.peaks$label.posx.offset[[i]]<-label.posx.offset
       mass.list.picked.peaks$label.y.offset[[i]]<-label.y.offset
-      
+      mass.list.picked.peaks$label.title[[i]]<-label.title[[i]] 
+      mass.list.picked.peaks$label.second.title[[i]]<-label.second.title[[i]] 
     }
     
     mass.list<-list()
@@ -164,7 +188,9 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     mass.list$position.label<- as.numeric(mass.list.picked.peaks$position.label)
     mass.list$label.posx.offset<-as.numeric(mass.list.picked.peaks$label.posx.offset)
     mass.list$label.y.offset<-as.numeric(mass.list.picked.peaks$label.y.offset)
-
+    mass.list$label.title<-mass.list.picked.peaks$label.title
+    mass.list$label.second.title<-mass.list.picked.peaks$label.second.title
+    
     if(mirror==F){
       mass.list$Intensity<-as.numeric(mass.list.picked.peaks$Intensity)
       mass.list$label.y.offset<-as.numeric(mass.list.picked.peaks$label.y.offset)
@@ -202,26 +228,45 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     # print(paste("S/N:",round(na.exclude(unlist(mass.list$SN,0)))))
     
     
+    # if(labels.on[1]==1){
+    #   text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
+    #        y=(na.exclude(mass.list$label.y.offset)-label.position.factor*label.spread.distance),
+    #        labels = label.title[!is.na(mass.list$m.z)],
+    #        pos=na.exclude(mass.list$position.label),
+    #        cex=fontsize,
+    #        col=label.line.col)  
+    #   label.position.factor<-label.position.factor+1
+    # }
+    
     if(labels.on[1]==1){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-label.position.factor*label.spread.distance),
-           labels = label.title[!is.na(mass.list$m.z)],
+           labels = mass.list$label.title,
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)  
       label.position.factor<-label.position.factor+1
     }
     
+    # if(labels.on[2]==1){
+    #   text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
+    #        y=(na.exclude(mass.list$label.y.offset)-label.position.factor*label.spread.distance),
+    #        labels = label.second.title[!is.na(mass.list$m.z)],
+    #        pos=na.exclude(mass.list$position.label),
+    #        cex=fontsize,
+    #        col=label.line.col)
+    #   label.position.factor<-label.position.factor+1
+    # }
+    
     if(labels.on[2]==1){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-label.position.factor*label.spread.distance),
-           labels = label.second.title[!is.na(mass.list$m.z)],
+           labels = mass.list$label.second.title,
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)
       label.position.factor<-label.position.factor+1
     }
-    
     if(labels.on[3]==1){
       text(x=(na.exclude(mass.list$m.z))+(na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-(label.position.factor*label.spread.distance)), 
