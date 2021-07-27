@@ -251,7 +251,7 @@ shinyServer(function(input, output) {
         
         #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
         peaks.label.position<-c(unlist(strsplit(input$peaksLabelPosition,",")))
-        
+
         #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
         peaks.peak.tolerance<-as.numeric(input$peakTolerance)
         
