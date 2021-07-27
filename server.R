@@ -206,6 +206,8 @@ shinyServer(function(input, output) {
             peaks.label.length<-c(as.numeric(unlist(strsplit(input$peaksLabelLength,","))))
         }
 
+        #peaks.label.length<-as.numeric(input$peaksLabelLength)
+        
         #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
         peaks.label.spread<-as.numeric(input$peaksLabelSpread)
 
