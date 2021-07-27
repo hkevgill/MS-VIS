@@ -3,8 +3,11 @@ mass.spectrum.create<-function(rawfile.path,
                                headerTF=FALSE,
                                PlotYN=TRUE,
                                xaxis.title="m/z",
+                               xaxis.title.highlight=0,
                                yaxis.title="Intensity in a.u.",
-                               spectrum.title,
+                               yaxis.title.highlight=0,
+                               spectrum.title="Title",
+                               spectrum.title.highlight=0,
                                full.range=FALSE,
                                upper.range.limit,
                                lower.range.limit,
@@ -49,6 +52,7 @@ mass.spectrum.create<-function(rawfile.path,
   mass.spectrum <- read.csv(rawfile.path,sep=separator, header=headerTF)
   names(mass.spectrum)<-c("m/z","Intensity")
   
+
   if(normalize.spectrum==TRUE){
     mass.spectrum[[2]]<-mass.spectrum[[2]]/normalization.value
   }
@@ -97,14 +101,38 @@ mass.spectrum.create<-function(rawfile.path,
     ann.yesno=T
   }
   
+  #Set bold/italic status of axis titles
+  if(xaxis.title.highlight==1){
+    xaxis.title<-bquote(bold(.(xaxis.title)))
+  } else if(xaxis.title.highlight==2){
+    xaxis.title<-bquote(italic(.(xaxis.title)))
+  } else if(xaxis.title.highlight==3){
+    xaxis.title<-bquote(underline(.(xaxis.title)))
+  }
+
+  if(yaxis.title.highlight==1){
+    yaxis.title<-bquote(bold(.(yaxis.title)))
+  } else if(yaxis.title.highlight==2){
+    yaxis.title<-bquote(italic(.(yaxis.title)))
+  } else if(yaxis.title.highlight==3){
+    yaxis.title<-bquote(underline(.(yaxis.title)))
+  }
+  
+  if(spectrum.title.highlight==2){
+    spectrum.title<-bquote(italic(.(spectrum.title)))
+  } else if(spectrum.title.highlight==3){
+    spectrum.title<-bquote(underline(.(spectrum.title)))
+  }
+  
+  
   if(PlotYN==TRUE){
     if(custom.axis==TRUE){
       xaxis.yesno="n"
     } else {
       xaxis.yesno="s"
     }
-    
-    if(full.range==TRUE) {
+
+  if(full.range==TRUE) {
       
       plot(mass.spectrum$Intensity~mass.spectrum$`m/z`,
            type="l", 
@@ -112,8 +140,8 @@ mass.spectrum.create<-function(rawfile.path,
            xaxt=xaxis.yesno,
            yaxt=xaxis.yesno,
            ann=ann.yesno,
-           xlab=xaxis.title,
-           ylab=yaxis.title, 
+           xlab=as.expression(xaxis.title),
+           ylab=as.expression(yaxis.title), 
            main=spectrum.title,
            col=spectrum.color,
            cex.lab=axis.fontsize,
@@ -129,8 +157,8 @@ mass.spectrum.create<-function(rawfile.path,
            xaxt=xaxis.yesno,
            yaxt=xaxis.yesno,
            ann=ann.yesno,
-           xlab=xaxis.title,
-           ylab=yaxis.title, 
+           xlab=as.expression(xaxis.title),
+           ylab=as.expression(yaxis.title), 
            main=spectrum.title,
            col=spectrum.color,
            ylim=c(y.axis.lower.limit,y.axis.upper.limit),
