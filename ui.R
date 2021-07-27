@@ -147,7 +147,7 @@ shinyUI(fluidPage(
             
             # Input: Checkbox ----
             tags$div(title="Display full collected mass range or only a selected mass range",
-                checkboxInput("spectrumFullRange", "Spectrum Full Range", value = FALSE, width = NULL),
+                checkboxInput("spectrumFullRange", "Spectrum Full Range", value = TRUE, width = NULL),
             ),
             
             # Input: NumericRangeInput ----
@@ -167,7 +167,7 @@ shinyUI(fluidPage(
                          label = "Custom Axes", 
                          status = "primary",
                          right = TRUE,
-                         value = TRUE
+                         value = FALSE
                      ),
             ),
             
