@@ -121,13 +121,22 @@ shinyServer(function(input, output) {
 
         #Label below x-axis, character
         spectrum.xaxis.label<-input$spectrumXaxisLabel
-
+        
+        #Whether label below x-axis should be highlighted (bold, italic, or underlined), numeric (0-3)
+        spectrum.xaxis.label.highlight<-input$spectrumXaxisLabelHighlight
+        
         #Label next to y-axis, character
         spectrum.yaxis.label<-input$spectrumYaxisLabel
 
+        #Whether label next to y-axis should be highlighted (bold, italic, or underlined), numeric (0-3)
+        spectrum.yaxis.label.highlight<-input$spectrumYaxisLabelHighlight
+        
         #Label above mass spectrum, character
         spectrum.main.label<-input$spectrumMainLabel
 
+        #Whether label above mass spectrum should be highlighted (italic, or underlined), numeric (0-3)
+        spectrum.main.label.highlight<-input$spectrumMainLabelHighlight
+        
         #Color of the mass spectrum
         spectrum.mass.spectrum.color<-input$spectrumColour
 
@@ -311,8 +320,11 @@ shinyServer(function(input, output) {
                                            headerTF=spectrum.headerTF,
                                            PlotYN=TRUE,
                                            xaxis.title=spectrum.xaxis.label,
+                                           xaxis.title.highlight=spectrum.xaxis.label.highlight,
                                            yaxis.title=spectrum.yaxis.label,
+                                           yaxis.title.highlight=spectrum.yaxis.label.highlight,
                                            spectrum.title=spectrum.main.label,
+                                           spectrum.title.highlight=spectrum.main.label.highlight,
                                            full.range=spectrum.full.range,
                                            upper.range.limit=spectrum.upper.range.limit.xaxis,
                                            lower.range.limit=spectrum.lower.range.limit.xaxis,
