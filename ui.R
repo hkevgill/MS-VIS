@@ -57,7 +57,6 @@ shinyUI(fluidPage(
                 textInput("peaksSheetName", "Sheet Name", value = "", width = NULL, placeholder = NULL),
             ),
             
-            
 
             HTML("<button class=\"accordion\">Spectrum plotting variables</button><div class=\"panel\">"),
             
@@ -127,7 +126,20 @@ shinyUI(fluidPage(
             
             HTML("</div>"),
             
-            HTML("<button class=\"accordion\">Spectrum Colour and Line Width</button><div class=\"panel\">"),
+            HTML("<button class=\"accordion\">Spectrum Border, Colour, and Line Width</button><div class=\"panel\">"),
+            
+            # Input: SelectInput ----
+            tags$div(title="Define the shape of the border of the spectrum",
+                     selectInput("spectrumBorder",
+                                 "Shape of the Border Around the Spectrum",
+                                 c("None" = "n",
+                                   "O" = "o",
+                                   "L" = "l",
+                                   "7" = "7",
+                                   "C" = "c",
+                                   "U" = "u",
+                                   "]" = "]"),
+                                 selected = "o")),
             
             # Input: ColourInput ----
             tags$div(title="Colour of the mass spectrum",
@@ -223,7 +235,55 @@ shinyUI(fluidPage(
             
             HTML("</div>"),
             
-
+            HTML("<button class=\"accordion\">Figure Margins</button><div class=\"panel\">"),
+            
+            # Input: Text ----
+            tags$div(title="Filename",
+                     textInput("spectrumFilename", "Filename", value = "Spectrum", width = NULL, placeholder = ""),
+            ),
+            
+            tags$div(title="Figure Height in cm",
+                     textInput("spectrumFileHeight", "Figure Height in cm", value = "6.1", width = NULL, placeholder = ""),
+            ),
+            
+            tags$div(title="Figure Width in cm",
+                     textInput("spectrumFileWidth", "Figure Width in cm", value = "9", width = NULL, placeholder = ""),
+            ),
+            
+            tags$div(title="Figure Resolution",
+                     textInput("spectrumFileResolution", "Figure Resolution", value = "800", width = NULL, placeholder = ""),
+            ),
+            
+            # Input: SliderInput ----
+            tags$div(title="Bottom Figure Margin",
+                     sliderInput("spectrumMarginBottom", "Bottom Figure Margin:",
+                                 min = 0, max = 10,
+                                 value = 6, step = 0.5),
+            ),
+            
+            # Input: SliderInput ----
+            tags$div(title="Left Figure Margin",
+                     sliderInput("spectrumMarginLeft", "Left Figure Margin:",
+                                 min = 0, max = 10,
+                                 value = 7, step = 0.5),
+            ),
+            
+            # Input: SliderInput ----
+            tags$div(title="Top Figure Margin",
+                     sliderInput("spectrumMarginTop", "Top Figure Margin:",
+                                 min = 0, max = 10,
+                                 value = 3, step = 0.5),
+            ),
+            
+            # Input: SliderInput ----
+            tags$div(title="Right Figure Margin",
+                     sliderInput("spectrumMarginRight", "Right Figure Margin:",
+                                 min = 0, max = 10,
+                                 value = 0.5, step = 0.5),
+            ),
+            
+            HTML("</div>"),
+            
             HTML("<button class=\"accordion\">Normalization</button><div class=\"panel\">"),
             
             # Input: MaterialSwitch ----
@@ -429,6 +489,9 @@ shinyUI(fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
+            # Button
+            #downloadLink('downloadData', 'Download'),
+            
             tags$div(class="image-fixed-container", imageOutput("myImage"))
         )
     )
