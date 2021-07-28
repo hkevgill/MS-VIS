@@ -119,6 +119,44 @@ shinyServer(function(input, output) {
         #Whether or not the mass spectrum file has column headers, boolean
         spectrum.headerTF<-input$spectrumHeader
 
+        
+        #Name of jpg file
+        if(input$spectrumFilename==""){
+            fig.name<-"spectrum"
+        } else{
+            fig.name<-input$spectrumFilename
+        }
+        
+        fig.name.final<-paste0(fig.name,".jpg") #adds file extension to file name
+
+        #Height in cm of file
+        if(input$spectrumFileHeight==""){
+            fig.height<-6
+        } else{
+            fig.height<-as.numeric(input$spectrumFileHeight)
+        }
+        
+        #Width in cm of file
+        if(input$spectrumFileWidth==""){
+            fig.width<-7
+        } else{
+            fig.width<-as.numeric(input$spectrumFileWidth)    
+        }
+        
+        #File resolution
+        if(input$spectrumFileResolution==""){
+            fig.res<-800
+        } else{
+            fig.res<-as.numeric(input$spectrumFileResolution)    
+        }
+        
+   
+        #Figure margins, numeric
+        fig.margin<-c(as.numeric(input$spectrumMarginBottom),
+                      as.numeric(input$spectrumMarginLeft),
+                      as.numeric(input$spectrumMarginTop),
+                      as.numeric(input$spectrumMarginRight))
+        
         #Label below x-axis, character
         spectrum.xaxis.label<-input$spectrumXaxisLabel
         
@@ -140,6 +178,9 @@ shinyServer(function(input, output) {
         #Color of the mass spectrum
         spectrum.mass.spectrum.color<-input$spectrumColour
 
+        #Shape of the border around the spectrum, character
+        spectrum.Border<-input$spectrumBorder
+        
         #Whether the entire spectrum, or only a section of it should be displayed, boolean
         spectrum.full.range<-input$spectrumFullRange
 
@@ -273,6 +314,7 @@ shinyServer(function(input, output) {
         #Number of signifcant digits the S/N value is rounded to, numeric
         peaks.sn.label.sigfigs<-as.numeric(input$peaksSnLabelSigFigs)
         
+
         # Generate the jpg
         try(jpeg(filename = fig.name.final,
                  height = fig.height,
@@ -326,6 +368,7 @@ shinyServer(function(input, output) {
                                            spectrum.title=spectrum.main.label,
                                            spectrum.title.highlight=spectrum.main.label.highlight,
                                            full.range=spectrum.full.range,
+                                           border = spectrum.Border,
                                            upper.range.limit=spectrum.upper.range.limit.xaxis,
                                            lower.range.limit=spectrum.lower.range.limit.xaxis,
                                            y.axis.lower.limit=spectrum.lower.range.limit.yaxis,
@@ -381,6 +424,24 @@ shinyServer(function(input, output) {
         })
         
         dev.off()
+
+        
+        ##download handler
+        # output$downloadData <- downloadHandler(
+        #   filename = function() {
+        #     #paste('data-', Sys.Date(), '.csv', sep='')
+        #     print("check1")
+        #     print(fig.name.final)
+        #   },
+        #   content = function(con) {
+        #       #write.csv(cars, con)
+        #       #file.copy(from="logo.png", to=con)
+        #       #file.copy(from=fig.name.final, to=con)
+        #       print("check2")
+        #   }
+        # )
+        # 
+        ###
         
         file.remove(inFile1$name)
         file.remove(inFile2$name)
