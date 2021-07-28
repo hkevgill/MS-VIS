@@ -21,6 +21,7 @@ mass.spectrum.create<-function(rawfile.path,
                                spectrum.color="black",
                                spectrum.line.width=1,
                                spectrum.lty=1,
+                               border="o",
                                custom.axis=FALSE, #TRUE/FAlSE if the steps of the x-axis have custom intervals, boolean
                                custom.axis.pdj=0, #Distance adjuster for custom x-axis
                                custom.y.axis=FALSE, #TRUE/FAlSE if the steps of the x-axis have custom intervals, boolean
@@ -147,7 +148,8 @@ mass.spectrum.create<-function(rawfile.path,
            cex.lab=axis.fontsize,
            cex.main=title.fontsize,
            cex.axis=axis.ticks.fontsize,
-           lwd=spectrum.line.width)
+           lwd=spectrum.line.width,
+           bty=border)
       
     } else if(full.range==FALSE){
       
@@ -165,7 +167,8 @@ mass.spectrum.create<-function(rawfile.path,
            cex.lab=axis.fontsize,
            cex.main=title.fontsize,
            cex.axis=axis.ticks.fontsize,
-           lwd=spectrum.line.width)
+           lwd=spectrum.line.width,
+           bty=border)
     }
     
     if(custom.axis==TRUE){
