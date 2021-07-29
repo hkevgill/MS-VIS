@@ -75,11 +75,11 @@ mass.spectrum.create<-function(rawfile.path,
     mass.range<-c(min(mass.spectrum$`m/z`),max(mass.spectrum$`m/z`))
   }
   
-  if(is.null(y.axis.lower.limit)==TRUE || custom.y.axis==F){
+  if(is.null(y.axis.lower.limit)==TRUE){
     y.axis.lower.limit<-min(mass.spectrum[[2]])
   }
   
-  if(is.null(y.axis.upper.limit)==TRUE || custom.y.axis==F){
+  if(is.null(y.axis.upper.limit)==TRUE){
     y.axis.upper.limit<-max(mass.spectrum[[2]])
   }
   
@@ -152,7 +152,6 @@ mass.spectrum.create<-function(rawfile.path,
            bty=border)
       
     } else if(full.range==FALSE){
-      
       plot(mass.spectrum$Intensity~mass.spectrum$`m/z`,
            type="l", 
            lty=spectrum.lty,
