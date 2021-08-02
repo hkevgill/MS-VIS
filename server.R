@@ -8,10 +8,12 @@
 #
 
 library(shiny)
+library(openxlsx)
 #source("Mass Spectra Visualization V2.R")
 source("Function_Read Mass List.R")
 source("Function_Plot single MS.R")
 source("Function_Overlay Peak List.R")
+source("Function_Peak Finder.R")
 
 #Variables from website-----
 ##Variables for jpeg creation
@@ -81,7 +83,7 @@ extra.labels.col<-c("black","red") #color of labels, vector of color (text or he
 fig.name.final<-paste(fig.name,".jpg") #adds file extension to file name
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
 
     # Heroku workaround to websocket connection resetting
     autoInvalidate <- reactiveTimer(10000)
@@ -116,9 +118,55 @@ shinyServer(function(input, output) {
             spectrum.separator<-input$spectrumSeparator
         }
 
+        #first data row in the spectrum file, numeric
+        if (input$spectrumFirstDataRow == "") {
+            spectrum.first.data.row<-1
+        }
+        else {
+            spectrum.first.data.row<-as.numeric(input$spectrumFirstDataRow)
+        }
+        
+        
+        #Label below x-axis, character
+        #spectrum.filetype<-input$spectrumFiletype
+        spectrum.filetype<-"csv"
+        
         #Whether or not the mass spectrum file has column headers, boolean
-        spectrum.headerTF<-input$spectrumHeader
-
+        #spectrum.headerTF<-input$spectrumHeader
+        spectrum.headerTF<-F
+        
+        #first data row in the excel sheet, numeric
+        if (input$peaksFirstDataRow == "") {
+            peaks.first.data.row<-4
+        }
+        else {
+            peaks.first.data.row<-as.numeric(input$peaksFirstDataRow)
+        }
+        
+        #column in the excel sheet containing m/z values, numeric
+        if (input$peaksColumnMZ == "") {
+            peaks.column.mz<-1
+        }
+        else {
+            peaks.column.mz<-as.numeric(input$peaksColumnMZ)
+        }
+        
+        
+        #column in the excel sheet containing Intensity values, numeric
+        if (input$peaksColumnInt == "") {
+            peaks.column.int<-3
+        }
+        else {
+            peaks.column.int<-as.numeric(input$peaksColumnInt)
+        }
+        
+        #column in the excel sheet containing S/N values, numeric
+        if (input$peaksColumnSN == "") {
+            peaks.column.sn<-4
+        }
+        else {
+            peaks.column.sn<-as.numeric(input$peaksColumnSN)
+        }
         
         #Name of jpg file
         if(input$spectrumFilename==""){
@@ -314,6 +362,30 @@ shinyServer(function(input, output) {
         #Number of signifcant digits the S/N value is rounded to, numeric
         peaks.sn.label.sigfigs<-as.numeric(input$peaksSnLabelSigFigs)
         
+        #PEAK FINDER FUNCTION
+        ##The first sheet to be analysed, numeric
+        peakFinder.sheet.start<-as.numeric(input$peakFinderSheetStart)
+
+        ##The last sheet to be analysed, numeric or character ('last')
+        peakFinder.sheet.end<-input$peakFinderSheetEnd
+
+        #m/z value of the peaks which should be labeled, numeric vector
+        if (input$peakFinderSelectedMasses == "") {
+            peakFinder.selected.masses<-c(0)
+        }
+        else {
+            peakFinder.selected.masses<-c(as.numeric(unlist(strsplit(input$peakFinderSelectedMasses,","))))
+        }        
+
+        ##Tolerance in Da of m/z values of peaks which are searched in the mass list, numeric
+        peakFinder.tolerance<-as.numeric(input$peakFinderTolerance)
+
+        ##Name of the results file, character
+        peakFinder.save.file.name<-input$peakFinderSaveFileName
+
+        ##If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
+        peakFinder.if.peak.conflict.use.max<-input$peakFinderConflictUseMax
+
 
         # Generate the jpg
         try(jpeg(filename = fig.name.final,
@@ -360,6 +432,8 @@ shinyServer(function(input, output) {
         try(spectrum<-mass.spectrum.create(rawfile.path=spectrum.filepath,
                                            separator=spectrum.separator,
                                            headerTF=spectrum.headerTF,
+                                           first.data.row = spectrum.first.data.row,
+                                           filetype = spectrum.filetype,
                                            PlotYN=TRUE,
                                            xaxis.title=spectrum.xaxis.label,
                                            xaxis.title.highlight=spectrum.xaxis.label.highlight,
@@ -396,6 +470,10 @@ shinyServer(function(input, output) {
                                                       PlotYN = T,
                                                       FullListYN = F,
                                                       SelectedMasses = peaks.selected.masses,
+                                                      first.data.row = peaks.first.data.row,
+                                                      column.mz = peaks.column.mz,
+                                                      column.int = peaks.column.int,
+                                                      column.sn = peaks.column.sn,
                                                       tolerance = peaks.peak.tolerance,
                                                       label.line.width = peaks.label.line.width,
                                                       label.length =peaks.label.length,
@@ -424,24 +502,68 @@ shinyServer(function(input, output) {
         })
         
         dev.off()
-
         
-        ##download handler
-        # output$downloadData <- downloadHandler(
-        #   filename = function() {
-        #     #paste('data-', Sys.Date(), '.csv', sep='')
-        #     print("check1")
-        #     print(fig.name.final)
-        #   },
-        #   content = function(con) {
-        #       #write.csv(cars, con)
-        #       #file.copy(from="logo.png", to=con)
-        #       #file.copy(from=fig.name.final, to=con)
-        #       print("check2")
-        #   }
-        # )
-        # 
-        ###
+        #Run peak finder function
+        #observeEvent(input$runPeakFinder, {
+        try(if(input$peakFinderRun==T){
+            test.search<-peak.finder(mass.list.filepath = peaks.mass.list.filepath,
+                                     sheet.start=peakFinder.sheet.start,
+                                     sheet.end=peakFinder.sheet.end,
+                                     selected.masses=peakFinder.selected.masses,
+                                     first.data.row=peaks.first.data.row,
+                                     column.mz = peaks.column.mz,
+                                     column.int = peaks.column.int,
+                                     column.sn = peaks.column.sn,
+                                     tolerance=peakFinder.tolerance,
+                                     if.peak.conflict.use.max=peakFinder.if.peak.conflict.use.max,
+                                     save.file.name=peakFinder.save.file.name,
+                                     save.file = F)
+            
+            updateMaterialSwitch(session,
+                                 "peakFinderRun",
+                                 value = FALSE)
+            
+            output$downloadButton<- renderUI({
+                downloadButton('downloadData', 'Download PeakFinder')
+            })
+            #print(test.search)
+        })
+        #}
+        #)
+        
+        
+        #download handler
+        output$downloadData <- downloadHandler(
+          filename = function() {
+            paste0(peakFinder.save.file.name,".xlsx")
+          },
+          content = function(con) {
+              #write.csv(cars, con)
+              #writes excel file
+              wb<-createWorkbook()
+              
+              ##creates as many workbooks as there are selected masses for peak search
+              for(i in 1:length(peakFinder.selected.masses)){
+                  addWorksheet(wb,
+                               sheetName = paste("Search Results Peak ",peakFinder.selected.masses[i]))
+                  writeData(wb,
+                            sheet = paste("Search Results Peak ",peakFinder.selected.masses[i]),
+                            x=test.search[[i]])
+              }
+              
+               saveWorkbook(wb,
+                            file=con,
+                            overwrite = T)
+              
+              #file.copy(from=peakFinder.save.file.name, to=con)
+              #file.remove(peakFinder.save.file.name)
+              
+               output$downloadButton<- renderUI({})
+               
+          }
+        )
+
+        ##
         
         file.remove(inFile1$name)
         file.remove(inFile2$name)
