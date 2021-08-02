@@ -1,5 +1,9 @@
 mass.spectrum.create<-function(rawfile.path,
                                separator=" ",
+                               first.data.row=1,
+                               column.mz=1,
+                               column.int=2,
+                               filetype="csv",
                                headerTF=FALSE,
                                PlotYN=TRUE,
                                xaxis.title="m/z",
@@ -50,10 +54,26 @@ mass.spectrum.create<-function(rawfile.path,
   #spectrum.color= color of mass spectrum
   
   print(rawfile.path)
-  mass.spectrum <- read.csv(rawfile.path,sep=separator, header=headerTF)
-  names(mass.spectrum)<-c("m/z","Intensity")
-  
+  print(filetype)
 
+  if(filetype=="csv"){
+    mass.spectrum<-read.csv(rawfile.path,sep=separator, skip=(first.data.row-1), colClasses = "numeric",header = headerTF)
+    mass.spectrum<-data.frame(as.numeric(mass.spectrum[,1]),
+                              as.numeric(mass.spectrum[,2]))
+
+    #mass.spectrum<-mass.spectrum[-c(1:(first.data.row-1)),]
+    names(mass.spectrum)[c(column.mz,column.int)]<-c("m/z","Intensity")
+  }
+    
+  if(filetype=="MzXML"){
+    library("readMzXmlData")
+    spectrum.mzxml<-readMzXmlFile(mzXmlFile = rawfile.path)
+    mass.spectrum<-data.frame("m/z"=as.numeric(spectrum.mzxml$spectrum[[1]]),
+                              "Intensity"=as.numeric(spectrum.mzxml$spectrum[[2]]))
+
+    names(mass.spectrum)<-c("m/z","Intensity")
+  }
+  
   if(normalize.spectrum==TRUE){
     mass.spectrum[[2]]<-mass.spectrum[[2]]/normalization.value
   }
