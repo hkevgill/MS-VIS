@@ -7,6 +7,7 @@ FROM virtualstaticvoid/heroku-docker-r:shiny
 
 RUN R -e 'install.packages(c(\
               "readxl",\
+	      "openxlsx",\
               "colourpicker",\
               "shinyWidgets"\
             ) \
