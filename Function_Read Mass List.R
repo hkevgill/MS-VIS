@@ -3,6 +3,10 @@
 read.mass.list<-function(mass.list.filepath,
                          Sheet.name,
                          SelectedMasses,
+                         first.data.row=4,
+                         column.mz=1,
+                         column.int=3,
+                         column.sn=4,
                          tolerance=1,
                          if.peak.conflict.use.max=T,
                          FullListYN=F,
@@ -21,15 +25,21 @@ read.mass.list<-function(mass.list.filepath,
   mass.list <- (readxl::read_excel(mass.list.filepath,sheet = Sheet.name,col_types="text",col_names=TRUE,trim_ws = TRUE))
   mass.list[is.na(mass.list)]<-"0"
   
-  mass.list$spectrum<-""
-  mass.list$spectrum[3]<-colnames(mass.list[1])
-  colnames(mass.list)[-ncol(mass.list)]<-mass.list[2,(-ncol(mass.list))]
+  # mass.list$spectrum<-""
+  # mass.list$spectrum[3]<-colnames(mass.list[1])
+  # colnames(mass.list)[-ncol(mass.list)]<-mass.list[2,(-ncol(mass.list))]
+  # 
+  # mass.list<-mass.list[-c(1:2),]
+  # mass.list[,-ncol(mass.list)]<-as.data.frame(sapply(mass.list[,-ncol(mass.list)],as.numeric))
+  # 
+  # colnames(mass.list)[which(names(mass.list) == "Intens.")] <- "Intensity"
+  # colnames(mass.list)[which(names(mass.list) == "m/z")] <- "m.z"
   
-  mass.list<-mass.list[-c(1:2),]
-  mass.list[,-ncol(mass.list)]<-as.data.frame(sapply(mass.list[,-ncol(mass.list)],as.numeric))
+  #reduce mass list to only inlcude the data for m/z, intensity, and SN
+  mass.list<-mass.list[-c(1:(first.data.row-1)),]
+  mass.list<-as.data.frame(sapply(mass.list,as.numeric))
+  colnames(mass.list)[c(column.mz,column.int,column.sn)]<-c("m.z","Intensity","SN")
   
-  colnames(mass.list)[which(names(mass.list) == "Intens.")] <- "Intensity"
-  colnames(mass.list)[which(names(mass.list) == "m/z")] <- "m.z"
   
   mass.list.picked.peaks<-list()
   
