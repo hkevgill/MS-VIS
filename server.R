@@ -515,7 +515,7 @@ shinyServer(function(input, output, session) {
         #Run peak finder function
         #observeEvent(input$runPeakFinder, {
         try(if(input$peakFinderRun==T){
-            test.search<-peak.finder(mass.list.filepath = peaks.mass.list.filepath,
+            test.search<<-peak.finder(mass.list.filepath = peaks.mass.list.filepath,
                                      sheet.start=peakFinder.sheet.start,
                                      sheet.end=peakFinder.sheet.end,
                                      selected.masses=peakFinder.selected.masses,
