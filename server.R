@@ -95,8 +95,8 @@ shinyServer(function(input, output, session) {
     output$myImage <- renderImage({
         
         req(input$file1)
-        req(input$file2)
-        req(input$peaksSheetName)
+        #req(input$file2)
+        #req(input$peaksSheetName)
         
         inFile1 <- input$file1
         inFile2 <- input$file2
@@ -288,79 +288,86 @@ shinyServer(function(input, output, session) {
 
         #Peak variables
         
-        #m/z value of the peaks which should be labeled, numeric vector
-        if (input$peaksSelectedMasses == "") {
-            peaks.selected.masses<-c(0)
+        peaks.mass.list.filepath<-inFile2$name
+        peaks.sheet.name<-input$peaksSheetName
+        
+        if (!is.null(peaks.mass.list.filepath) && !is.null(peaks.sheet.name)) {
+            
+            #m/z value of the peaks which should be labeled, numeric vector
+            if (input$peaksSelectedMasses == "") {
+                peaks.selected.masses<-c(0)
+            }
+            else {
+                peaks.selected.masses<-c(as.numeric(unlist(strsplit(input$peaksSelectedMasses,","))))
+            }
+            
+            #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
+            if (input$peaksLabelLength == "") {
+                peaks.label.length<-c(0)
+            }
+            else {
+                peaks.label.length<-c(as.numeric(unlist(strsplit(input$peaksLabelLength,","))))
+            }
+    
+            #peaks.label.length<-as.numeric(input$peaksLabelLength)
+            
+            #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
+            peaks.label.spread<-as.numeric(input$peaksLabelSpread)
+    
+            #Line type of the line connecting the peak to the peak labels, numeric
+            peaks.label.line.lty<-as.numeric(input$peaksLabelLineType)
+    
+            #Line type of the line connecting the peak to the peak labels, character or color hex code
+            peaks.label.line.col<-input$peakslabelLineColour
+            
+            #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+            peaks.first.label<-c(unlist(strsplit(input$peaksFirstLabel,",")))
+            
+            #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+            peaks.second.label<-c(unlist(strsplit(input$peaksSecondLabel,",")))
+    
+            #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
+            l1<-0
+            l2<-0
+            l3<-0
+            l4<-0
+            l5<-0
+            
+            for (i in seq_len(length(input$peaksLabelsOn))) {
+                if (input$peaksLabelsOn[i] == "1st Label") {l1<-1}
+                if (input$peaksLabelsOn[i] == "2nd label") {l2<-1}
+                if (input$peaksLabelsOn[i] == "m/z Ratio") {l3<-1}
+                if (input$peaksLabelsOn[i] == "Intensity") {l4<-1}
+                if (input$peaksLabelsOn[i] == "S/N Ratio") {l5<-1}
+            }
+            
+            peaks.labels.on<-c(l1,l2,l3,l4,l5)
+            
+            #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
+            peaks.label.position<-c(unlist(strsplit(input$peaksLabelPosition,",")))
+    
+            #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
+            peaks.peak.tolerance<-as.numeric(input$peakTolerance)
+            
+            #line width of the line connecting the peak to the peak labels, numeric
+            peaks.label.line.width<-as.numeric(input$peakLabelLineWidth)
+    
+            #Fontsize of the peak labels, numeric
+            peaks.fontsize<-as.numeric(input$peaksFontSize)
+    
+            #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
+            peaks.if.peak.conflict.use.max<-input$peakConflictUseMax
+            
+            #Number of signifcant digits the m/z value is rounded to, numeric
+            peaks.mz.label.sigfigs<-as.numeric(input$peaksMzLabelSigFigs)
+            
+            #Number of signifcant digits the intensity value is rounded to, numeric
+            peaks.int.label.sigfigs<-as.numeric(input$peaksIntLabelSigFigs)
+            
+            #Number of signifcant digits the S/N value is rounded to, numeric
+            peaks.sn.label.sigfigs<-as.numeric(input$peaksSnLabelSigFigs)
+        
         }
-        else {
-            peaks.selected.masses<-c(as.numeric(unlist(strsplit(input$peaksSelectedMasses,","))))
-        }
-        
-        #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
-        if (input$peaksLabelLength == "") {
-            peaks.label.length<-c(0)
-        }
-        else {
-            peaks.label.length<-c(as.numeric(unlist(strsplit(input$peaksLabelLength,","))))
-        }
-
-        #peaks.label.length<-as.numeric(input$peaksLabelLength)
-        
-        #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
-        peaks.label.spread<-as.numeric(input$peaksLabelSpread)
-
-        #Line type of the line connecting the peak to the peak labels, numeric
-        peaks.label.line.lty<-as.numeric(input$peaksLabelLineType)
-
-        #Line type of the line connecting the peak to the peak labels, character or color hex code
-        peaks.label.line.col<-input$peakslabelLineColour
-        
-        #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
-        peaks.first.label<-c(unlist(strsplit(input$peaksFirstLabel,",")))
-        
-        #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
-        peaks.second.label<-c(unlist(strsplit(input$peaksSecondLabel,",")))
-
-        #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
-        l1<-0
-        l2<-0
-        l3<-0
-        l4<-0
-        l5<-0
-        
-        for (i in seq_len(length(input$peaksLabelsOn))) {
-            if (input$peaksLabelsOn[i] == "1st Label") {l1<-1}
-            if (input$peaksLabelsOn[i] == "2nd label") {l2<-1}
-            if (input$peaksLabelsOn[i] == "m/z Ratio") {l3<-1}
-            if (input$peaksLabelsOn[i] == "Intensity") {l4<-1}
-            if (input$peaksLabelsOn[i] == "S/N Ratio") {l5<-1}
-        }
-        
-        peaks.labels.on<-c(l1,l2,l3,l4,l5)
-        
-        #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
-        peaks.label.position<-c(unlist(strsplit(input$peaksLabelPosition,",")))
-
-        #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
-        peaks.peak.tolerance<-as.numeric(input$peakTolerance)
-        
-        #line width of the line connecting the peak to the peak labels, numeric
-        peaks.label.line.width<-as.numeric(input$peakLabelLineWidth)
-
-        #Fontsize of the peak labels, numeric
-        peaks.fontsize<-as.numeric(input$peaksFontSize)
-
-        #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
-        peaks.if.peak.conflict.use.max<-input$peakConflictUseMax
-        
-        #Number of signifcant digits the m/z value is rounded to, numeric
-        peaks.mz.label.sigfigs<-as.numeric(input$peaksMzLabelSigFigs)
-        
-        #Number of signifcant digits the intensity value is rounded to, numeric
-        peaks.int.label.sigfigs<-as.numeric(input$peaksIntLabelSigFigs)
-        
-        #Number of signifcant digits the S/N value is rounded to, numeric
-        peaks.sn.label.sigfigs<-as.numeric(input$peaksSnLabelSigFigs)
         
         #PEAK FINDER FUNCTION
         ##The first sheet to be analysed, numeric
@@ -464,33 +471,35 @@ shinyServer(function(input, output, session) {
                                            normalize.spectrum = spectrum.normalize.spectrum,
                                            normalization.value = spectrum.normalization.value))
         
-        try(spectrum.label<-mass.spectrum.label.peaks(mass.list.filepath = peaks.mass.list.filepath,
-                                                      Sheet.name = peaks.sheet.name,
-                                                      mass.spectrum = spectrum,
-                                                      PlotYN = T,
-                                                      FullListYN = F,
-                                                      SelectedMasses = peaks.selected.masses,
-                                                      first.data.row = peaks.first.data.row,
-                                                      column.mz = peaks.column.mz,
-                                                      column.int = peaks.column.int,
-                                                      column.sn = peaks.column.sn,
-                                                      tolerance = peaks.peak.tolerance,
-                                                      label.line.width = peaks.label.line.width,
-                                                      label.length =peaks.label.length,
-                                                      label.spread = peaks.label.spread,
-                                                      label.line.lty = peaks.label.line.lty,
-                                                      label.line.col = peaks.label.line.col,
-                                                      label.title = peaks.first.label,
-                                                      label.second.title = peaks.second.label,
-                                                      labels.on = peaks.labels.on,
-                                                      label.position = peaks.label.position,
-                                                      fontsize = peaks.fontsize,
-                                                      mz.label.sigfigs=peaks.mz.label.sigfigs,
-                                                      int.label.sigfigs=peaks.int.label.sigfigs,
-                                                      sn.label.sigfigs=peaks.sn.label.sigfigs,
-                                                      if.peak.conflict.use.max = peaks.if.peak.conflict.use.max,
-                                                      normalize.spectrum = spectrum.normalize.spectrum,
-                                                      normalization.value = spectrum.normalization.value))
+        if (!is.null(peaks.mass.list.filepath) && !is.null(peaks.sheet.name)) {
+            try(spectrum.label<-mass.spectrum.label.peaks(mass.list.filepath = peaks.mass.list.filepath,
+                                                          Sheet.name = peaks.sheet.name,
+                                                          mass.spectrum = spectrum,
+                                                          PlotYN = T,
+                                                          FullListYN = F,
+                                                          SelectedMasses = peaks.selected.masses,
+                                                          first.data.row = peaks.first.data.row,
+                                                          column.mz = peaks.column.mz,
+                                                          column.int = peaks.column.int,
+                                                          column.sn = peaks.column.sn,
+                                                          tolerance = peaks.peak.tolerance,
+                                                          label.line.width = peaks.label.line.width,
+                                                          label.length =peaks.label.length,
+                                                          label.spread = peaks.label.spread,
+                                                          label.line.lty = peaks.label.line.lty,
+                                                          label.line.col = peaks.label.line.col,
+                                                          label.title = peaks.first.label,
+                                                          label.second.title = peaks.second.label,
+                                                          labels.on = peaks.labels.on,
+                                                          label.position = peaks.label.position,
+                                                          fontsize = peaks.fontsize,
+                                                          mz.label.sigfigs=peaks.mz.label.sigfigs,
+                                                          int.label.sigfigs=peaks.int.label.sigfigs,
+                                                          sn.label.sigfigs=peaks.sn.label.sigfigs,
+                                                          if.peak.conflict.use.max = peaks.if.peak.conflict.use.max,
+                                                          normalize.spectrum = spectrum.normalize.spectrum,
+                                                          normalization.value = spectrum.normalization.value))
+        }
         
         try(if(extra.labels.on==T){
             text(x=extra.labels.xpos,
@@ -566,7 +575,9 @@ shinyServer(function(input, output, session) {
         ##
         
         file.remove(inFile1$name)
-        file.remove(inFile2$name)
+        if(!is.null(inFile2)) {
+            file.remove(inFile2$name)
+        }
         
         list(src = fig.name.final)
 

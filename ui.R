@@ -103,8 +103,9 @@ shinyUI(fluidPage(
             
             HTML("<button class=\"accordion\">Spectrum plotting variables</button><div class=\"panel\">"),
             
-            HTML("<button class=\"accordion\">Plot Labels</button><div class=\"panel\">"),
-            
+            HTML("<button class=\"inner-accordion\">"),
+            icon("plus-circle", class = NULL, lib = "font-awesome"),
+            HTML("Plot Labels</button><div class=\"panel\">"),
             
             # Input: Text ----
             tags$div(title="Label below x-axis",
@@ -169,7 +170,9 @@ shinyUI(fluidPage(
             
             HTML("</div>"),
             
-            HTML("<button class=\"accordion\">Spectrum Border, Colour, and Line Width</button><div class=\"panel\">"),
+            HTML("<button class=\"inner-accordion\">"),
+            icon("plus-circle", class = NULL, lib = "font-awesome"),
+            HTML("Spectrum Border, Colour, and Line Width</button><div class=\"panel\">"),
             
             # Input: SelectInput ----
             tags$div(title="Define the shape of the border of the spectrum",
@@ -198,7 +201,9 @@ shinyUI(fluidPage(
             
             HTML("</div>"),
             
-            HTML("<button class=\"accordion\">Axis range and Intervals</button><div class=\"panel\">"),
+            HTML("<button class=\"inner-accordion\">"),
+            icon("plus-circle", class = NULL, lib = "font-awesome"),
+            HTML("Axis range and Intervals</button><div class=\"panel\">"),
             
             # Input: Checkbox ----
             tags$div(title="Display full collected mass range or only a selected mass range",
@@ -253,7 +258,9 @@ shinyUI(fluidPage(
             HTML("</div>"),
             
             
-            HTML("<button class=\"accordion\">Font  Sizes</button><div class=\"panel\">"),
+            HTML("<button class=\"inner-accordion\">"),
+            icon("plus-circle", class = NULL, lib = "font-awesome"),
+            HTML("Font  Sizes</button><div class=\"panel\">"),
             
             # Input: SliderInput ----
             tags$div(title="Font size of the axis labels",
@@ -278,7 +285,9 @@ shinyUI(fluidPage(
             
             HTML("</div>"),
             
-            HTML("<button class=\"accordion\">Figure Margins</button><div class=\"panel\">"),
+            HTML("<button class=\"inner-accordion\">"),
+            icon("plus-circle", class = NULL, lib = "font-awesome"),
+            HTML("Figure Margins</button><div class=\"panel\">"),
             
             # Input: Text ----
             tags$div(title="Filename",
@@ -327,7 +336,9 @@ shinyUI(fluidPage(
             
             HTML("</div>"),
             
-            HTML("<button class=\"accordion\">Normalization</button><div class=\"panel\">"),
+            HTML("<button class=\"inner-accordion\">"),
+            icon("plus-circle", class = NULL, lib = "font-awesome"),
+            HTML("Normalization</button><div class=\"panel\">"),
             
             # Input: MaterialSwitch ----
             tags$div(title="Whether or not the spectrum should be normalized",
@@ -361,7 +372,9 @@ shinyUI(fluidPage(
             
             HTML("<button class=\"accordion\">Peak labeling variables</button><div class=\"panel\">"),
             
-            HTML("<button class=\"accordion\">Peak and Label Selection</button><div class=\"panel\">"),
+            HTML("<button class=\"inner-accordion\">"),
+            icon("plus-circle", class = NULL, lib = "font-awesome"),
+            HTML("Peak and Label Selection</button><div class=\"panel\">"),
             
             # Input: Text ----
             tags$div(title="m/z value of the peaks which should be labeled. If several peaks should be labeled, the m/z values need to be separated by comma.",
@@ -449,7 +462,9 @@ shinyUI(fluidPage(
             
             HTML("</div>"),
             
-            HTML("<button class=\"accordion\">Label Style</button><div class=\"panel\">"),
+            HTML("<button class=\"inner-accordion\">"),
+            icon("plus-circle", class = NULL, lib = "font-awesome"),
+            HTML("Label Style</button><div class=\"panel\">"),
             
             # Input: Text ----
             tags$div(title="Distance of the peak labels from the peak (length of the line connecting the peak to the peak labels). Must have as many entries as there are selected peaks",

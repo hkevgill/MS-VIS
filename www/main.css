@@ -26,6 +26,17 @@ img {
   transition: 0.4s;
 }
 
+.inner-accordion {
+  text-align: left;
+  background-color: white;
+  border: none;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .accordion:hover {
   background-color: #ccc;
@@ -33,7 +44,7 @@ img {
 
 /* Style the accordion panel. Note: hidden by default */
 .panel {
-  padding: 0 18px;
+  padding: 10px 18px;
   background-color: white;
   display: none;
   overflow: hidden;
