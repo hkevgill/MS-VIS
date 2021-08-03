@@ -92,7 +92,7 @@ peak.finder<-function(mass.list.filepath,
       }
     }
     
-    mass.list.results[[paste("Peak ",selected.masses[i])]]$Sheet[[a]]<-sheets[[a]]
+    mass.list.results[[paste("Peak ",selected.masses[i])]]$Sheet[a]<-sheets[a]
 
     if(is.na(grabbed.m.z)==T){
       grabbed.detected<-"NO"
