@@ -1,6 +1,6 @@
 # Docker Mass Spectrum App
 
-mass-spectrum.com
+www.mass-spectrum.com
 
 ## How to get Application working:
 
@@ -20,13 +20,3 @@ docker build -t mass-spectrum-image .
 ```
 docker run --rm -it -p 8080:8080 mass-spectrum-image
 ```
-
-## Heroku deploy
-
-```
-git push heroku main
-```
-
-## DigitalOcean
-
-droplet root user password: anujbjorn2021Kevinmassspec
