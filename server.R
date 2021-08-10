@@ -585,52 +585,45 @@ shinyServer(function(input, output, session) {
     }, deleteFile = TRUE)
     
     output$overlaidSpectrum <- renderImage({
-    
-        ##Variables for jpeg creation
-        fig.name<-"Overlaid Spectra" #figure name, character
-        fig.height<-6.1 #figure height in cm, numeric
-        fig.width<-9 #figure width in cm, numeric
-        fig.res<-800 #figure resolution, numeric
-        fig.margin<-c(6,7,3,0.5) #figure margins c(bottom, left, top, right), vector of numeric
 
         ##Variables for spectrum plotting
         #spectrum.first.spectrum.filepath<-"180413 PTEN 1st PTEN High_03_%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%_0_D11_1.txt" #Filepath of 1st mass spectrum file, character
         #spectrum.second.spectrum.filepath<-"180413 PTEN 1st PI3K High_03_%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%_0_C12_1.txt" #Filepath of 2nd mass spectrum file, character
         #spectrum.separator<-" " #separator in the mass spectrum csv file, character
         #spectrum.headerTF<- FALSE #Whether or not the mass spectrum file has column headers, boolean
-        spectrum.xaxis.label<-"m/z" #Label below x-axis, character
-        spectrum.yaxis.label<-"Intensity" #Label next to y-axis, character
-        spectrum.main.label<-"Overlaid Spectra" #Label above mass spectrum, character
-        spectrum.upper.range.limit.xaxis<- 1550 #Upper end of the x-axis, numeric
-        spectrum.lower.range.limit.xaxis<- 1350 #Lower end of the x-axis, numeric  
-        spectrum.upper.range.limit.yaxis<-1.5 #Upper end of the y-axis, numeric  
-        spectrum.lower.range.limit.yaxis<-0 #Lower end of the y-axis, numeric  
+        #spectrum.xaxis.label<-"m/z" #Label below x-axis, character
+        #spectrum.yaxis.label<-"Intensity" #Label next to y-axis, character
+        #spectrum.main.label<-"Overlaid Spectra" #Label above mass spectrum, character
+        #spectrum.upper.range.limit.xaxis<- 1550 #Upper end of the x-axis, numeric
+        #spectrum.lower.range.limit.xaxis<- 1350 #Lower end of the x-axis, numeric  
+        #spectrum.upper.range.limit.yaxis<-1.5 #Upper end of the y-axis, numeric  
+        #spectrum.lower.range.limit.yaxis<-0 #Lower end of the y-axis, numeric  
         spectrum.line.type.first.spectrum<-1 #Line type of first mass spectrum, numeric
         spectrum.line.type.second.spectrum<-2 #Line type of second mass spectrum, numeric
-        spectrum.axis.fontsize<-3 #Font size of the axis labels, numeric
-        spectrum.title.fontsize<-2 #Font size of the main label
-        spectrum.axis.ticks.size<-2 #Font size of the axis ticks, numeric
-        spectrum.mass.spectrum.color.first.spectrum<- "tomato3" #Color of the 1st mass spectrum, character or color hex code
-        spectrum.mass.spectrum.color.second.spectrum<- "steelblue3" #Color of the 1st mass spectrum, character or color hex code
-        spectrum.mass.spectrum.line.width.first.spectrum<- 2 #Line width of the first mass spectrum, numeric
-        spectrum.mass.spectrum.line.width.second.spectrum<- 2 #Line width of the second mass spectrum, numeric
+        #spectrum.axis.fontsize<-3 #Font size of the axis labels, numeric
+        #spectrum.title.fontsize<-2 #Font size of the main label
+        #spectrum.axis.ticks.size<-2 #Font size of the axis ticks, numeric
+        #spectrum.mass.spectrum.color.first.spectrum<- "tomato3" #Color of the 1st mass spectrum, character or color hex code
+        #spectrum.mass.spectrum.color.second.spectrum<- "steelblue3" #Color of the 1st mass spectrum, character or color hex code
+        #spectrum.mass.spectrum.line.width.first.spectrum<- 2 #Line width of the first mass spectrum, numeric
+        #spectrum.mass.spectrum.line.width.second.spectrum<- 2 #Line width of the second mass spectrum, numeric
         spectrum.label.first.spectrum<- "1st spectrum" #Label (in legend) of first mass spectrum, character
         spectrum.label.second.spectrum<- "2nd spectrum" #Label (in legend) of 2nd mass spectrum, character
-        spectrum.custom.axes<-T #Whether or not the axis ticks are at custom points, boolean
-        spectrum.custom.xaxis.pdj<-1 #Distance of the x-axis tick mark labels from the x-axis ticks (if custom axes is true), numeric
-        spectrum.custom.yaxis.pdj<-(-1) #Distance of the y-axis tick mark labels from the y-axis ticks (if custom axes is true), numeric
-        spectrum.custom.axis.ann.line<-5 #Distance of the axis label to the axis (if custom axes is true), numeric
-        spectrum.custom.axis.ann.title.line<- 1 #Distance of the main label from the mass spectrum, numeric
-        spectrum.xaxis.interval<-40 #Interval of x-axis ticks (if custom axes is true), numeric
-        spectrum.yaxis.interval<-0.5 #Interval of y-axis ticks (if custom axes is true), numeric
+        #spectrum.custom.axes<-T #Whether or not the axis ticks are at custom points, boolean
+        #spectrum.custom.xaxis.pdj<-1 #Distance of the x-axis tick mark labels from the x-axis ticks (if custom axes is true), numeric
+        #spectrum.custom.yaxis.pdj<-(-1) #Distance of the y-axis tick mark labels from the y-axis ticks (if custom axes is true), numeric
+        #spectrum.custom.axis.ann.line<-5 #Distance of the axis label to the axis (if custom axes is true), numeric
+        #spectrum.custom.axis.ann.title.line<- 1 #Distance of the main label from the mass spectrum, numeric
+        #spectrum.xaxis.interval<-40 #Interval of x-axis ticks (if custom axes is true), numeric
+        #spectrum.yaxis.interval<-0.5 #Interval of y-axis ticks (if custom axes is true), numeric
         spectrum.legend.yesno<-1 #Whether a legend for both spectra should be shown. 1= yes, 0=no
         spectrum.legend.position<-"topright" #Position of legend in plot. Same as normal R legend position commands (i.e. "topright","top","topleft","bottomleft","bottom","bottomright")
         spectrum.legend.size<-2 #Size of legend, numeric
         spectrum.legend.lwd<-1 #lwd of lines in legend
-        spectrum.normalize.spectrum<-T #Whether or not the spectrum should be normalized, as TRUE/FALSE
-        spectrum.normalization.method<-3 #which method to use for normalization (values of 1-3): 1= by max peak intensity in entire spectrum, 2= by max peak intensity in selected mass range, 3= by peak intensity of a selected peak
-        spectrum.normalization.peak.first.spectrum<-1397 #if spectrum.normalization.method=3, then this m.z value will be used or normaization of 1st spectrum
-        spectrum.normalization.peak.second.spectrum<-1496 #if spectrum.normalization.method=3, then this m.z value will be used or normaization of 2nd spectrum
+        #spectrum.normalize.spectrum<-T #Whether or not the spectrum should be normalized, as TRUE/FALSE
+        #spectrum.normalization.method<-3 #which method to use for normalization (values of 1-3): 1= by max peak intensity in entire spectrum, 2= by max peak intensity in selected mass range, 3= by peak intensity of a selected peak
+        #spectrum.normalization.peak.first.spectrum<-1397 #if spectrum.normalization.method=3, then this m.z value will be used or normaization of 1st spectrum
+        #spectrum.normalization.peak.second.spectrum<-1496 #if spectrum.normalization.method=3, then this m.z value will be used or normaization of 2nd spectrum
 
         ##Variables for peak labeling
         ###First spectrum
@@ -729,8 +722,116 @@ shinyServer(function(input, output, session) {
         #Label below x-axis, character
         spectrum.xaxis.label<-input$overlaidSpectrumXaxisLabel
         
+        #Label next to y-axis, character
+        spectrum.yaxis.label<-input$overlaidSpectrumYaxisLabel
+        
+        #Distance of the axis label to the axis (if custom axes is true), numeric
+        spectrum.custom.axis.ann.line<-input$overlaidSpectrumCustomAxisAnnLine
+        
+        #Label above mass spectrum, character
+        spectrum.main.label<-input$overlaidSpectrumMainLabel
+        
+        #Distance of the main label from the mass spectrum, numeric
+        spectrum.custom.axis.ann.title.line<-input$overlaidSpectrumCustomAxisAnnTitleLine
+        
+        #Color of the 1st mass spectrum, character or color hex code
+        spectrum.mass.spectrum.color.first.spectrum<-input$overlaidSpectrumColour1
+        
+        #Color of the 1st mass spectrum, character or color hex code
+        spectrum.mass.spectrum.color.second.spectrum<-input$overlaidSpectrumColour2
+        
+        #Line width of the first mass spectrum, numeric
+        spectrum.mass.spectrum.line.width.first.spectrum<-input$overlaidSpectrumLineWidth1
+        
+        #Line width of the second mass spectrum, numeric
+        spectrum.mass.spectrum.line.width.second.spectrum<-input$overlaidSpectrumLineWidth2
+        
+        #Upper end of the x-axis, numeric
+        spectrum.upper.range.limit.xaxis<-input$overlaidSpectrumRangeXAxis[2]
+        
+        #Lower end of the x-axis, numeric
+        spectrum.lower.range.limit.xaxis<-input$overlaidSpectrumRangeXAxis[1]
+        
+        #Upper end of the y-axis, numeric 
+        spectrum.upper.range.limit.yaxis<-input$overlaidSpectrumRangeYAxis[2]
+        
+        #Lower end of the y-axis, numeric  
+        spectrum.lower.range.limit.yaxis<-input$overlaidSpectrumRangeYAxis[1]
+        
+        #Whether or not the axis ticks are at custom points, boolean
+        spectrum.custom.axes<-input$overlaidSpectrumCustomAxes
+        
+        #Interval of x-axis ticks (if custom axes is true), numeric
+        spectrum.xaxis.interval<-as.numeric(input$overlaidSpectrumXAxisInterval)
+        
+        #Interval of y-axis ticks (if custom axes is true), numeric
+        spectrum.yaxis.interval<-as.numeric(input$overlaidSpectrumYAxisInterval)
+        
+        #Distance of the x-axis tick mark labels from the x-axis ticks (if custom axes is true), numeric
+        spectrum.custom.xaxis.pdj<-input$overlaidSpectrumCustomXAxisPdj
+        
+        #Distance of the y-axis tick mark labels from the y-axis ticks (if custom axes is true), numeric
+        spectrum.custom.yaxis.pdj<-(input$overlaidSpectrumCustomYAxisPdj)
+        
+        #Font size of the axis labels, numeric
+        spectrum.axis.fontsize<-input$overlaidSpectrumAxisFontSize
+        
+        #Font size of the main label
+        spectrum.title.fontsize<-input$overlaidSpectrumTitleFontSize
+        
+        #Font size of the axis ticks, numeric
+        spectrum.axis.ticks.size<-input$overlaidSpectrumAxisTickFontSize
+        
+        #Name of jpg file
+        if(input$overlaidSpectrumFilename==""){
+            fig.name<-"spectrum"
+        } else{
+            fig.name<-input$overlaidSpectrumFilename
+        }
+        
+        fig.name.final<-paste0(fig.name,".jpg") #adds file extension to file name
+        
+        #Height in cm of file
+        if(input$overlaidSpectrumFileHeight==""){
+            fig.height<-6
+        } else{
+            fig.height<-as.numeric(input$overlaidSpectrumFileHeight)
+        }
+        
+        #Width in cm of file
+        if(input$overlaidSpectrumFileWidth==""){
+            fig.width<-7
+        } else{
+            fig.width<-as.numeric(input$overlaidSpectrumFileWidth)    
+        }
+        
+        #File resolution
+        if(input$overlaidSpectrumFileResolution==""){
+            fig.res<-800
+        } else{
+            fig.res<-as.numeric(input$overlaidSpectrumFileResolution)    
+        }
         
         
+        #Figure margins, numeric
+        fig.margin<-c(as.numeric(input$spectrumMarginBottom),
+                      as.numeric(input$spectrumMarginLeft),
+                      as.numeric(input$spectrumMarginTop),
+                      as.numeric(input$spectrumMarginRight))
+        
+        #Whether or not the spectrum should be normalized, as TRUE/FALSE
+        spectrum.normalize.spectrum<-input$overlaidSpectrumNormalizeSpectrum
+        
+        #Which method to use for normalization (values of 1-3): 1= by max peak intensity in entire spectrum, 2= by max peak intensity in selected mass range, 3= by peak intensity of a selected peak
+        spectrum.normalization.method<-input$overlaidSpectrumNormalizationMethod
+        
+        #if spectrum.normalization.method=3, then this m.z value will be used or normalization of 1st spectrum
+        spectrum.normalization.peak.first.spectrum<-as.numeric(input$overlaidSpectrumNormalizationPeak1)
+        
+        #if spectrum.normalization.method=3, then this m.z value will be used or normalization of 2nd spectrum
+        spectrum.normalization.peak.second.spectrum<-as.numeric(input$overlaidSpectrumNormalizationPeak2)
+        
+
         
         
         
@@ -819,7 +920,7 @@ shinyServer(function(input, output, session) {
                                                 first.spectrum.line.type = spectrum.line.type.first.spectrum,
                                                 second.spectrum.line.type = spectrum.line.type.second.spectrum,
                                                 first.spectrum.lwd = spectrum.mass.spectrum.line.width.first.spectrum,
-                                                second.spectrum.lwd = spectrum.mass.spectrum.line.width.first.spectrum,
+                                                second.spectrum.lwd = spectrum.mass.spectrum.line.width.second.spectrum,
                                                 first.spectrum.label = spectrum.label.first.spectrum,
                                                 second.spectrum.label = spectrum.label.second.spectrum,
                                                 legend.yesno = spectrum.legend.yesno,

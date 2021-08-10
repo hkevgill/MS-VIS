@@ -435,7 +435,7 @@ shinyUI(fluidPage(
                          
                          HTML("<button class=\"inner-accordion\">"),
                          icon("plus-circle", class = NULL, lib = "font-awesome"),
-                         HTML("Font  Sizes</button><div class=\"panel\">"),
+                         HTML("Font Sizes</button><div class=\"panel\">"),
                          
                          # Input: SliderInput ----
                          tags$div(
@@ -1099,6 +1099,14 @@ shinyUI(fluidPage(
                          #         checkboxInput("overlaidSpectrumHeader", "Does the File have a Header", value = FALSE, width = NULL),
                          #),
                          
+                         HTML(
+                             "<button class=\"accordion\">Spectrum plotting variables</button><div class=\"panel\">"
+                         ),
+                         
+                         HTML("<button class=\"inner-accordion\">"),
+                         icon("plus-circle", class = NULL, lib = "font-awesome"),
+                         HTML("Plot Labels</button><div class=\"panel\">"),
+                         
                          # Input: Text ----
                          tags$div(
                              title = "Label below x-axis",
@@ -1110,6 +1118,411 @@ shinyUI(fluidPage(
                                  placeholder = ""
                              ),
                          ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Label below y-axis",
+                             textInput(
+                                 "overlaidSpectrumYaxisLabel",
+                                 "Y-axis Label",
+                                 value = "Intensity",
+                                 width = NULL,
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Distance of the axis label to the axis",
+                             sliderInput(
+                                 "overlaidSpectrumCustomAxisAnnLine",
+                                 "Position of X-axis and Y-axis Labels:",
+                                 min = 1,
+                                 max = 10,
+                                 value = 5,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Label above the mass spectrum",
+                             textInput(
+                                 "overlaidSpectrumMainLabel",
+                                 "Spectrum Title",
+                                 value = "Overlaid Spectra",
+                                 width = NULL,
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Distance of the spetcrum title label from the mass spectrum",
+                             sliderInput(
+                                 "overlaidSpectrumCustomAxisAnnTitleLine",
+                                 "Position of the Spectrum Title:",
+                                 min = 0.1,
+                                 max = 10,
+                                 value = 1,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         HTML("</div>"),
+                         
+                         HTML("<button class=\"inner-accordion\">"),
+                         icon("plus-circle", class = NULL, lib = "font-awesome"),
+                         HTML(
+                             "Spectrum Border, Colour, and Line Width</button><div class=\"panel\">"
+                         ),
+                         
+                         # Input: ColourInput ----
+                         tags$div(
+                             title = "Colour of the mass spectrum",
+                             colourInput(
+                                 "overlaidSpectrumColour1",
+                                 "First Spectrum Colour",
+                                 value = "#BC5741",
+                                 showColour = c("both", "text", "background"),
+                                 palette = c("square", "limited"),
+                                 allowTransparent = FALSE,
+                                 returnName = FALSE
+                             ),
+                         ),
+                         
+                         # Input: ColourInput ----
+                         tags$div(
+                             title = "Colour of the mass spectrum",
+                             colourInput(
+                                 "overlaidSpectrumColour2",
+                                 "Second Spectrum Colour",
+                                 value = "#4682B4",
+                                 showColour = c("both", "text", "background"),
+                                 palette = c("square", "limited"),
+                                 allowTransparent = FALSE,
+                                 returnName = FALSE
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Line width of the mass spectrum",
+                             sliderInput(
+                                 "overlaidSpectrumLineWidth1",
+                                 "First Spectrum Line Width:",
+                                 min = 0.01,
+                                 max = 3,
+                                 value = 1,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Line width of the mass spectrum",
+                             sliderInput(
+                                 "overlaidSpectrumLineWidth2",
+                                 "Second Spectrum Line Width:",
+                                 min = 0.01,
+                                 max = 3,
+                                 value = 1,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         HTML("</div>"),
+                         
+                         HTML("<button class=\"inner-accordion\">"),
+                         icon("plus-circle", class = NULL, lib = "font-awesome"),
+                         HTML("Axis range and Intervals</button><div class=\"panel\">"),
+                         
+                         # Input: NumericRangeInput ----
+                         tags$div(
+                             title = "Lower and upper ends of the x-axis",
+                             numericRangeInput(
+                                 inputId = "overlaidSpectrumRangeXAxis",
+                                 label = "X-axis Range",
+                                 value = c(0, 4000)
+                             ),
+                         ),
+                         
+                         # Input: NumericRangeInput ----
+                         tags$div(
+                             title = "Lower and upper ends of the y-axis",
+                             numericRangeInput(
+                                 inputId = "overlaidSpectrumRangeYAxis",
+                                 label = "Y-axis Range",
+                                 value = c(0, 40000)
+                             ),
+                         ),
+                         
+                         # Input: MaterialSwitch ----
+                         tags$div(
+                             title = "Whether or not the axis ticks are at custom points",
+                             materialSwitch(
+                                 inputId = "overlaidSpectrumCustomAxes",
+                                 label = "Custom Axes",
+                                 status = "primary",
+                                 right = TRUE,
+                                 value = FALSE
+                             ),
+                         ),
+                         
+                         # Input: TextInput ----
+                         tags$div(
+                             title = "Interval of x-axis ticks (if custom axes is selected)",
+                             textInput(
+                                 inputId = "overlaidSpectrumXAxisInterval",
+                                 label = "X-axis Tick Interval",
+                                 value = "20",
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         # Input: TextInput ----
+                         tags$div(
+                             title = "Interval of y-axis ticks (if custom axes is selected)",
+                             textInput(
+                                 inputId = "overlaidSpectrumYAxisInterval",
+                                 label = "Y-axis Tick Interval",
+                                 value = "20000",
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Distance of the x-axis tick mark labels from the x-axis ticks (if custom axes is selected)",
+                             sliderInput(
+                                 "overlaidSpectrumCustomXAxisPdj",
+                                 "Position of X-axis Tick Values:",
+                                 min = 0.1,
+                                 max = 5,
+                                 value = 1,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Distance of the y-axis tick mark labels from the y-axis ticks (if custom axes is true)",
+                             sliderInput(
+                                 "overlaidSpectrumCustomYAxisPdj",
+                                 "Position of Y-axis Tick Values::",
+                                 min = -5,
+                                 max = 5,
+                                 value = -1,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         HTML("</div>"),
+                         
+                         HTML("<button class=\"inner-accordion\">"),
+                         icon("plus-circle", class = NULL, lib = "font-awesome"),
+                         HTML("Font Sizes</button><div class=\"panel\">"),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Font size of the axis labels",
+                             sliderInput(
+                                 "overlaidSpectrumAxisFontSize",
+                                 "Axis Label Font Size:",
+                                 min = 0.1,
+                                 max = 5,
+                                 value = 3,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Font size of the spectrum title",
+                             sliderInput(
+                                 "overlaidSpectrumTitleFontSize",
+                                 "Title Font size:",
+                                 min = 1,
+                                 max = 5,
+                                 value = 2,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Font size of the axis ticks",
+                             sliderInput(
+                                 "overlaidSpectrumAxisTickFontSize",
+                                 "Axis Tick Font Size:",
+                                 min = 1,
+                                 max = 5,
+                                 value = 2,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         HTML("</div>"),
+                         
+                         HTML("<button class=\"inner-accordion\">"),
+                         icon("plus-circle", class = NULL, lib = "font-awesome"),
+                         HTML("Figure Margins</button><div class=\"panel\">"),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Filename",
+                             textInput(
+                                 "overlaidSpectrumFilename",
+                                 "Filename",
+                                 value = "Spectrum",
+                                 width = NULL,
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         tags$div(
+                             title = "Figure Height in cm",
+                             textInput(
+                                 "overlaidSpectrumFileHeight",
+                                 "Figure Height in cm",
+                                 value = "6.1",
+                                 width = NULL,
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         tags$div(
+                             title = "Figure Width in cm",
+                             textInput(
+                                 "overlaidSpectrumFileWidth",
+                                 "Figure Width in cm",
+                                 value = "9",
+                                 width = NULL,
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         tags$div(
+                             title = "Figure Resolution",
+                             textInput(
+                                 "overlaidSpectrumFileResolution",
+                                 "Figure Resolution",
+                                 value = "800",
+                                 width = NULL,
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Bottom Figure Margin",
+                             sliderInput(
+                                 "overlaidSpectrumMarginBottom",
+                                 "Bottom Figure Margin:",
+                                 min = 0,
+                                 max = 10,
+                                 value = 6,
+                                 step = 0.5
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Left Figure Margin",
+                             sliderInput(
+                                 "overlaidSpectrumMarginLeft",
+                                 "Left Figure Margin:",
+                                 min = 0,
+                                 max = 10,
+                                 value = 7,
+                                 step = 0.5
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Top Figure Margin",
+                             sliderInput(
+                                 "overlaidSpectrumMarginTop",
+                                 "Top Figure Margin:",
+                                 min = 0,
+                                 max = 10,
+                                 value = 3,
+                                 step = 0.5
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Right Figure Margin",
+                             sliderInput(
+                                 "overlaidSpectrumMarginRight",
+                                 "Right Figure Margin:",
+                                 min = 0,
+                                 max = 10,
+                                 value = 0.5,
+                                 step = 0.5
+                             ),
+                         ),
+                         
+                         HTML("</div>"),
+                         
+                         HTML("<button class=\"inner-accordion\">"),
+                         icon("plus-circle", class = NULL, lib = "font-awesome"),
+                         HTML("Normalization</button><div class=\"panel\">"),
+                         
+                         # Input: MaterialSwitch ----
+                         tags$div(
+                             title = "Whether or not the spectrum should be normalized",
+                             materialSwitch(
+                                 inputId = "overlaidSpectrumNormalizeSpectrum",
+                                 label = "Normalize Spectrum",
+                                 status = "primary",
+                                 right = TRUE,
+                                 value = FALSE
+                             ),
+                         ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Which method to use for normalization",
+                             selectInput(
+                                 "overlaidSpectrumNormalizationMethod",
+                                 "Normalization Method",
+                                 c(
+                                     "By highest peak in the collected mass range" = 1,
+                                     "By highest peak in the selected mass range" = 2,
+                                     "By a user-defined peak" = 3
+                                 ),
+                                 selected = "2"
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "If normalization method 'By a user-defined peak' is selected, then the intensity of the peak at this m/z value will be used for normalization",
+                             textInput(
+                                 inputId = "overlaidSpectrumNormalizationPeak1",
+                                 label = "First Spectrum User-defined Peak for Normalization",
+                                 value = "",
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "If normalization method 'By a user-defined peak' is selected, then the intensity of the peak at this m/z value will be used for normalization",
+                             textInput(
+                                 inputId = "overlaidSpectrumNormalizationPeak2",
+                                 label = "Second Spectrum User-defined Peak for Normalization",
+                                 value = "",
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         HTML("</div>"),
+                         
+                         HTML("</div>"),
                          
                      ),
                      
