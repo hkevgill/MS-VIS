@@ -322,11 +322,24 @@ shinyServer(function(input, output, session) {
             peaks.label.line.col<-input$peakslabelLineColour
             
             #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
-            peaks.first.label<-c(unlist(strsplit(input$peaksFirstLabel,",")))
+            #peaks.first.label<-c(unlist(strsplit(input$peaksFirstLabel,",")))
+            if (input$peaksFirstLabel == "") {
+                peaks.first.label<-""
+            }
+            else {
+                peaks.first.label<-c(unlist(strsplit(input$peaksFirstLabel,",")))
+            }
+            
             
             #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
-            peaks.second.label<-c(unlist(strsplit(input$peaksSecondLabel,",")))
-    
+            #peaks.second.label<-c(unlist(strsplit(input$peaksSecondLabel,",")))
+            if (input$peaksSecondLabel == "") {
+                peaks.second.label<-""
+            }
+            else {
+                peaks.second.label<-c(unlist(strsplit(input$peaksSecondLabel,",")))
+            }
+            
             #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
             l1<-0
             l2<-0
