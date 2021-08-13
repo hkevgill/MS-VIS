@@ -894,19 +894,7 @@ shinyUI(fluidPage(
                          HTML(
                              "<button class=\"accordion\">Peak Finder</button><div class=\"panel\">"
                          ),
-                         # Input: MaterialSwitch ----
-                         tags$div(
-                             title = "Run Peak Finder?",
-                             materialSwitch(
-                                 inputId = "peakFinderRun",
-                                 label = "Run Peak Finder?",
-                                 status = "primary",
-                                 right = TRUE,
-                                 value = FALSE
-                             ),
-                         ),
-                         
-                         
+                 
                          # Input: Text ----
                          tags$div(
                              title = "The first sheet in the excel file to start the peak finder",
@@ -971,6 +959,18 @@ shinyUI(fluidPage(
                                  label = "Name of Save File ",
                                  value = "Savefile",
                                  placeholder = ""
+                             ),
+                         ),
+                         
+                         # Input: MaterialSwitch ----
+                         tags$div(
+                             title = "Run Peak Finder?",
+                             materialSwitch(
+                                 inputId = "peakFinderRun",
+                                 label = "Run Peak Finder?",
+                                 status = "primary",
+                                 right = TRUE,
+                                 value = FALSE
                              ),
                          ),
                          
