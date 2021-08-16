@@ -211,7 +211,7 @@ shinyServer(function(input, output, session) {
     )
     
     output$singleSpectrum <- renderImage({
-        
+        print(input$file1)
         req(input$file1)
         #req(input$file2)
         #req(input$peaksSheetName)
@@ -227,7 +227,6 @@ shinyServer(function(input, output, session) {
         peaks.sheet.name<-input$peaksSheetName
 
         #spectrum variables
-        
         #separator in the mass spectrum csv file, character
         if (input$spectrumSeparator == "") {
             spectrum.separator<-" "
@@ -509,30 +508,6 @@ shinyServer(function(input, output, session) {
         
         }
         
-        #PEAK FINDER FUNCTION
-        ##The first sheet to be analysed, numeric
-        peakFinder.sheet.start<-as.numeric(input$peakFinderSheetStart)
-
-        ##The last sheet to be analysed, numeric or character ('last')
-        peakFinder.sheet.end<-input$peakFinderSheetEnd
-
-        #m/z value of the peaks which should be labeled, numeric vector
-        if (input$peakFinderSelectedMasses == "") {
-            peakFinder.selected.masses<-c(0)
-        }
-        else {
-            peakFinder.selected.masses<-c(as.numeric(unlist(strsplit(input$peakFinderSelectedMasses,","))))
-        }        
-
-        ##Tolerance in Da of m/z values of peaks which are searched in the mass list, numeric
-        peakFinder.tolerance<-as.numeric(input$peakFinderTolerance)
-
-        ##Name of the results file, character
-        peakFinder.save.file.name<-input$peakFinderSaveFileName
-
-        ##If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
-        peakFinder.if.peak.conflict.use.max<-input$peakFinderConflictUseMax
-
 
         # Generate the jpg
         try(jpeg(filename = fig.name.final,
@@ -655,30 +630,6 @@ shinyServer(function(input, output, session) {
         
         dev.off()
         
-        #Run peak finder function
-        #observeEvent(input$runPeakFinder, {
-        try(if(input$peakFinderRun==T){
-            test.search<<-peak.finder(mass.list.filepath = peaks.mass.list.filepath,
-                                     sheet.start=peakFinder.sheet.start,
-                                     sheet.end=peakFinder.sheet.end,
-                                     selected.masses=peakFinder.selected.masses,
-                                     first.data.row=peaks.first.data.row,
-                                     column.mz = peaks.column.mz,
-                                     column.int = peaks.column.int,
-                                     column.sn = peaks.column.sn,
-                                     tolerance=peakFinder.tolerance,
-                                     if.peak.conflict.use.max=peakFinder.if.peak.conflict.use.max,
-                                     save.file.name=peakFinder.save.file.name,
-                                     save.file = F)
-            
-            updateMaterialSwitch(session,
-                                 "peakFinderRun",
-                                 value = FALSE)
-            
-            output$downloadButton<- renderUI({
-                downloadButton('downloadData', 'Download PeakFinder')
-            })
-        })  
             #Run save settings function
             try(if(input$saveSettings==T){
                 if (!is.null(peaks.mass.list.filepath) && !is.null(peaks.sheet.name)) {
