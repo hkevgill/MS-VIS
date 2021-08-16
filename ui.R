@@ -386,7 +386,7 @@ shinyUI(fluidPage(
                              title = "Whether or not to display the y-axis",
                              checkboxInput(
                                  "spectrumShowYAxis",
-                                 "Show X-Axis",
+                                 "Show Y-Axis",
                                  value = TRUE,
                                  width = NULL
                              ),
