@@ -271,10 +271,16 @@ shinyServer(function(input, output, session) {
 
         #Distance of the axis label to the axis (if custom axes is true), numeric
         spectrum.custom.axis.ann.line<-input$spectrumCustomAxisAnnLine
-
+        
         #Distance of the main label from the mass spectrum, numeric
         spectrum.custom.axis.ann.title.line<-input$spectrumCustomAxisAnnTitleLine
 
+        #Whether or not to show the x-axis (only affects its display, not the scaling of the plot)
+        spectrum.show.x.axis<-input$spectrumShowXAxis
+
+        #Whether or not to show the y-axis (only affects its display, not the scaling of the plot)
+        spectrum.show.y.axis<-input$spectrumShowYAxis
+        
         #Interval of x-axis ticks (if custom axes is true), numeric
         spectrum.xaxis.interval<-as.numeric(input$spectrumXAxisInterval)
         
@@ -472,6 +478,8 @@ shinyServer(function(input, output, session) {
                                            lower.range.limit=spectrum.lower.range.limit.xaxis,
                                            y.axis.lower.limit=spectrum.lower.range.limit.yaxis,
                                            y.axis.upper.limit=spectrum.upper.range.limit.yaxis,
+                                           show.x.axis=spectrum.show.x.axis,
+                                           show.y.axis=spectrum.show.y.axis,
                                            axis.fontsize=spectrum.axis.fontsize,
                                            title.fontsize=spectrum.title.fontsize,
                                            axis.ticks.fontsize=spectrum.axis.ticks.size,
@@ -553,13 +561,132 @@ shinyServer(function(input, output, session) {
             output$downloadButton<- renderUI({
                 downloadButton('downloadData', 'Download PeakFinder')
             })
-            #print(test.search)
-        })
+        })  
+            #Run save settings function
+            try(if(input$saveSettings==T){
+                if (!is.null(peaks.mass.list.filepath) && !is.null(peaks.sheet.name)) {
+                    user.input<<-list("Spectrum File"=spectrum.filepath,
+                                     "Excel File with Mass List"=peaks.mass.list.filepath,
+                                     "Mass List Sheet Name"=peaks.sheet.name,
+                                     "Column Separator in Spectrum File"=spectrum.separator,
+                                     "First Data Row in the Spectrum File"=spectrum.first.data.row,
+                                     "First Data Row in Mass List"=peaks.first.data.row,
+                                     #"Column in the Mass List Containing m/z Values"=peaks.column.mz,
+                                     #"Column in the Mass List Containing Intensity Values"=peaks.column.int,
+                                     #"Column in the Mass List Containing S/N Values"=peaks.column.SN,
+                                     #"fig.name"=fig.name,
+                                     "Figure Height in cm"=fig.height,
+                                     "Figure Width in cm"=fig.width,
+                                     "Figure Resolution"=fig.res,
+                                     "Bottom Figure Margin"=fig.margin[1],
+                                     "Left Figure Margin"=fig.margin[2],
+                                     "Top Figure Margin"=fig.margin[3],
+                                     "Right Figure Margin"=fig.margin[4],
+                                     "X-axis Label"=spectrum.xaxis.label,
+                                     "Highlight X-axis Label"=spectrum.xaxis.label.highlight,
+                                     "Y-axis Label"=spectrum.yaxis.label,
+                                     "Highlight y-axis Label"=spectrum.yaxis.label.highlight,
+                                     "Spectrum Title"=spectrum.main.label,
+                                     "Highlight Spectrum Title"=spectrum.main.label.highlight,
+                                     "Spectrum Colour"=spectrum.mass.spectrum.color,
+                                     "Shape of the Border Around the Spectrum"=spectrum.Border,
+                                     "Spectrum Full Range"=spectrum.full.range,
+                                     "X-axis Range Upper Limit"=spectrum.upper.range.limit.xaxis,
+                                     "X-axis Range Lower Limit"=spectrum.lower.range.limit.xaxis,
+                                     "Y-axis Range Upper Limit"=spectrum.upper.range.limit.yaxis,
+                                     "Y-axis Range Lower Limit"=spectrum.lower.range.limit.yaxis,
+                                     "Font Type"=spectrum.fonttype,
+                                     "Axis Label Font Size"=spectrum.axis.fontsize,
+                                     "Title Font Size"=spectrum.title.fontsize,
+                                     "Axis Tick Font Size"=spectrum.axis.ticks.size,
+                                     "Spectrum Line Width"=spectrum.mass.spectrum.line.width,
+                                     "Custom Axes"=spectrum.custom.axes,
+                                     "Position of X-axis Tick Values:"=spectrum.custom.xaxis.pdj,
+                                     "Position of Y-axis Tick Values:"=spectrum.custom.yaxis.pdj,
+                                     "Position of X-axis and Y-axis Labels"=spectrum.custom.axis.ann.line,
+                                     "Position of the Spectrum Title"=spectrum.custom.axis.ann.title.line,
+                                     "Show x-Axis"=spectrum.show.x.axis,
+                                     "Show y-axis"=spectrum.show.y.axis,
+                                     "X-axis Tick Interval"=spectrum.xaxis.interval,
+                                     "Y-axis Tick Interval"=spectrum.yaxis.interval,
+                                     "Normalize Spectrum"=spectrum.normalize.spectrum,
+                                     "Normalization Method"=spectrum.normalization.method,
+                                     "User-defined Peak for Normalization"=spectrum.normalization.peak,
+                                     "m/z Value of Peaks to be Labeled"=peaks.selected.masses,
+                                     "Label Distance"=peaks.label.length,
+                                     "Label Spacing"=peaks.label.spread,
+                                     "Label Line Type"=peaks.label.line.lty,
+                                     "Label Line Colour"=peaks.label.line.col,
+                                     "1st Label"=peaks.first.label,
+                                     "2nd Label"=peaks.second.label,
+                                     "Peak Labels Enabled "=peaks.labels.on,
+                                     "Label Position"=peaks.label.position,
+                                     "m/z Tolerance"=peaks.peak.tolerance,
+                                     "Label Line Width"=peaks.label.line.width,
+                                     "Label Font Size"=peaks.fontsize,
+                                     "Peak Conflict: Use Max Peak"=peaks.if.peak.conflict.use.max,
+                                     "Round m/z value to this many digits"=peaks.mz.label.sigfigs,
+                                     "Round intensity value to this many digits"=peaks.int.label.sigfigs,
+                                     "Round S/N value to this many digits"=peaks.sn.label.sigfigs)
+                    
+                } else {
+                    user.input<<-list("Spectrum File"=spectrum.filepath,
+                                     "Column Separator in Spectrum File"=spectrum.separator,
+                                     "First Data Row in the Spectrum File"=spectrum.first.data.row,
+                                     #"fig.name"=fig.name,
+                                     "Figure Height in cm"=fig.height,
+                                     "Figure Width in cm"=fig.width,
+                                     "Figure Resolution"=fig.res,
+                                     "Bottom Figure Margin"=fig.margin[1],
+                                     "Left Figure Margin"=fig.margin[2],
+                                     "Top Figure Margin"=fig.margin[3],
+                                     "Right Figure Margin"=fig.margin[4],
+                                     "X-axis Label"=spectrum.xaxis.label,
+                                     "Highlight X-axis Label"=spectrum.xaxis.label.highlight,
+                                     "Y-axis Label"=spectrum.yaxis.label,
+                                     "Highlight y-axis Label"=spectrum.yaxis.label.highlight,
+                                     "Spectrum Title"=spectrum.main.label,
+                                     "Highlight Spectrum Title"=spectrum.main.label.highlight,
+                                     "Spectrum Colour"=spectrum.mass.spectrum.color,
+                                     "Shape of the Border Around the Spectrum"=spectrum.Border,
+                                     "Spectrum Full Range"=spectrum.full.range,
+                                     "X-axis Range Upper Limit"=spectrum.upper.range.limit.xaxis,
+                                     "X-axis Range Lower Limit"=spectrum.lower.range.limit.xaxis,
+                                     "Y-axis Range Upper Limit"=spectrum.upper.range.limit.yaxis,
+                                     "Y-axis Range Lower Limit"=spectrum.lower.range.limit.yaxis,
+                                     "Font Type"=spectrum.fonttype,
+                                     "Axis Label Font Size"=spectrum.axis.fontsize,
+                                     "Title Font Size"=spectrum.title.fontsize,
+                                     "Axis Tick Font Size"=spectrum.axis.ticks.size,
+                                     "Spectrum Line Width"=spectrum.mass.spectrum.line.width,
+                                     "Custom Axes"=spectrum.custom.axes,
+                                     "Position of X-axis Tick Values:"=spectrum.custom.xaxis.pdj,
+                                     "Position of Y-axis Tick Values:"=spectrum.custom.yaxis.pdj,
+                                     "Position of X-axis and Y-axis Labels"=spectrum.custom.axis.ann.line,
+                                     "Position of the Spectrum Title"=spectrum.custom.axis.ann.title.line,
+                                     "Show x-Axis"=spectrum.show.x.axis,
+                                     "Show y-axis"=spectrum.show.y.axis,
+                                     "X-axis Tick Interval"=spectrum.xaxis.interval,
+                                     "Y-axis Tick Interval"=spectrum.yaxis.interval,
+                                     "Normalize Spectrum"=spectrum.normalize.spectrum,
+                                     "Normalization Method"=spectrum.normalization.method,
+                                     "User-defined Peak for Normalization"=spectrum.normalization.peak)
+                    
+                }
+
+                updateMaterialSwitch(session,
+                                     "saveSettings",
+                                     value = FALSE)
+                
+                output$downloadButtonSettings<- renderUI({
+                    downloadButton('downloadDataSettings', 'Download Settings')
+                })
+            })
         #}
         #)
         
         
-        #download handler
+        #download handler peak finder
         output$downloadData <- downloadHandler(
           filename = function() {
             paste0(peakFinder.save.file.name,".xlsx")
@@ -589,6 +716,20 @@ shinyServer(function(input, output, session) {
                
           }
         )
+        
+        #download handler save settings
+        output$downloadDataSettings <- downloadHandler(
+            filename = function() {
+                paste0("settings",".csv")
+            },
+            content = function(con) {
+                write.csv((unlist(user.input)), con)
+                
+                output$downloadButtonSettings<- renderUI({})
+                
+            }
+        )
+        
 
         ##
         
@@ -851,11 +992,7 @@ shinyServer(function(input, output, session) {
         #if spectrum.normalization.method=3, then this m.z value will be used or normalization of 2nd spectrum
         spectrum.normalization.peak.second.spectrum<-as.numeric(input$overlaidSpectrumNormalizationPeak2)
         
-
-        
-        
-        
-        
+      
 
         try(jpeg(filename = fig.name.final,
             height = fig.height,
