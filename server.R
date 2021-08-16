@@ -245,6 +245,9 @@ shinyServer(function(input, output, session) {
         #Lower end of the y-axis, numeric  
         spectrum.lower.range.limit.yaxis<-input$spectrumRangeYAxis[1]
 
+        #Font type the spectrum, character
+        spectrum.fonttype<-input$spectrumFontType
+        
         #Font size of the axis labels, numeric
         spectrum.axis.fontsize<-input$spectrumAxisFontSize
 
@@ -416,7 +419,8 @@ shinyServer(function(input, output, session) {
                  pointsize = 4,
                  units = "cm"))
         
-        try(par(mar=fig.margin+0.1))
+        try(par(mar=fig.margin+0.1,
+                family=spectrum.fonttype))
         
         spectrum.normalization.value<-NA
         
@@ -786,7 +790,10 @@ shinyServer(function(input, output, session) {
         #Distance of the y-axis tick mark labels from the y-axis ticks (if custom axes is true), numeric
         spectrum.custom.yaxis.pdj<-(input$overlaidSpectrumCustomYAxisPdj)
         
-        #Font size of the axis labels, numeric
+        #Font type the spectrum, character
+        #spectrum.fonttype<-input$spectrumFontType
+
+                #Font size of the axis labels, numeric
         spectrum.axis.fontsize<-input$overlaidSpectrumAxisFontSize
         
         #Font size of the main label
@@ -856,7 +863,7 @@ shinyServer(function(input, output, session) {
             res=fig.res,
             pointsize = 4,
             units = "cm"))
-
+        
         try(par(mar=fig.margin+0.1))
 
         spectrum.normalization.value<-NA
