@@ -370,6 +370,28 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         # Input: Checkbox ----
+                         tags$div(
+                             title = "Whether or not to display the x-axis",
+                             checkboxInput(
+                                 "spectrumShowXAxis",
+                                 "Show X-Axis",
+                                 value = TRUE,
+                                 width = NULL
+                             ),
+                         ),
+                         
+                         # Input: Checkbox ----
+                         tags$div(
+                             title = "Whether or not to display the y-axis",
+                             checkboxInput(
+                                 "spectrumShowYAxis",
+                                 "Show X-Axis",
+                                 value = TRUE,
+                                 width = NULL
+                             ),
+                         ),
+                         
                          # Input: MaterialSwitch ----
                          tags$div(
                              title = "Whether or not the axis ticks are at custom points",
@@ -907,6 +929,18 @@ shinyUI(fluidPage(
                          
                          HTML("</div>"),
                          
+                         # Input: MaterialSwitch ----
+                         tags$div(
+                             title = "Save the settings?",
+                             materialSwitch(
+                                 inputId = "saveSettings",
+                                 label = "Save Settings?",
+                                 status = "primary",
+                                 right = TRUE,
+                                 value = FALSE
+                             ),
+                         ),
+                         
                          HTML(
                              "<button class=\"accordion\">Peak Finder</button><div class=\"panel\">"
                          ),
@@ -1013,7 +1047,8 @@ shinyUI(fluidPage(
                          # Button
                          #downloadButton('downloadData', 'Download PeakFinder'),
                          uiOutput('downloadButton'),
-                         
+                         uiOutput('downloadButtonSettings'),
+                     
                          tags$div(class = "image-fixed-container", imageOutput("singleSpectrum"))
                      )
                  )),
