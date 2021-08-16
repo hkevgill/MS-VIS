@@ -20,6 +20,8 @@ mass.spectrum.create<-function(rawfile.path,
                                y.axis.lower.limit=NULL,
                                y.axis.upper.limit=NULL,
                                axis.fontsize=1,
+                               show.x.axis=T,
+                               show.y.axis=T,
                                title.fontsize=1,
                                axis.ticks.fontsize=1,
                                spectrum.color="black",
@@ -104,13 +106,13 @@ mass.spectrum.create<-function(rawfile.path,
   }
   
   #check if custom x-axis has been selected
-  if(custom.y.axis==TRUE){
+  if(custom.y.axis==TRUE || show.y.axis==F){
     yaxis.yesno="n"
   } else {
     yaxis.yesno="s"
   }
   
-  if(custom.axis==TRUE){
+  if(custom.axis==TRUE || show.x.axis==F){
     xaxis.yesno="n"
   } else {
     xaxis.yesno="s"
@@ -147,11 +149,11 @@ mass.spectrum.create<-function(rawfile.path,
   
   
   if(PlotYN==TRUE){
-    if(custom.axis==TRUE){
-      xaxis.yesno="n"
-    } else {
-      xaxis.yesno="s"
-    }
+    # if(custom.axis==TRUE){
+    #   xaxis.yesno="n"
+    # } else {
+    #   xaxis.yesno="s"
+    # }
 
   if(full.range==TRUE) {
       
@@ -159,7 +161,7 @@ mass.spectrum.create<-function(rawfile.path,
            type="l", 
            lty=spectrum.lty,
            xaxt=xaxis.yesno,
-           yaxt=xaxis.yesno,
+           yaxt=yaxis.yesno,
            ann=ann.yesno,
            xlab=as.expression(xaxis.title),
            ylab=as.expression(yaxis.title), 
@@ -176,7 +178,7 @@ mass.spectrum.create<-function(rawfile.path,
            type="l", 
            lty=spectrum.lty,
            xaxt=xaxis.yesno,
-           yaxt=xaxis.yesno,
+           yaxt=yaxis.yesno,
            ann=ann.yesno,
            xlab=as.expression(xaxis.title),
            ylab=as.expression(yaxis.title), 
@@ -205,15 +207,19 @@ mass.spectrum.create<-function(rawfile.path,
     }
     
     if(custom.axis.ann==TRUE){
-      mtext(side=1,
-            text=xaxis.title,
-            line = custom.axis.ann.line,
-            cex=axis.fontsize)
+      if(show.x.axis==T){
+        mtext(side=1,
+              text=xaxis.title,
+              line = custom.axis.ann.line,
+              cex=axis.fontsize)
+      }
       
-      mtext(side=2,
-            text=yaxis.title,
-            line = custom.axis.ann.line,
-            cex=axis.fontsize)
+      if(show.y.axis==T){
+        mtext(side=2,
+              text=yaxis.title,
+              line = custom.axis.ann.line,
+              cex=axis.fontsize)
+      }
       
       mtext(side=3,
             text=spectrum.title,
