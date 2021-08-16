@@ -437,6 +437,22 @@ shinyUI(fluidPage(
                          icon("plus-circle", class = NULL, lib = "font-awesome"),
                          HTML("Font Sizes</button><div class=\"panel\">"),
                          
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Font",
+                             selectInput(
+                                 "spectrumFontType",
+                                 "Font Type",
+                                 c(
+                                     "Arial" = "sans",
+                                     "Times New Roman" = "serif",
+                                     "Courier" = "mono"
+                                 ),
+                                 selected = "sans"
+                             ),
+                         ),
+                         
+                         
                          # Input: SliderInput ----
                          tags$div(
                              title = "Font size of the axis labels",
