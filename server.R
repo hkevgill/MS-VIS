@@ -92,7 +92,124 @@ shinyServer(function(input, output, session) {
         autoInvalidate()
         cat(".")
     })
+    
+    
+    #Peak Finder tab
+    output$downloadDataPeakFinder<-downloadHandler(
+      filename = function() {
+        paste0(input$SaveFileNamePeakFinder,".xlsx")
+      },
+      content = function(con) {
 
+        req(input$ExcelSheetPeakFinder,
+            input$peaksFirstDataRow,
+            input$peaksFirstDataRowPeakFinder,
+            input$peaksColumnMZPeakFinder,
+            input$SheetStartPeakFinder,
+            input$SheetEndPeakFinder,
+            input$SelectedMassesPeakFinder,
+            input$TolerancePeakFinder,
+            input$ConflictUseMaxPeakFinder)
+        
+        inFile2 <- input$ExcelSheetPeakFinder
+        
+        file.copy(inFile2$datapath, file.path(".", inFile2$name) )
+        
+        peaks.mass.list.filepath<-inFile2$name
+        #peaks.sheet.name<-input$peaksSheetName
+        
+        #first data row in the excel sheet, numeric
+        if (input$peaksFirstDataRow == "") {
+          peaks.first.data.row<-4
+        }
+        else {
+          peaks.first.data.row<-as.numeric(input$peaksFirstDataRowPeakFinder)
+        }
+        
+        #column in the excel sheet containing m/z values, numeric
+        if (input$peaksColumnMZPeakFinder == "") {
+          peaks.column.mz<-1
+        }
+        else {
+          peaks.column.mz<-as.numeric(input$peaksColumnMZPeakFinder)
+        }
+        
+        
+        #column in the excel sheet containing Intensity values, numeric
+        if (input$peaksColumnIntPeakFinder == "") {
+          peaks.column.int<-3
+        }
+        else {
+          peaks.column.int<-as.numeric(input$peaksColumnIntPeakFinder)
+        }
+
+        #column in the excel sheet containing S/N values, numeric
+        if (input$peaksColumnSNPeakFinder == "") {
+          peaks.column.sn<-4
+        }
+        else {
+          peaks.column.sn<-as.numeric(input$peaksColumnSNPeakFinder)
+        }
+        
+        #PEAK FINDER FUNCTION
+        ##The first sheet to be analysed, numeric
+        peakFinder.sheet.start<-as.numeric(input$SheetStartPeakFinder)
+        
+        ##The last sheet to be analysed, numeric or character ('last')
+        peakFinder.sheet.end<-input$SheetEndPeakFinder
+        print(peakFinder.sheet.end)
+        
+        #m/z value of the peaks which should be labeled, numeric vector
+        if (input$SelectedMassesPeakFinder == "") {
+          peakFinder.selected.masses<-c(0)
+        }
+        else {
+          peakFinder.selected.masses<-c(as.numeric(unlist(strsplit(input$SelectedMassesPeakFinder,","))))
+        }        
+        
+        ##Tolerance in Da of m/z values of peaks which are searched in the mass list, numeric
+        peakFinder.tolerance<-as.numeric(input$TolerancePeakFinder)
+        
+        ##Name of the results file, character
+        peakFinder.save.file.name<-input$SaveFileNamePeakFinder
+        
+        ##If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
+        peakFinder.if.peak.conflict.use.max<-input$ConflictUseMaxPeakFinder
+        
+        try(test.search<-peak.finder(mass.list.filepath = peaks.mass.list.filepath,
+                                  sheet.start=peakFinder.sheet.start,
+                                  sheet.end=peakFinder.sheet.end,
+                                  selected.masses=peakFinder.selected.masses,
+                                  first.data.row=peaks.first.data.row,
+                                  column.mz = peaks.column.mz,
+                                  column.int = peaks.column.int,
+                                  column.sn = peaks.column.sn,
+                                  tolerance=peakFinder.tolerance,
+                                  if.peak.conflict.use.max=peakFinder.if.peak.conflict.use.max,
+                                  save.file.name=peakFinder.save.file.name,
+                                  save.file = F))
+        #print(test.search)
+        
+        wb<-createWorkbook()
+        
+        ##creates as many workbooks as there are selected masses for peak search
+        for(i in 1:length(peakFinder.selected.masses)){
+          addWorksheet(wb,
+                       sheetName = paste("Search Results Peak ",peakFinder.selected.masses[i]))
+          writeData(wb,
+                    sheet = paste("Search Results Peak ",peakFinder.selected.masses[i]),
+                    x=test.search[[i]])
+        }
+        
+        saveWorkbook(wb,
+                     file=con,
+                     overwrite = T)
+        
+        file.remove(inFile2$name)
+        
+      }
+    )
+    
     output$singleSpectrum <- renderImage({
         
         req(input$file1)
