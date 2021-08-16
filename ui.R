@@ -941,103 +941,103 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         HTML(
-                             "<button class=\"accordion\">Peak Finder</button><div class=\"panel\">"
-                         ),
-                 
-                         # Input: Text ----
-                         tags$div(
-                             title = "The first sheet in the excel file to start the peak finder",
-                             textInput(
-                                 inputId = "peakFinderSheetStart",
-                                 label = "First sheet",
-                                 value = "1",
-                                 placeholder = "1"
-                             ),
-                         ),
-                         
-                         # Input: Text ----
-                         tags$div(
-                             title = "The last sheet in the excel file where the peak finder ends. Can be either 'last' or a nuber",
-                             textInput(
-                                 inputId = "peakFinderSheetEnd",
-                                 label = "Final sheet",
-                                 value = "last",
-                                 placeholder = "last"
-                             ),
-                         ),
-                         
-                         # Input: Text ----
-                         tags$div(
-                             title = "m/z value of the peaks which should be searched. If several peaks are searched, the m/z values need to be separated by comma.",
-                             textInput(
-                                 inputId = "peakFinderSelectedMasses",
-                                 label = "m/z Value of Peaks to be Searched",
-                                 value = "",
-                                 placeholder = "Example: 1496, 1506"
-                             ),
-                         ),
-                         
-                         # Input: Text ----
-                         tags$div(
-                             title = "Window in dalton from which the peaks selected in 'm/z Value of Peaks to be Searched' are picked (e.g., 1496+-2)",
-                             textInput(
-                                 inputId = "peakFinderTolerance",
-                                 label = "m/z Tolerance ",
-                                 value = "2",
-                                 placeholder = ""
-                             ),
-                         ),
-                         
-                         # Input: MaterialSwitch ----
-                         tags$div(
-                             title = "If two peaks are within the tolerance window for peak picking, the higher one is selected",
-                             materialSwitch(
-                                 inputId = "peakFinderConflictUseMax",
-                                 label = "Peak Conflict: Use Max Peak",
-                                 status = "primary",
-                                 right = TRUE,
-                                 value = TRUE
-                             ),
-                         ),
-                         
-                         # Input: Text ----
-                         tags$div(
-                             title = "Name of the file containing the results",
-                             textInput(
-                                 inputId = "peakFinderSaveFileName",
-                                 label = "Name of Save File ",
-                                 value = "Savefile",
-                                 placeholder = ""
-                             ),
-                         ),
-                         
-                         # Input: MaterialSwitch ----
-                         tags$div(
-                             title = "Run Peak Finder?",
-                             materialSwitch(
-                                 inputId = "peakFinderRun",
-                                 label = "Run Peak Finder?",
-                                 status = "primary",
-                                 right = TRUE,
-                                 value = FALSE
-                             ),
-                         ),
-                         
-                         #Run peak finder----
-                         # tags$div(title="Run Peak Finder",
-                         #          actionButton("runPeakFinder","Run Peak Finder"),
+                         # HTML(
+                         #     "<button class=\"accordion\">Peak Finder</button><div class=\"panel\">"
                          # ),
-                         
-                         
-                         
-                         #selected.masses,
-                         #tolerance,
-                         #if.peak.conflict.use.max=T,
-                         #save.file.name="Peak Finder Results",
-                         
-                         
-                         HTML("</div>")
+                         # 
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "The first sheet in the excel file to start the peak finder",
+                         #     textInput(
+                         #         inputId = "peakFinderSheetStart",
+                         #         label = "First sheet",
+                         #         value = "1",
+                         #         placeholder = "1"
+                         #     ),
+                         # ),
+                         # 
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "The last sheet in the excel file where the peak finder ends. Can be either 'last' or a nuber",
+                         #     textInput(
+                         #         inputId = "peakFinderSheetEnd",
+                         #         label = "Final sheet",
+                         #         value = "last",
+                         #         placeholder = "last"
+                         #     ),
+                         # ),
+                         # 
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "m/z value of the peaks which should be searched. If several peaks are searched, the m/z values need to be separated by comma.",
+                         #     textInput(
+                         #         inputId = "peakFinderSelectedMasses",
+                         #         label = "m/z Value of Peaks to be Searched",
+                         #         value = "",
+                         #         placeholder = "Example: 1496, 1506"
+                         #     ),
+                         # ),
+                         # 
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Window in dalton from which the peaks selected in 'm/z Value of Peaks to be Searched' are picked (e.g., 1496+-2)",
+                         #     textInput(
+                         #         inputId = "peakFinderTolerance",
+                         #         label = "m/z Tolerance ",
+                         #         value = "2",
+                         #         placeholder = ""
+                         #     ),
+                         # ),
+                         # 
+                         # # Input: MaterialSwitch ----
+                         # tags$div(
+                         #     title = "If two peaks are within the tolerance window for peak picking, the higher one is selected",
+                         #     materialSwitch(
+                         #         inputId = "peakFinderConflictUseMax",
+                         #         label = "Peak Conflict: Use Max Peak",
+                         #         status = "primary",
+                         #         right = TRUE,
+                         #         value = TRUE
+                         #     ),
+                         # ),
+                         # 
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Name of the file containing the results",
+                         #     textInput(
+                         #         inputId = "peakFinderSaveFileName",
+                         #         label = "Name of Save File ",
+                         #         value = "Savefile",
+                         #         placeholder = ""
+                         #     ),
+                         # ),
+                         # 
+                         # # Input: MaterialSwitch ----
+                         # tags$div(
+                         #     title = "Run Peak Finder?",
+                         #     materialSwitch(
+                         #         inputId = "peakFinderRun",
+                         #         label = "Run Peak Finder?",
+                         #         status = "primary",
+                         #         right = TRUE,
+                         #         value = FALSE
+                         #     ),
+                         # ),
+                         # 
+                         # #Run peak finder----
+                         # # tags$div(title="Run Peak Finder",
+                         # #          actionButton("runPeakFinder","Run Peak Finder"),
+                         # # ),
+                         # 
+                         # 
+                         # 
+                         # #selected.masses,
+                         # #tolerance,
+                         # #if.peak.conflict.use.max=T,
+                         # #save.file.name="Peak Finder Results",
+                         # 
+                         # 
+                         # HTML("</div>")
                          
                          
                      ),
@@ -1583,6 +1583,158 @@ shinyUI(fluidPage(
                      )
                  )
                  ),
+        tabPanel("Peak Finder",
+                 # Sidebar with a slider input for number of bins
+                 sidebarLayout(
+                     sidebarPanel(
+                         h3("Files"),
+                         
+                         # Input: Select a file ----
+                         tags$div(
+                             title = "Excel File Mass list file",
+                             fileInput(
+                                 "ExcelSheetPeakFinder",
+                                 "Upload a Mass List as an Excel File",
+                                 multiple = FALSE,
+                                 accept = c(".xlsx")
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "The row in the mass list where the data entries start",
+                             textInput(
+                                 "peaksFirstDataRowPeakFinder",
+                                 "First Data Row in Mass List",
+                                 value = "4",
+                                 width = NULL,
+                                 placeholder = NULL
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "The column in the mass list which contains the m/z values",
+                             textInput(
+                                 "peaksColumnMZPeakFinder",
+                                 "Column in the Mass List Containing m/z Values",
+                                 value = "1",
+                                 width = NULL,
+                                 placeholder = NULL
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "The column in the mass list which contains the intensity values",
+                             textInput(
+                                 "peaksColumnIntPeakFinder",
+                                 "Column in the Mass List Containing Intensity Values",
+                                 value = "3",
+                                 width = NULL,
+                                 placeholder = NULL
+                             ),
+                         ),
+
+                         # Input: Text ----
+                         tags$div(
+                             title = "The column in the mass list which contains the S/N values",
+                             textInput(
+                                 "peaksColumnSNPeakFinder",
+                                 "Column in the Mass List Containing S/N Ratios",
+                                 value = "4",
+                                 width = NULL,
+                                 placeholder = NULL
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "The first sheet in the excel file to start the peak finder",
+                             textInput(
+                                 inputId = "SheetStartPeakFinder",
+                                 label = "First sheet",
+                                 value = "1",
+                                 placeholder = "1"
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "The last sheet in the excel file where the peak finder ends. Can be either 'last' or a nuber",
+                             textInput(
+                                 inputId = "SheetEndPeakFinder",
+                                 label = "Final sheet",
+                                 value = "last",
+                                 placeholder = "last"
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "m/z value of the peaks which should be searched. If several peaks are searched, the m/z values need to be separated by comma.",
+                             textInput(
+                                 inputId = "SelectedMassesPeakFinder",
+                                 label = "m/z Value of Peaks to be Searched",
+                                 value = "",
+                                 placeholder = "Example: 1496, 1506"
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Window in dalton from which the peaks selected in 'm/z Value of Peaks to be Searched' are picked (e.g., 1496+-2)",
+                             textInput(
+                                 inputId = "TolerancePeakFinder",
+                                 label = "m/z Tolerance ",
+                                 value = "2",
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         # Input: MaterialSwitch ----
+                         tags$div(
+                             title = "If two peaks are within the tolerance window for peak picking, the higher one is selected",
+                             materialSwitch(
+                                 inputId = "ConflictUseMaxPeakFinder",
+                                 label = "Peak Conflict: Use Max Peak",
+                                 status = "primary",
+                                 right = TRUE,
+                                 value = TRUE
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Name of the file containing the results",
+                             textInput(
+                                 inputId = "SaveFileNamePeakFinder",
+                                 label = "Name of Save File ",
+                                 value = "Savefile",
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         # # Input: MaterialSwitch ----
+                         # tags$div(
+                         #     title = "Run Peak Finder?",
+                         #     materialSwitch(
+                         #         inputId = "RunPeakFinder",
+                         #         label = "Run Peak Finder?",
+                         #         status = "primary",
+                         #         right = TRUE,
+                         #         value = FALSE
+                         #     ),
+                         # ),
+                         
+                     ),
+                     
+                     # Show a plot of the generated distribution
+                     mainPanel(
+                         downloadButton('downloadDataPeakFinder', 'Download PeakFinder')
+                     )
+                 )
+        ),
         tabPanel("About", HTML("<div><h3>About</h3><p>This mass-spectrum online plotting tool is made for visualizing and labelling MALDI mass spectra. The online tool is an easy to use interface for users with no prior programming experience We plan to expand this online tool to accept other data formats to make a more general tool for mass-spectra visualization.</p><p>Citation: DOI: TBD</p><p>Creators: Bjorn Froehlich, Kevin Gill, and Anuj Joshi</p></div>"))
         
     ),
