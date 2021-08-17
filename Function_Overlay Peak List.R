@@ -66,7 +66,7 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
   
   print(mass.list.filepath)
   print(Sheet.name)
-  mass.list <- (readxl::read_excel(mass.list.filepath,sheet = Sheet.name,col_types="text",col_names=TRUE,trim_ws = TRUE))
+  mass.list <- (readxl::read_excel(mass.list.filepath,sheet = Sheet.name,col_types="text",col_names=F,trim_ws = TRUE))
   mass.list[is.na(mass.list)]<-"0"
   
   # mass.list$spectrum<-""
