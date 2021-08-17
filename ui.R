@@ -1575,6 +1575,238 @@ shinyUI(fluidPage(
                          
                          HTML("</div>"),
                          
+                         HTML(
+                             "<button class=\"accordion\">Spectrum 1 peak labelling variables</button><div class=\"panel\">"
+                         ),
+                         
+                         HTML("<button class=\"inner-accordion\">"),
+                         icon("plus-circle", class = NULL, lib = "font-awesome"),
+                         HTML("Peak and Label Selection</button><div class=\"panel\">"),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "m/z value of the peaks which should be labeled. If several peaks should be labeled, the m/z values need to be separated by comma.",
+                             textInput(
+                                 inputId = "overlaidPeaks1SelectedMasses",
+                                 label = "m/z Value of Peaks to be Labeled",
+                                 value = "",
+                                 placeholder = "Example: 1496, 1506"
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Window in dalton from which the peaks selected in 'm/z Value of Peaks to be Labeled' are picked (e.g., 1496+-2)",
+                             textInput(
+                                 inputId = "overlaidPeak1Tolerance",
+                                 label = "m/z Tolerance ",
+                                 value = "2",
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         # Input: MaterialSwitch ----
+                         tags$div(
+                             title = "If two peaks are within the tolerance window for peak picking, the higher one is selected",
+                             materialSwitch(
+                                 inputId = "overlaidPeak1ConflictUseMax",
+                                 label = "Peak Conflict: Use Max Peak",
+                                 status = "primary",
+                                 right = TRUE,
+                                 value = TRUE
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Where the peak labels should be displayed. 'r' or 'l' displays them to the right or left of the peak maximum, respectively. 'R' or 'L' displays them to the right or left of the peak at the centre of the y-axis, respectively. Numeric values, representing y-axis positions, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak). Must have as many entries (seprated by comma) as there are selected peaks",
+                             textInput(
+                                 inputId = "overlaidPeaks1LabelPosition",
+                                 label = "Label Position",
+                                 value = "l,r",
+                                 placeholder = "Example: r,R, must match length of Peaks Selected Masses"
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "First label of the peaks, must have as many entries as there are selected peaks",
+                             textInput(
+                                 inputId = "overlaidPeaks1FirstLabel",
+                                 label = "1st Label",
+                                 value = "1st label Peak #1,1st label Peak #2",
+                                 placeholder = "Example: Peak 1,Peak 2. Must have as many entries (seprated by comma) as there are selected peaks"
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Second label of the peaks, must have as many entries as there are selected peaks",
+                             textInput(
+                                 inputId = "overlaidPeaks1SecondLabel",
+                                 label = "2nd Label",
+                                 value = "2nd label Peak #1,2nd label Peak #2",
+                                 placeholder = "Example: 2nd Label P1,2nd Label P2. Must have as many entries (seprated by comma) as there are selected peaks"
+                             ),
+                         ),
+                         
+                         # Input: Checkbox Group Buttons ----
+                         tags$div(
+                             title = "Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio)",
+                             checkboxGroupButtons(
+                                 inputId = "overlaidPeaks1LabelsOn",
+                                 label = "Peak Labels Enabled",
+                                 choices = c("1st Label", "2nd label", "m/z Ratio", "Intensity", "S/N Ratio"),
+                                 status = "primary",
+                                 selected = c("1st Label", "2nd label", "m/z Ratio", "Intensity", "S/N Ratio")
+                             ),
+                         ),
+                         
+                         HTML("</div>"),
+                         
+                         HTML("</div>"),
+                         
+                         HTML(
+                             "<button class=\"accordion\">Spectrum 2 peak labelling variables</button><div class=\"panel\">"
+                         ),
+                         
+                         HTML("<button class=\"inner-accordion\">"),
+                         icon("plus-circle", class = NULL, lib = "font-awesome"),
+                         HTML("Peak and Label Selection</button><div class=\"panel\">"),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "m/z value of the peaks which should be labeled. If several peaks should be labeled, the m/z values need to be separated by comma.",
+                             textInput(
+                                 inputId = "overlaidPeaks2SelectedMasses",
+                                 label = "m/z Value of Peaks to be Labeled",
+                                 value = "",
+                                 placeholder = "Example: 1496, 1506"
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Window in dalton from which the peaks selected in 'm/z Value of Peaks to be Labeled' are picked (e.g., 1496+-2)",
+                             textInput(
+                                 inputId = "overlaidPeak2Tolerance",
+                                 label = "m/z Tolerance ",
+                                 value = "2",
+                                 placeholder = ""
+                             ),
+                         ),
+                         
+                         # Input: MaterialSwitch ----
+                         tags$div(
+                             title = "If two peaks are within the tolerance window for peak picking, the higher one is selected",
+                             materialSwitch(
+                                 inputId = "overlaidPeak2ConflictUseMax",
+                                 label = "Peak Conflict: Use Max Peak",
+                                 status = "primary",
+                                 right = TRUE,
+                                 value = TRUE
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Where the peak labels should be displayed. 'r' or 'l' displays them to the right or left of the peak maximum, respectively. 'R' or 'L' displays them to the right or left of the peak at the centre of the y-axis, respectively. Numeric values, representing y-axis positions, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak). Must have as many entries (seprated by comma) as there are selected peaks",
+                             textInput(
+                                 inputId = "overlaidPeaks2LabelPosition",
+                                 label = "Label Position",
+                                 value = "l,r",
+                                 placeholder = "Example: r,R, must match length of Peaks Selected Masses"
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "First label of the peaks, must have as many entries as there are selected peaks",
+                             textInput(
+                                 inputId = "overlaidPeaks2FirstLabel",
+                                 label = "1st Label",
+                                 value = "1st label Peak #1,1st label Peak #2",
+                                 placeholder = "Example: Peak 1,Peak 2. Must have as many entries (seprated by comma) as there are selected peaks"
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Second label of the peaks, must have as many entries as there are selected peaks",
+                             textInput(
+                                 inputId = "overlaidPeaks2SecondLabel",
+                                 label = "2nd Label",
+                                 value = "2nd label Peak #1,2nd label Peak #2",
+                                 placeholder = "Example: 2nd Label P1,2nd Label P2. Must have as many entries (seprated by comma) as there are selected peaks"
+                             ),
+                         ),
+                         
+                         # Input: Checkbox Group Buttons ----
+                         tags$div(
+                             title = "Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio)",
+                             checkboxGroupButtons(
+                                 inputId = "overlaidPeaks2LabelsOn",
+                                 label = "Peak Labels Enabled",
+                                 choices = c("1st Label", "2nd label", "m/z Ratio", "Intensity", "S/N Ratio"),
+                                 status = "primary",
+                                 selected = c("1st Label", "2nd label", "m/z Ratio", "Intensity", "S/N Ratio")
+                             ),
+                         ),
+                         
+                         HTML("</div>"),
+                         
+                         HTML("</div>"),
+                         
+                         HTML(
+                             "<button class=\"accordion\">Rounding</button><div class=\"panel\">"
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Number of digits after decimal point the m/z value is rounded to",
+                             sliderInput(
+                                 "overlaidPeaksMzLabelSigFigs",
+                                 "Round m/z value to this many digits:",
+                                 min = 0,
+                                 max = 10,
+                                 value = 1,
+                                 step = 1
+                             ),
+                         ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Number of digits after decimal point the intensity value is rounded to",
+                             sliderInput(
+                                 "overlaidPeaksIntLabelSigFigs",
+                                 "Round intensity value to this many digits:",
+                                 min = 0,
+                                 max = 10,
+                                 value = 1,
+                                 step = 1
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         # tags$div(title="Number of digits after decimal point the S/N value is rounded to",
+                         #          textInput(inputId = "peaksSnLabelSigFigs", label = "S/N Label Rounding", value = "0", placeholder = ""),
+                         # ),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Number of digits after decimal point the S/N value is rounded to",
+                             sliderInput(
+                                 "overlaidPeaksSnLabelSigFigs",
+                                 "Round S/N value to this many digits:",
+                                 min = 0,
+                                 max = 10,
+                                 value = 1,
+                                 step = 1
+                             ),
+                         ),
+                         
+                         HTML("</div>"),
+                         
                      ),
                      
                      # Show a plot of the generated distribution

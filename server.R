@@ -880,39 +880,39 @@ shinyServer(function(input, output, session) {
         ###First spectrum
         #peaks.mass.list.filepath.first.spectrum<-"PTEN+p110a mix vs seq LP.xlsx" #Filepath of mass list 
         #peaks.sheet.name.first.spectrum<-"180413_PTEN_1st_PTEN_High_03_%%" #Name of the xlsx sheet 
-        peaks.selected.masses.first.spectrum<-c(1397,1407) #m/z value of the peaks which should be labeled, numeric vector
-        peaks.peak.tolerance.first.spectrum<-2 #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
+        #peaks.selected.masses.first.spectrum<-c(1397,1407) #m/z value of the peaks which should be labeled, numeric vector
+        #peaks.peak.tolerance.first.spectrum<-2 #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
         peaks.label.line.width.first.spectrum<-2 #line width of the line connecting the peak to the peak labels, numeric
         peaks.label.length.first.spectrum<-c(0.05,0.05) #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
         peaks.label.spread.first.spectrum<- 0.075 #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
         peaks.label.line.lty.first.spectrum<-3 #Line type of the line connecting the peak to the peak labels, numeric
         peaks.label.line.col.first.spectrum<-c("black","red") #Line type of the line connecting the peak to the peak labels, character or color hex code
-        peaks.first.label.first.spectrum<- c("S1 Peak 1","S1 Peak 2") #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
-        peaks.second.label.first.spectrum<- c("2nd Label P1","2nd Label P2") #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
-        peaks.labels.on.first.spectrum<- c(1,1,1,1,1) #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
-        peaks.label.position.first.spectrum<-c("l","R") #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
+        #peaks.first.label.first.spectrum<- c("S1 Peak 1","S1 Peak 2") #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+        #peaks.second.label.first.spectrum<- c("2nd Label P1","2nd Label P2") #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+        #peaks.labels.on.first.spectrum<- c(1,1,1,1,1) #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
+        #peaks.label.position.first.spectrum<-c("l","R") #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
         peaks.fontsize.first.spectrum<-1.5 #Fontsize of the peak labels, numeric
-        peaks.if.peak.conflict.use.max.first.spectrum<-T #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
-        peaks.mz.label.sigfigs<-0 #number of signifcant digits the m/z value is rounded to, numeric
-        peaks.int.label.sigfigs<-2 #number of signifcant digits the intensity value is rounded to, numeric
-        peaks.sn.label.sigfigs<-0 #number of signifcant digits the S/N value is rounded to, numeric
+        #peaks.if.peak.conflict.use.max.first.spectrum<-T #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
+        #peaks.mz.label.sigfigs<-0 #number of signifcant digits the m/z value is rounded to, numeric
+        #peaks.int.label.sigfigs<-2 #number of signifcant digits the intensity value is rounded to, numeric
+        #peaks.sn.label.sigfigs<-0 #number of signifcant digits the S/N value is rounded to, numeric
 
         ###Second spectrum
         #peaks.mass.list.filepath.second.spectrum<-"PTEN+p110a mix vs seq LP.xlsx" #Filepath of mass list 
         #peaks.sheet.name.second.spectrum<-"180413_PTEN_1st_PI3K_High_03_%%" #Name of the xlsx sheet 
-        peaks.selected.masses.second.spectrum<-c(1496) #m/z value of the peaks which should be labeled, numeric vector
-        peaks.peak.tolerance.second.spectrum<-2 #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
+        #peaks.selected.masses.second.spectrum<-c(1496) #m/z value of the peaks which should be labeled, numeric vector
+        #peaks.peak.tolerance.second.spectrum<-2 #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
         peaks.label.line.width.second.spectrum<-2 #line width of the line connecting the peak to the peak labels, numeric
         peaks.label.length.second.spectrum<-c(0.025) #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
         peaks.label.spread.second.spectrum<- 0.075 #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
         peaks.label.line.lty.second.spectrum<-3 #Line type of the line connecting the peak to the peak labels, numeric
         peaks.label.line.col.second.spectrum<-"black" #Line type of the line connecting the peak to the peak labels, character or color hex code
-        peaks.first.label.second.spectrum<- c("S2 Peak 1") #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
-        peaks.second.label.second.spectrum<- c("2nd Label P1") #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
-        peaks.labels.on.second.spectrum<- c(1,1,1,1,1) #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
-        peaks.label.position.second.spectrum<-c(1) #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
+        #peaks.first.label.second.spectrum<- c("S2 Peak 1") #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+        #peaks.second.label.second.spectrum<- c("2nd Label P1") #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+        #peaks.labels.on.second.spectrum<- c(1,1,1,1,1) #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
+        #peaks.label.position.second.spectrum<-c(1) #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
         peaks.fontsize.second.spectrum<-1.5 #Fontsize of the peak labels, numeric
-        peaks.if.peak.conflict.use.max.second.spectrum<-T #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
+        #peaks.if.peak.conflict.use.max.second.spectrum<-T #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
 
         #Variables for extra labels in plot
         extra.labels.on<-T #Should additional text be displayed in plot, as TRUE/FALSE
@@ -1084,6 +1084,127 @@ shinyServer(function(input, output, session) {
         
         #if spectrum.normalization.method=3, then this m.z value will be used or normalization of 2nd spectrum
         spectrum.normalization.peak.second.spectrum<-as.numeric(input$overlaidSpectrumNormalizationPeak2)
+        
+        
+        # Spectrum 1 peak labelling variables
+        
+        #m/z value of the peaks which should be labeled, numeric vector
+        if (input$overlaidPeaks1SelectedMasses == "") {
+            peaks.selected.masses.first.spectrum<-c(0)
+        }
+        else {
+            peaks.selected.masses.first.spectrum<-c(as.numeric(unlist(strsplit(input$overlaidPeaks1SelectedMasses,","))))
+        }
+        
+        #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
+        peaks.peak.tolerance.first.spectrum<-as.numeric(input$overlaidPeak1Tolerance)
+        
+        #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
+        peaks.if.peak.conflict.use.max.first.spectrum<-input$overlaidPeak1ConflictUseMax
+        
+        #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
+        peaks.label.position.first.spectrum<-c(unlist(strsplit(input$overlaidPeaks1LabelPosition,",")))
+        
+        #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+        if (input$overlaidPeaks1FirstLabel == "") {
+            peaks.first.label.first.spectrum<-""
+        }
+        else {
+            peaks.first.label.first.spectrum<-c(unlist(strsplit(input$overlaidPeaks1FirstLabel,",")))
+        }
+        
+        
+        #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+        if (input$overlaidPeaks1SecondLabel == "") {
+            peaks.second.label.first.spectrum<-""
+        }
+        else {
+            peaks.second.label.first.spectrum<-c(unlist(strsplit(input$overlaidPeaks1SecondLabel,",")))
+        }
+        
+        #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
+        l1<-0
+        l2<-0
+        l3<-0
+        l4<-0
+        l5<-0
+        
+        for (i in seq_len(length(input$overlaidPeaks1LabelsOn))) {
+            if (input$overlaidPeaks1LabelsOn[i] == "1st Label") {l1<-1}
+            if (input$overlaidPeaks1LabelsOn[i] == "2nd label") {l2<-1}
+            if (input$overlaidPeaks1LabelsOn[i] == "m/z Ratio") {l3<-1}
+            if (input$overlaidPeaks1LabelsOn[i] == "Intensity") {l4<-1}
+            if (input$overlaidPeaks1LabelsOn[i] == "S/N Ratio") {l5<-1}
+        }
+        
+        peaks.labels.on.first.spectrum<-c(l1,l2,l3,l4,l5)
+        
+        
+        # Spectrum 2 peak labelling variables
+        
+        #m/z value of the peaks which should be labeled, numeric vector
+        if (input$overlaidPeaks2SelectedMasses == "") {
+            peaks.selected.masses.second.spectrum<-c(0)
+        }
+        else {
+            peaks.selected.masses.second.spectrum<-c(as.numeric(unlist(strsplit(input$overlaidPeaks2SelectedMasses,","))))
+        }
+        
+        #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
+        peaks.peak.tolerance.second.spectrum<-as.numeric(input$overlaidPeak2Tolerance)
+        
+        #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
+        peaks.if.peak.conflict.use.max.second.spectrum<-input$overlaidPeak2ConflictUseMax
+        
+        #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
+        peaks.label.position.second.spectrum<-c(unlist(strsplit(input$overlaidPeaks2LabelPosition,",")))
+        
+        #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+        if (input$overlaidPeaks2FirstLabel == "") {
+            peaks.first.label.second.spectrum<-""
+        }
+        else {
+            peaks.first.label.second.spectrum<-c(unlist(strsplit(input$overlaidPeaks2FirstLabel,",")))
+        }
+        
+        
+        #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
+        if (input$overlaidPeaks2SecondLabel == "") {
+            peaks.second.label.second.spectrum<-""
+        }
+        else {
+            peaks.second.label.second.spectrum<-c(unlist(strsplit(input$overlaidPeaks2SecondLabel,",")))
+        }
+        
+        #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
+        l1<-0
+        l2<-0
+        l3<-0
+        l4<-0
+        l5<-0
+        
+        for (i in seq_len(length(input$overlaidPeaks2LabelsOn))) {
+            if (input$overlaidPeaks2LabelsOn[i] == "1st Label") {l1<-1}
+            if (input$overlaidPeaks2LabelsOn[i] == "2nd label") {l2<-1}
+            if (input$overlaidPeaks2LabelsOn[i] == "m/z Ratio") {l3<-1}
+            if (input$overlaidPeaks2LabelsOn[i] == "Intensity") {l4<-1}
+            if (input$overlaidPeaks2LabelsOn[i] == "S/N Ratio") {l5<-1}
+        }
+        
+        peaks.labels.on.second.spectrum<-c(l1,l2,l3,l4,l5)
+        
+        
+        # Rounding variables
+        
+        #Number of signifcant digits the m/z value is rounded to, numeric
+        peaks.mz.label.sigfigs<-as.numeric(input$overlaidPeaksMzLabelSigFigs)
+        
+        #Number of signifcant digits the intensity value is rounded to, numeric
+        peaks.int.label.sigfigs<-as.numeric(input$overlaidPeaksIntLabelSigFigs)
+        
+        #Number of signifcant digits the S/N value is rounded to, numeric
+        peaks.sn.label.sigfigs<-as.numeric(input$overlaidPeaksSnLabelSigFigs)
+        
         
       
 
