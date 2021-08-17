@@ -108,8 +108,7 @@ shinyServer(function(input, output, session) {
             input$SheetStartPeakFinder,
             input$SheetEndPeakFinder,
             input$SelectedMassesPeakFinder,
-            input$TolerancePeakFinder,
-            input$ConflictUseMaxPeakFinder)
+            input$TolerancePeakFinder)
         
         inFile2 <- input$ExcelSheetPeakFinder
         
@@ -134,22 +133,45 @@ shinyServer(function(input, output, session) {
           peaks.column.mz<-as.numeric(input$peaksColumnMZPeakFinder)
         }
         
+        #Which columns, other than m/z, to pull from the mass list, numeric
+        if (input$peaksColumnsExtraPeakFinder == "") {
+          peaks.columns.extra<-c(3,4)
+        }
+        else {
+          peaks.columns.extra<-c(as.numeric(unlist(strsplit(input$peaksColumnsExtraPeakFinder,","))))
+        }
         
-        #column in the excel sheet containing Intensity values, numeric
-        if (input$peaksColumnIntPeakFinder == "") {
-          peaks.column.int<-3
+        #Which row contains the column names, numeric
+        if (input$peaksRowWithColumnNamesPeakFinder == "") {
+          peaks.row.with.column.names<-3
         }
         else {
-          peaks.column.int<-as.numeric(input$peaksColumnIntPeakFinder)
+          peaks.row.with.column.names<-as.numeric(input$peaksRowWithColumnNamesPeakFinder)
         }
-
-        #column in the excel sheet containing S/N values, numeric
-        if (input$peaksColumnSNPeakFinder == "") {
-          peaks.column.sn<-4
-        }
-        else {
-          peaks.column.sn<-as.numeric(input$peaksColumnSNPeakFinder)
-        }
+        
+        # #Names of the extra columns, numeric
+        # if (input$peaksColumnsExtraNamesPeakFinder == "") {
+        #   peaks.columns.extra.names<-c("Intensity","SN")
+        # }
+        # else {
+        #   peaks.columns.extra.names<-c(as.character(unlist(strsplit(input$peaksColumnsExtraNamesPeakFinder,","))))
+        # }
+        # 
+        # #column in the excel sheet containing Intensity values, numeric
+        # if (input$peaksColumnIntPeakFinder == "") {
+        #   peaks.column.int<-3
+        # }
+        # else {
+        #   peaks.column.int<-as.numeric(input$peaksColumnIntPeakFinder)
+        # }
+        # 
+        # #column in the excel sheet containing S/N values, numeric
+        # if (input$peaksColumnSNPeakFinder == "") {
+        #   peaks.column.sn<-4
+        # }
+        # else {
+        #   peaks.column.sn<-as.numeric(input$peaksColumnSNPeakFinder)
+        # }
         
         #PEAK FINDER FUNCTION
         ##The first sheet to be analysed, numeric
@@ -173,8 +195,8 @@ shinyServer(function(input, output, session) {
         ##Name of the results file, character
         peakFinder.save.file.name<-input$SaveFileNamePeakFinder
         
-        ##If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
-        peakFinder.if.peak.conflict.use.max<-input$ConflictUseMaxPeakFinder
+        # ##If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
+        # peakFinder.if.peak.conflict.use.max<-input$ConflictUseMaxPeakFinder
         
         try(test.search<-peak.finder(mass.list.filepath = peaks.mass.list.filepath,
                                   sheet.start=peakFinder.sheet.start,
@@ -182,10 +204,13 @@ shinyServer(function(input, output, session) {
                                   selected.masses=peakFinder.selected.masses,
                                   first.data.row=peaks.first.data.row,
                                   column.mz = peaks.column.mz,
-                                  column.int = peaks.column.int,
-                                  column.sn = peaks.column.sn,
+                                  columns.extra = peaks.columns.extra,
+                                  #columns.extra.names = peaks.columns.extra.names,
+                                  row.with.column.names = peaks.row.with.column.names,
+                                  #column.int = peaks.column.int,
+                                  #column.sn = peaks.column.sn,
                                   tolerance=peakFinder.tolerance,
-                                  if.peak.conflict.use.max=peakFinder.if.peak.conflict.use.max,
+                                  #if.peak.conflict.use.max=peakFinder.if.peak.conflict.use.max,
                                   save.file.name=peakFinder.save.file.name,
                                   save.file = F))
         #print(test.search)
