@@ -1626,11 +1626,11 @@ shinyUI(fluidPage(
                          
                          # Input: Text ----
                          tags$div(
-                             title = "The column in the mass list which contains the intensity values",
+                             title = "Which columns, other than m/z, to pull from the mass list. Separated by comma (i.e. 3,4)",
                              textInput(
-                                 "peaksColumnIntPeakFinder",
-                                 "Column in the Mass List Containing Intensity Values",
-                                 value = "3",
+                                 "peaksColumnsExtraPeakFinder",
+                                 "Additional Columns",
+                                 value = "3,4",
                                  width = NULL,
                                  placeholder = NULL
                              ),
@@ -1638,15 +1638,51 @@ shinyUI(fluidPage(
 
                          # Input: Text ----
                          tags$div(
-                             title = "The column in the mass list which contains the S/N values",
+                             title = "Which row in the mass list contains the column names?",
                              textInput(
-                                 "peaksColumnSNPeakFinder",
-                                 "Column in the Mass List Containing S/N Ratios",
-                                 value = "4",
+                                 "peaksRowWithColumnNamesPeakFinder",
+                                 "Row Containing the Column Names",
+                                 value = "3",
                                  width = NULL,
                                  placeholder = NULL
                              ),
                          ),
+                         
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Names of the columns selected above. Separated by comma (i.e. 'Intensity','S/N')",
+                         #     textInput(
+                         #         "peaksColumnsExtraNamesPeakFinder",
+                         #         "Names of Additional Columns",
+                         #         value = "Intensity,SN",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
+                         
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "The column in the mass list which contains the intensity values",
+                         #     textInput(
+                         #         "peaksColumnIntPeakFinder",
+                         #         "Column in the Mass List Containing Intensity Values",
+                         #         value = "3",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
+                         # 
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "The column in the mass list which contains the S/N values",
+                         #     textInput(
+                         #         "peaksColumnSNPeakFinder",
+                         #         "Column in the Mass List Containing S/N Ratios",
+                         #         value = "4",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
                          
                          # Input: Text ----
                          tags$div(
@@ -1661,7 +1697,7 @@ shinyUI(fluidPage(
                          
                          # Input: Text ----
                          tags$div(
-                             title = "The last sheet in the excel file where the peak finder ends. Can be either 'last' or a nuber",
+                             title = "The last sheet in the excel file where the peak finder ends. Can be either 'last' or a number",
                              textInput(
                                  inputId = "SheetEndPeakFinder",
                                  label = "Final sheet",
@@ -1692,17 +1728,17 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # Input: MaterialSwitch ----
-                         tags$div(
-                             title = "If two peaks are within the tolerance window for peak picking, the higher one is selected",
-                             materialSwitch(
-                                 inputId = "ConflictUseMaxPeakFinder",
-                                 label = "Peak Conflict: Use Max Peak",
-                                 status = "primary",
-                                 right = TRUE,
-                                 value = TRUE
-                             ),
-                         ),
+                         # # Input: MaterialSwitch ----
+                         # tags$div(
+                         #     title = "If two peaks are within the tolerance window for peak picking, the higher one is selected",
+                         #     materialSwitch(
+                         #         inputId = "ConflictUseMaxPeakFinder",
+                         #         label = "Peak Conflict: Use Max Peak",
+                         #         status = "primary",
+                         #         right = TRUE,
+                         #         value = TRUE
+                         #     ),
+                         # ),
                          
                          # Input: Text ----
                          tags$div(
