@@ -824,8 +824,8 @@ shinyServer(function(input, output, session) {
         #spectrum.lower.range.limit.xaxis<- 1350 #Lower end of the x-axis, numeric  
         #spectrum.upper.range.limit.yaxis<-1.5 #Upper end of the y-axis, numeric  
         #spectrum.lower.range.limit.yaxis<-0 #Lower end of the y-axis, numeric  
-        spectrum.line.type.first.spectrum<-1 #Line type of first mass spectrum, numeric
-        spectrum.line.type.second.spectrum<-2 #Line type of second mass spectrum, numeric
+        #spectrum.line.type.first.spectrum<-1 #Line type of first mass spectrum, numeric
+        #spectrum.line.type.second.spectrum<-2 #Line type of second mass spectrum, numeric
         #spectrum.axis.fontsize<-3 #Font size of the axis labels, numeric
         #spectrum.title.fontsize<-2 #Font size of the main label
         #spectrum.axis.ticks.size<-2 #Font size of the axis ticks, numeric
@@ -833,8 +833,8 @@ shinyServer(function(input, output, session) {
         #spectrum.mass.spectrum.color.second.spectrum<- "steelblue3" #Color of the 1st mass spectrum, character or color hex code
         #spectrum.mass.spectrum.line.width.first.spectrum<- 2 #Line width of the first mass spectrum, numeric
         #spectrum.mass.spectrum.line.width.second.spectrum<- 2 #Line width of the second mass spectrum, numeric
-        spectrum.label.first.spectrum<- "1st spectrum" #Label (in legend) of first mass spectrum, character
-        spectrum.label.second.spectrum<- "2nd spectrum" #Label (in legend) of 2nd mass spectrum, character
+        #spectrum.label.first.spectrum<- "1st spectrum" #Label (in legend) of first mass spectrum, character
+        #spectrum.label.second.spectrum<- "2nd spectrum" #Label (in legend) of 2nd mass spectrum, character
         #spectrum.custom.axes<-T #Whether or not the axis ticks are at custom points, boolean
         #spectrum.custom.xaxis.pdj<-1 #Distance of the x-axis tick mark labels from the x-axis ticks (if custom axes is true), numeric
         #spectrum.custom.yaxis.pdj<-(-1) #Distance of the y-axis tick mark labels from the y-axis ticks (if custom axes is true), numeric
@@ -842,10 +842,10 @@ shinyServer(function(input, output, session) {
         #spectrum.custom.axis.ann.title.line<- 1 #Distance of the main label from the mass spectrum, numeric
         #spectrum.xaxis.interval<-40 #Interval of x-axis ticks (if custom axes is true), numeric
         #spectrum.yaxis.interval<-0.5 #Interval of y-axis ticks (if custom axes is true), numeric
-        spectrum.legend.yesno<-1 #Whether a legend for both spectra should be shown. 1= yes, 0=no
-        spectrum.legend.position<-"topright" #Position of legend in plot. Same as normal R legend position commands (i.e. "topright","top","topleft","bottomleft","bottom","bottomright")
-        spectrum.legend.size<-2 #Size of legend, numeric
-        spectrum.legend.lwd<-1 #lwd of lines in legend
+        #spectrum.legend.yesno<-1 #Whether a legend for both spectra should be shown. 1= yes, 0=no
+        #spectrum.legend.position<-"topright" #Position of legend in plot. Same as normal R legend position commands (i.e. "topright","top","topleft","bottomleft","bottom","bottomright")
+        #spectrum.legend.size<-2 #Size of legend, numeric
+        #spectrum.legend.lwd<-1 #lwd of lines in legend
         #spectrum.normalize.spectrum<-T #Whether or not the spectrum should be normalized, as TRUE/FALSE
         #spectrum.normalization.method<-3 #which method to use for normalization (values of 1-3): 1= by max peak intensity in entire spectrum, 2= by max peak intensity in selected mass range, 3= by peak intensity of a selected peak
         #spectrum.normalization.peak.first.spectrum<-1397 #if spectrum.normalization.method=3, then this m.z value will be used or normaization of 1st spectrum
@@ -857,16 +857,16 @@ shinyServer(function(input, output, session) {
         #peaks.sheet.name.first.spectrum<-"180413_PTEN_1st_PTEN_High_03_%%" #Name of the xlsx sheet 
         #peaks.selected.masses.first.spectrum<-c(1397,1407) #m/z value of the peaks which should be labeled, numeric vector
         #peaks.peak.tolerance.first.spectrum<-2 #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
-        peaks.label.line.width.first.spectrum<-2 #line width of the line connecting the peak to the peak labels, numeric
-        peaks.label.length.first.spectrum<-c(0.05,0.05) #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
-        peaks.label.spread.first.spectrum<- 0.075 #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
-        peaks.label.line.lty.first.spectrum<-3 #Line type of the line connecting the peak to the peak labels, numeric
-        peaks.label.line.col.first.spectrum<-c("black","red") #Line type of the line connecting the peak to the peak labels, character or color hex code
+        #peaks.label.line.width.first.spectrum<-2 #line width of the line connecting the peak to the peak labels, numeric
+        #peaks.label.length.first.spectrum<-c(0.05,0.05) #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
+        #peaks.label.spread.first.spectrum<- 0.075 #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
+        #peaks.label.line.lty.first.spectrum<-3 #Line type of the line connecting the peak to the peak labels, numeric
+        #peaks.label.line.col.first.spectrum<-c("black","red") #Line type of the line connecting the peak to the peak labels, character or color hex code
         #peaks.first.label.first.spectrum<- c("S1 Peak 1","S1 Peak 2") #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
         #peaks.second.label.first.spectrum<- c("2nd Label P1","2nd Label P2") #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
         #peaks.labels.on.first.spectrum<- c(1,1,1,1,1) #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
         #peaks.label.position.first.spectrum<-c("l","R") #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
-        peaks.fontsize.first.spectrum<-1.5 #Fontsize of the peak labels, numeric
+        #peaks.fontsize.first.spectrum<-1.5 #Fontsize of the peak labels, numeric
         #peaks.if.peak.conflict.use.max.first.spectrum<-T #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
         #peaks.mz.label.sigfigs<-0 #number of signifcant digits the m/z value is rounded to, numeric
         #peaks.int.label.sigfigs<-2 #number of signifcant digits the intensity value is rounded to, numeric
@@ -877,16 +877,16 @@ shinyServer(function(input, output, session) {
         #peaks.sheet.name.second.spectrum<-"180413_PTEN_1st_PI3K_High_03_%%" #Name of the xlsx sheet 
         #peaks.selected.masses.second.spectrum<-c(1496) #m/z value of the peaks which should be labeled, numeric vector
         #peaks.peak.tolerance.second.spectrum<-2 #Window in dalton from the peaks selected in 'peaks.selected.masses' are picked (e.g., 1496+-2), numeric
-        peaks.label.line.width.second.spectrum<-2 #line width of the line connecting the peak to the peak labels, numeric
-        peaks.label.length.second.spectrum<-c(0.025) #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
-        peaks.label.spread.second.spectrum<- 0.075 #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
-        peaks.label.line.lty.second.spectrum<-3 #Line type of the line connecting the peak to the peak labels, numeric
-        peaks.label.line.col.second.spectrum<-"black" #Line type of the line connecting the peak to the peak labels, character or color hex code
+        #peaks.label.line.width.second.spectrum<-2 #line width of the line connecting the peak to the peak labels, numeric
+        #peaks.label.length.second.spectrum<-c(0.025) #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
+        #peaks.label.spread.second.spectrum<- 0.075 #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
+        #peaks.label.line.lty.second.spectrum<-3 #Line type of the line connecting the peak to the peak labels, numeric
+        #peaks.label.line.col.second.spectrum<-"black" #Line type of the line connecting the peak to the peak labels, character or color hex code
         #peaks.first.label.second.spectrum<- c("S2 Peak 1") #First label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
         #peaks.second.label.second.spectrum<- c("2nd Label P1") #Second label of the peaks, character vector of equal length of 'peaks.selected.masses' vector
         #peaks.labels.on.second.spectrum<- c(1,1,1,1,1) #Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio), 1= label is on, 0= label is off
         #peaks.label.position.second.spectrum<-c(1) #Where the peak labels should be displayed. "r" or "l" displays them to the right or left of the peak maximum. "R" or "L" displays them to the right or left of the peak at the centre of the y-axis. Numeric values, representing y-axis position, are also possible, for example 20000 or -20000 (positive value= to the right of peak, negative value= to the left of the peak)
-        peaks.fontsize.second.spectrum<-1.5 #Fontsize of the peak labels, numeric
+        #peaks.fontsize.second.spectrum<-1.5 #Fontsize of the peak labels, numeric
         #peaks.if.peak.conflict.use.max.second.spectrum<-T #If two peaks are within the tolerance window for peak picking, the higher one is selected, boolean
 
         #Variables for extra labels in plot
@@ -972,6 +972,12 @@ shinyServer(function(input, output, session) {
         #Line width of the second mass spectrum, numeric
         spectrum.mass.spectrum.line.width.second.spectrum<-input$overlaidSpectrumLineWidth2
         
+        #Line type of first mass spectrum, numeric
+        spectrum.line.type.first.spectrum<-as.numeric(input$overlaidSpectrumLineType1)
+        
+        #Line type of second mass spectrum, numeric
+        spectrum.line.type.second.spectrum<-as.numeric(input$overlaidSpectrumLineType2)
+        
         #Upper end of the x-axis, numeric
         spectrum.upper.range.limit.xaxis<-input$overlaidSpectrumRangeXAxis[2]
         
@@ -998,11 +1004,8 @@ shinyServer(function(input, output, session) {
         
         #Distance of the y-axis tick mark labels from the y-axis ticks (if custom axes is true), numeric
         spectrum.custom.yaxis.pdj<-(input$overlaidSpectrumCustomYAxisPdj)
-        
-        #Font type the spectrum, character
-        #spectrum.fonttype<-input$spectrumFontType
 
-                #Font size of the axis labels, numeric
+        #Font size of the axis labels, numeric
         spectrum.axis.fontsize<-input$overlaidSpectrumAxisFontSize
         
         #Font size of the main label
@@ -1061,6 +1064,27 @@ shinyServer(function(input, output, session) {
         spectrum.normalization.peak.second.spectrum<-as.numeric(input$overlaidSpectrumNormalizationPeak2)
         
         
+        # Legend variables
+        
+        #Whether a legend for both spectra should be shown. 1= yes, 0=no
+        spectrum.legend.yesno<-input$overlaidSpectrumLegend
+        
+        #Label (in legend) of first mass spectrum, character
+        spectrum.label.first.spectrum<- input$overlaidSpectrumLegendLabel1
+        
+        #Label (in legend) of 2nd mass spectrum, character
+        spectrum.label.second.spectrum<- input$overlaidSpectrumLegendLabel2
+        
+        #Position of legend in plot. Same as normal R legend position commands (i.e. "topright","top","topleft","bottomleft","bottom","bottomright")
+        spectrum.legend.position<-input$overlaidSpectrumLegendPosition
+        
+        #Size of legend, numeric
+        spectrum.legend.size<-as.numeric(input$overlaidSpectrumLegendSize)
+        
+        #lwd of lines in legend
+        spectrum.legend.lwd<-as.numeric(input$overlaidSpectrumLegendLineWidth)
+        
+        
         # Spectrum 1 peak labelling variables
         
         #m/z value of the peaks which should be labeled, numeric vector
@@ -1113,6 +1137,34 @@ shinyServer(function(input, output, session) {
         }
         
         peaks.labels.on.first.spectrum<-c(l1,l2,l3,l4,l5)
+        
+        #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
+        if (input$overlaidPeaksLabelLength1 == "") {
+          peaks.label.length.first.spectrum<-c(0)
+        }
+        else {
+          peaks.label.length.first.spectrum<-c(as.numeric(unlist(strsplit(input$overlaidPeaksLabelLength1,","))))
+        }
+        
+        #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
+        peaks.label.spread.first.spectrum<-as.numeric(input$overlaidPeaksLabelSpread1)
+        
+        #Line type of the line connecting the peak to the peak labels, numeric
+        peaks.label.line.lty.first.spectrum<-as.numeric(input$overlaidPeaksLabelLineType1)
+        
+        #Line type of the line connecting the peak to the peak labels, character or color hex code
+        if (input$overlaidPeaksLabelLineColour1 == "") {
+          peaks.label.line.col.first.spectrum<-""
+        }
+        else {
+          peaks.label.line.col.first.spectrum<-c(unlist(strsplit(input$overlaidPeaksLabelLineColour1,",")))
+        }
+        
+        #line width of the line connecting the peak to the peak labels
+        peaks.label.line.width.first.spectrum<-input$overlaidPeakLineWidth1
+        
+        #Fontsize of the peak labels, numeric
+        peaks.fontsize.first.spectrum<-as.numeric(input$overlaidPeaksFontSize1)
         
         
         # Spectrum 2 peak labelling variables
@@ -1167,6 +1219,34 @@ shinyServer(function(input, output, session) {
         }
         
         peaks.labels.on.second.spectrum<-c(l1,l2,l3,l4,l5)
+        
+        #Distance of the peak labels from the peak, numeric vector (equal length of 'peaks.selected.masses' vector)
+        if (input$overlaidPeaksLabelLength2 == "") {
+          peaks.label.length.second.spectrum<-c(0)
+        }
+        else {
+          peaks.label.length.second.spectrum<-c(as.numeric(unlist(strsplit(input$overlaidPeaksLabelLength2,","))))
+        }
+        
+        #Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart, numeric
+        peaks.label.spread.second.spectrum<-as.numeric(input$overlaidPeaksLabelSpread2)
+        
+        #Line type of the line connecting the peak to the peak labels, numeric
+        peaks.label.line.lty.second.spectrum<-as.numeric(input$overlaidPeaksLabelLineType2)
+        
+        #Line type of the line connecting the peak to the peak labels, character or color hex code
+        if (input$overlaidPeaksLabelLineColour2 == "") {
+          peaks.label.line.col.second.spectrum<-""
+        }
+        else {
+          peaks.label.line.col.second.spectrum<-c(unlist(strsplit(input$overlaidPeaksLabelLineColour2,",")))
+        }
+        
+        #Line width of the line connecting the peak to the peak labels
+        peaks.label.line.width.second.spectrum<-input$overlaidPeakLineWidth2
+        
+        #Fontsize of the peak labels, numeric
+        peaks.fontsize.second.spectrum<-as.numeric(input$overlaidPeaksFontSize2)
         
         
         # Rounding variables
