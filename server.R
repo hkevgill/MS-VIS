@@ -237,10 +237,7 @@ shinyServer(function(input, output, session) {
     )
     
     output$singleSpectrum <- renderImage({
-        print(input$file1)
         req(input$file1)
-        #req(input$file2)
-        #req(input$peaksSheetName)
         
         inFile1 <- input$file1
         inFile2 <- input$file2
@@ -932,10 +929,6 @@ shinyServer(function(input, output, session) {
         #Files
         req(input$overlaidSpectrumFile1)
         req(input$overlaidSpectrumFile2)
-        req(input$overlaidMassListFile1)
-        req(input$overlaidMassListFile2)
-        req(input$overlaidPeaksSheetName1)
-        req(input$overlaidPeaksSheetName2)
         
         overlaidSpectrumFile1 <- input$overlaidSpectrumFile1
         overlaidSpectrumFile2 <- input$overlaidSpectrumFile2
