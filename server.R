@@ -14,6 +14,7 @@ source("Function_Read Mass List.R")
 source("Function_Plot single MS.R")
 source("Function_Plot Overlaid MS.R")
 source("Function_Overlay Peak List.R")
+source("Function_Plot Mirror MS.R")
 source("Function_Peak Finder.R")
 
 #Variables from website-----
@@ -1350,46 +1351,91 @@ shinyServer(function(input, output, session) {
         })
 
 
-        try(spectrum<-mass.spectrum.overlaid.create(first.spectrum.rawfile.path = spectrum.first.spectrum.filepath,
-                                                second.spectrum.rawfile.path = spectrum.second.spectrum.filepath,
-                                                separator=spectrum.separator,
-                                                headerTF=spectrum.headerTF,
-                                                xaxis.title=spectrum.xaxis.label,
-                                                yaxis.title=spectrum.yaxis.label,
-                                                spectrum.title=spectrum.main.label,
-                                                first.spectrum.upper.range.limit = spectrum.upper.range.limit.xaxis,
-                                                first.spectrum.lower.range.limit = spectrum.lower.range.limit.xaxis,
-                                                second.spectrum.upper.range.limit = spectrum.upper.range.limit.xaxis,
-                                                second.spectrum.lower.range.limit = spectrum.lower.range.limit.xaxis,
-                                                axis.fontsize=spectrum.axis.fontsize,
-                                                title.fontsize=spectrum.title.fontsize,
-                                                axis.ticks.fontsize=spectrum.axis.ticks.size,
-                                                spectrum.y.axis.lower.limit = spectrum.lower.range.limit.yaxis,
-                                                spectrum.y.axis.upper.limit = spectrum.upper.range.limit.yaxis,
-                                                first.spectrum.color = spectrum.mass.spectrum.color.first.spectrum,
-                                                second.spectrum.color = spectrum.mass.spectrum.color.second.spectrum,
-                                                first.spectrum.line.type = spectrum.line.type.first.spectrum,
-                                                second.spectrum.line.type = spectrum.line.type.second.spectrum,
-                                                first.spectrum.lwd = spectrum.mass.spectrum.line.width.first.spectrum,
-                                                second.spectrum.lwd = spectrum.mass.spectrum.line.width.second.spectrum,
-                                                first.spectrum.label = spectrum.label.first.spectrum,
-                                                second.spectrum.label = spectrum.label.second.spectrum,
-                                                legend.yesno = spectrum.legend.yesno,
-                                                legend.position = spectrum.legend.position,
-                                                legend.size = spectrum.legend.size,
-                                                legend.lwd = spectrum.legend.lwd,
-                                                custom.axis.ann = T,
-                                                custom.y.axis = spectrum.custom.axes,
-                                                custom.axis = spectrum.custom.axes,
-                                                custom.axis.pdj = spectrum.custom.xaxis.pdj,
-                                                custom.y.axis.pdj = spectrum.custom.yaxis.pdj,
-                                                custom.axis.ann.line = spectrum.custom.axis.ann.line,
-                                                custom.axis.ann.title.line = spectrum.custom.axis.ann.title.line,
-                                                xaxis.interval = spectrum.xaxis.interval,
-                                                yaxis.interval = spectrum.yaxis.interval,
-                                                normalize.spectrum = spectrum.normalize.spectrum,
-                                                first.spectrum.normalization.value = first.spectrum.normalization.value,
-                                                second.spectrum.normalization.value = second.spectrum.normalization.value))
+        if (input$overlaidMirrorSpectrum == FALSE) {
+          try(spectrum<-mass.spectrum.overlaid.create(first.spectrum.rawfile.path = spectrum.first.spectrum.filepath,
+                                                  second.spectrum.rawfile.path = spectrum.second.spectrum.filepath,
+                                                  separator=spectrum.separator,
+                                                  headerTF=spectrum.headerTF,
+                                                  xaxis.title=spectrum.xaxis.label,
+                                                  yaxis.title=spectrum.yaxis.label,
+                                                  spectrum.title=spectrum.main.label,
+                                                  first.spectrum.upper.range.limit = spectrum.upper.range.limit.xaxis,
+                                                  first.spectrum.lower.range.limit = spectrum.lower.range.limit.xaxis,
+                                                  second.spectrum.upper.range.limit = spectrum.upper.range.limit.xaxis,
+                                                  second.spectrum.lower.range.limit = spectrum.lower.range.limit.xaxis,
+                                                  axis.fontsize=spectrum.axis.fontsize,
+                                                  title.fontsize=spectrum.title.fontsize,
+                                                  axis.ticks.fontsize=spectrum.axis.ticks.size,
+                                                  spectrum.y.axis.lower.limit = spectrum.lower.range.limit.yaxis,
+                                                  spectrum.y.axis.upper.limit = spectrum.upper.range.limit.yaxis,
+                                                  first.spectrum.color = spectrum.mass.spectrum.color.first.spectrum,
+                                                  second.spectrum.color = spectrum.mass.spectrum.color.second.spectrum,
+                                                  first.spectrum.line.type = spectrum.line.type.first.spectrum,
+                                                  second.spectrum.line.type = spectrum.line.type.second.spectrum,
+                                                  first.spectrum.lwd = spectrum.mass.spectrum.line.width.first.spectrum,
+                                                  second.spectrum.lwd = spectrum.mass.spectrum.line.width.second.spectrum,
+                                                  first.spectrum.label = spectrum.label.first.spectrum,
+                                                  second.spectrum.label = spectrum.label.second.spectrum,
+                                                  legend.yesno = spectrum.legend.yesno,
+                                                  legend.position = spectrum.legend.position,
+                                                  legend.size = spectrum.legend.size,
+                                                  legend.lwd = spectrum.legend.lwd,
+                                                  custom.axis.ann = T,
+                                                  custom.y.axis = spectrum.custom.axes,
+                                                  custom.axis = spectrum.custom.axes,
+                                                  custom.axis.pdj = spectrum.custom.xaxis.pdj,
+                                                  custom.y.axis.pdj = spectrum.custom.yaxis.pdj,
+                                                  custom.axis.ann.line = spectrum.custom.axis.ann.line,
+                                                  custom.axis.ann.title.line = spectrum.custom.axis.ann.title.line,
+                                                  xaxis.interval = spectrum.xaxis.interval,
+                                                  yaxis.interval = spectrum.yaxis.interval,
+                                                  normalize.spectrum = spectrum.normalize.spectrum,
+                                                  first.spectrum.normalization.value = first.spectrum.normalization.value,
+                                                  second.spectrum.normalization.value = second.spectrum.normalization.value))
+        }
+        
+        if (input$overlaidMirrorSpectrum == TRUE) {
+          try(spectrum<-mass.spectra.mirror.create(first.spectrum.rawfile.path = spectrum.first.spectrum.filepath,
+                                                   second.spectrum.rawfile.path = spectrum.second.spectrum.filepath,
+                                                   separator=spectrum.separator,
+                                                   headerTF=spectrum.headerTF,
+                                                   xaxis.title=spectrum.xaxis.label,
+                                                   yaxis.title=spectrum.yaxis.label,
+                                                   spectrum.title=spectrum.main.label,
+                                                   first.spectrum.upper.range.limit = spectrum.upper.range.limit.xaxis,
+                                                   first.spectrum.lower.range.limit = spectrum.lower.range.limit.xaxis,
+                                                   second.spectrum.upper.range.limit = spectrum.upper.range.limit.xaxis,
+                                                   second.spectrum.lower.range.limit = spectrum.lower.range.limit.xaxis,
+                                                   axis.fontsize=spectrum.axis.fontsize,
+                                                   title.fontsize=spectrum.title.fontsize,
+                                                   axis.ticks.fontsize=spectrum.axis.ticks.size,
+                                                   spectrum.y.axis.lower.limit = spectrum.lower.range.limit.yaxis,
+                                                   spectrum.y.axis.upper.limit = spectrum.upper.range.limit.yaxis,
+                                                   first.spectrum.color = spectrum.mass.spectrum.color.first.spectrum,
+                                                   second.spectrum.color = spectrum.mass.spectrum.color.second.spectrum,
+                                                   first.spectrum.line.type = spectrum.line.type.first.spectrum,
+                                                   second.spectrum.line.type = spectrum.line.type.second.spectrum,
+                                                   first.spectrum.lwd = spectrum.mass.spectrum.line.width.first.spectrum,
+                                                   second.spectrum.lwd = spectrum.mass.spectrum.line.width.first.spectrum,
+                                                   first.spectrum.label = spectrum.label.first.spectrum,
+                                                   second.spectrum.label = spectrum.label.second.spectrum,
+                                                   legend.yesno = spectrum.legend.yesno,
+                                                   legend.position = spectrum.legend.position,
+                                                   legend.size = spectrum.legend.size,
+                                                   legend.lwd = spectrum.legend.lwd,
+                                                   custom.axis.ann = T,
+                                                   custom.y.axis = spectrum.custom.axes,
+                                                   custom.axis = spectrum.custom.axes,
+                                                   custom.axis.pdj = spectrum.custom.xaxis.pdj,
+                                                   custom.y.axis.pdj = spectrum.custom.yaxis.pdj,
+                                                   custom.axis.ann.line = spectrum.custom.axis.ann.line,
+                                                   custom.axis.ann.title.line = spectrum.custom.axis.ann.title.line,
+                                                   xaxis.interval = spectrum.xaxis.interval,
+                                                   yaxis.interval = spectrum.yaxis.interval,
+                                                   normalize.spectrum = spectrum.normalize.spectrum,
+                                                   first.spectrum.normalization.value = first.spectrum.normalization.value,
+                                                   second.spectrum.normalization.value = second.spectrum.normalization.value))
+        }
 
         if (!is.null(peaks.mass.list.filepath.first.spectrum) || !is.null(peaks.sheet.name.first.spectrum)) {
             try(spectrum.first.label<-mass.spectrum.label.peaks(mass.list.filepath = peaks.mass.list.filepath.first.spectrum,
@@ -1414,7 +1460,8 @@ shinyServer(function(input, output, session) {
                                                     normalization.value = first.spectrum.normalization.value,
                                                     mz.label.sigfigs=peaks.mz.label.sigfigs,
                                                     int.label.sigfigs=peaks.int.label.sigfigs,
-                                                    sn.label.sigfigs=peaks.sn.label.sigfigs,))
+                                                    sn.label.sigfigs=peaks.sn.label.sigfigs,
+                                                    mirror=F))
         }
 
         if (!is.null(peaks.mass.list.filepath.second.spectrum) || !is.null(peaks.sheet.name.second.spectrum)) {
@@ -1440,7 +1487,8 @@ shinyServer(function(input, output, session) {
                                                             normalization.value = second.spectrum.normalization.value,
                                                             mz.label.sigfigs=peaks.mz.label.sigfigs,
                                                             int.label.sigfigs=peaks.int.label.sigfigs,
-                                                            sn.label.sigfigs=peaks.sn.label.sigfigs,))
+                                                            sn.label.sigfigs=peaks.sn.label.sigfigs,
+                                                            mirror=input$overlaidMirrorSpectrum))
         }
         
         dev.off()

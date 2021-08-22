@@ -2063,6 +2063,17 @@ shinyUI(fluidPage(
                          
                          HTML("</div>"),
                          
+                         tags$div(
+                             title = "Mirror Spectrum",
+                             materialSwitch(
+                                 inputId = "overlaidMirrorSpectrum",
+                                 label = "Mirror Spectrum",
+                                 status = "primary",
+                                 right = TRUE,
+                                 value = FALSE
+                             ),
+                         ),
+                         
                      ),
                      
                      # Show a plot of the generated distribution
@@ -2250,6 +2261,8 @@ shinyUI(fluidPage(
                          #         value = FALSE
                          #     ),
                          # ),
+                         
+                         # Input: MaterialSwitch ----
                          
                      ),
                      
