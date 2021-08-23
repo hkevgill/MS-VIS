@@ -50,7 +50,7 @@ peak.finder<-function(mass.list.filepath,
   print(mass.list.filepath)
 
   sheets<-readxl::excel_sheets(mass.list.filepath)
-
+  print(sheets)
   if(sheet.end=="last"){
     sheet.end<-length(sheets)
   } else{
@@ -61,6 +61,7 @@ peak.finder<-function(mass.list.filepath,
   
   for(a in sheet.start:sheet.end){
   #Read in mass list
+  print("Read in sheet:")  
   print(sheets[a])
   mass.list <- (readxl::read_excel(mass.list.filepath,sheet = sheets[a],col_types="text",col_names=F,trim_ws = TRUE))
   mass.list[is.na(mass.list)]<-"0"
@@ -155,32 +156,37 @@ peak.finder<-function(mass.list.filepath,
     # mass.list.results[[paste("Peak ",selected.masses[i])]]$S.N[a]<-grabbed.SN
     # mass.list.results[[paste("Peak ",selected.masses[i])]]$Intensity[a]<-grabbed.Int
     
+    #print("mass list before append")
+    #print(a)
+    #print(mass.list.results[[paste("Peak ",selected.masses[i])]]$Sheet)
+    
+     
     mass.list.results[[paste("Peak ",selected.masses[i])]]$Sheet<-append(x=mass.list.results[[paste("Peak ",selected.masses[i])]]$Sheet,
-                                                                         values=rep(sheets[a],times=length(grabbed.columns[[1]])),
-                                                                         after = T)
+                                                                         values=rep(sheets[a],times=length(grabbed.columns[[1]])))
+    #print("mass list after append")
+    #print(sheets[a])
+    #print(mass.list.results[[paste("Peak ",selected.masses[i])]]$Sheet)
         
     mass.list.results[[paste("Peak ",selected.masses[i])]]$detected<-append(x=mass.list.results[[paste("Peak ",selected.masses[i])]]$detected,
-                                                                            values=grabbed.detected,
-                                                                            after=T)
+                                                                            values=grabbed.detected)
         
     # mass.list.results[[paste("Peak ",selected.masses[i])]]$m.z<-append(x=mass.list.results[[paste("Peak ",selected.masses[i])]]$m.z,
     #                                                                    values=grabbed.columns[[1]],
     #                                                                    after=T)
         
     mass.list.results[[paste("Peak ",selected.masses[i])]][[mass.list.colnames[[1]]]]<-append(x=mass.list.results[[paste("Peak ",selected.masses[i])]][[mass.list.colnames[[1]]]],
-                                                                                         values=grabbed.columns[[1]],
-                                                                                         after=T)
+                                                                                         values=grabbed.columns[[1]])
 
     for(x in 2:length(mass.list.colnames)){
       mass.list.results[[paste("Peak ",selected.masses[i])]][[mass.list.colnames[[x]]]]<-append(x=mass.list.results[[paste("Peak ",selected.masses[i])]][[mass.list.colnames[[x]]]],
-                                                                                             values=grabbed.columns[[x]],
-                                                                                             after = T)
+                                                                                             values=grabbed.columns[[x]])
     }
     
     }
     
   }
-  print("check")
+  
+
   #convert lists into data frames
   for(i in 1:length(mass.list.results)){
     mass.list.results[[i]]<-as.data.frame(mass.list.results[[i]])
