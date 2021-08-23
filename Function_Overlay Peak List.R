@@ -123,6 +123,7 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
         grabbed.Int<-NA
         grabbed.m.z<-NA
         grabbed.SN<-NA
+        #ADD LABEL.TITLE<-na AND LABEL SECOND TITLE<-na
       }
       
       if(length(grabbed.m.z)>1){
