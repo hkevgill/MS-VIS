@@ -123,7 +123,11 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
         grabbed.Int<-NA
         grabbed.m.z<-NA
         grabbed.SN<-NA
-        #ADD LABEL.TITLE<-na AND LABEL SECOND TITLE<-na
+        grabbed.label.title<-NA
+        grabbed.second.label.title<-NA
+      } else {
+          grabbed.label.title<-label.title[[i]] 
+          grabbed.second.label.title<-label.second.title[[i]]
       }
       
       if(length(grabbed.m.z)>1){
@@ -190,8 +194,8 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
       mass.list.picked.peaks$position.label[[i]]<-position.label
       mass.list.picked.peaks$label.posx.offset[[i]]<-label.posx.offset
       mass.list.picked.peaks$label.y.offset[[i]]<-label.y.offset
-      mass.list.picked.peaks$label.title[[i]]<-label.title[[i]] 
-      mass.list.picked.peaks$label.second.title[[i]]<-label.second.title[[i]] 
+      mass.list.picked.peaks$label.title[[i]]<-grabbed.label.title 
+      mass.list.picked.peaks$label.second.title[[i]]<-grabbed.second.label.title 
     }
     
     mass.list<-list()
@@ -203,6 +207,7 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     mass.list$label.title<-mass.list.picked.peaks$label.title
     mass.list$label.second.title<-mass.list.picked.peaks$label.second.title
     
+
     if(mirror==F){
       mass.list$Intensity<-as.numeric(mass.list.picked.peaks$Intensity)
       mass.list$label.y.offset<-as.numeric(mass.list.picked.peaks$label.y.offset)
@@ -253,7 +258,7 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     if(labels.on[1]==1){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-label.position.factor*label.spread.distance),
-           labels = mass.list$label.title,
+           labels = na.exclude(mass.list$label.title),
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)  
@@ -273,7 +278,7 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     if(labels.on[2]==1){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-label.position.factor*label.spread.distance),
-           labels = mass.list$label.second.title,
+           labels = na.exclude(mass.list$label.second.title),
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)
