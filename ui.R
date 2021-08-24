@@ -1223,6 +1223,70 @@ shinyUI(fluidPage(
                              "Spectrum Border, Colour, and Line Width</button><div class=\"panel\">"
                          ),
                          
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Line type of first mass spectrum",
+                         #     textInput(
+                         #         "overlaidSpectrumLineType1",
+                         #         "First Spectrum Line Type",
+                         #         value = "1",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Line type of first mass spectrum",
+                             selectInput(
+                                 "overlaidSpectrumLineType1",
+                                 "First Spectrum Line Type",
+                                 c(
+                                     "Blank" = 0,
+                                     "Solid" = 1,
+                                     "Dashed" = 2,
+                                     "Dotted" = 3,
+                                     "Dotdash" = 4,
+                                     "Longdash" = 5,
+                                     "Twodash" = 6
+                                 ),
+                                 selected = "1"
+                             ),
+                         ),
+                         
+                         
+                         
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Line type of second mass spectrum",
+                         #     textInput(
+                         #         "overlaidSpectrumLineType2",
+                         #         "Second Spectrum Line Type",
+                         #         value = "2",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Line type of second mass spectrum",
+                             selectInput(
+                                 "overlaidSpectrumLineType2",
+                                 "Second Spectrum Line Type",
+                                 c(
+                                     "Blank" = 0,
+                                     "Solid" = 1,
+                                     "Dashed" = 2,
+                                     "Dotted" = 3,
+                                     "Dotdash" = 4,
+                                     "Longdash" = 5,
+                                     "Twodash" = 6
+                                 ),
+                                 selected = "1"
+                             ),
+                         ),
+                         
                          # Input: ColourInput ----
                          tags$div(
                              title = "Colour of the mass spectrum",
@@ -1277,35 +1341,24 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # Input: Text ----
-                         tags$div(
-                             title = "Line type of first mass spectrum",
-                             textInput(
-                                 "overlaidSpectrumLineType1",
-                                 "First Spectrum Line Type",
-                                 value = "1",
-                                 width = NULL,
-                                 placeholder = NULL
-                             ),
-                         ),
-                         
-                         # Input: Text ----
-                         tags$div(
-                             title = "Line type of second mass spectrum",
-                             textInput(
-                                 "overlaidSpectrumLineType2",
-                                 "Second Spectrum Line Type",
-                                 value = "2",
-                                 width = NULL,
-                                 placeholder = NULL
-                             ),
-                         ),
+
                          
                          HTML("</div>"),
                          
                          HTML("<button class=\"inner-accordion\">"),
                          icon("plus-circle", class = NULL, lib = "font-awesome"),
                          HTML("Axis range and Intervals</button><div class=\"panel\">"),
+                         
+                         # Input: Checkbox ----
+                         tags$div(
+                             title = "Display full collected mass range or only a selected mass range",
+                             checkboxInput(
+                                 "overlaidSpectrumFullRange",
+                                 "Spectrum Full Range",
+                                 value = TRUE,
+                                 width = NULL
+                             ),
+                         ),
                          
                          # Input: NumericRangeInput ----
                          tags$div(
