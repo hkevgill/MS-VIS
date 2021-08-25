@@ -192,14 +192,14 @@ mass.spectrum.create<-function(rawfile.path,
            bty=border)
     }
     
-    if(custom.axis==TRUE){
+    if(custom.axis==TRUE & show.x.axis==T){
       axis(1,
            at=axisTicks(c(lower.range.limit,upper.range.limit),log=FALSE,nint = ((upper.range.limit-lower.range.limit)/xaxis.interval)),
            padj = custom.axis.pdj,
            cex.axis=axis.ticks.fontsize)
     }
     
-    if(custom.y.axis==TRUE){
+    if(custom.y.axis==TRUE & show.y.axis==T){
       axis(2,
            at=axisTicks(c(y.axis.lower.limit,y.axis.upper.limit),log=FALSE,nint = ((y.axis.upper.limit-y.axis.lower.limit)/yaxis.interval)),
            padj = custom.y.axis.pdj,
