@@ -1527,6 +1527,17 @@ shinyUI(fluidPage(
                                  placeholder = ""
                              ),
                          ),
+                         # Input: Checkbox ----
+                         tags$div(
+                             title = "Should the image background be transparent?",
+                             checkboxInput(
+                                 "OverlaidSpectrumPlotPNGTransparency",
+                                 "PNG Background Transparent?",
+                                 value = TRUE,
+                                 width = NULL
+                             ),
+                         ),
+                         
                          
                          tags$div(
                              title = "Figure Height in cm",
