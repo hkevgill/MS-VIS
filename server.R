@@ -323,6 +323,7 @@ shinyServer(function(input, output, session) {
         } else {
            spectrum.transparency<-"white"
         }
+        
         #Height in cm of file
         if(input$spectrumFileHeight==""){
             fig.height<-6
@@ -1050,7 +1051,14 @@ shinyServer(function(input, output, session) {
             fig.name<-input$overlaidSpectrumFilename
         }
         
-        fig.name.final<-paste0(fig.name,".jpg") #adds file extension to file name
+        fig.name.final<-paste0(fig.name,".png") #adds file extension to file name
+        
+        #Whether background of png should be transparent
+        if(input$OverlaidSpectrumPlotPNGTransparency==T){
+          spectrum.transparency<-"transparent"
+        } else {
+          spectrum.transparency<-"white"
+        }
         
         #Height in cm of file
         if(input$overlaidSpectrumFileHeight==""){
@@ -1292,12 +1300,13 @@ shinyServer(function(input, output, session) {
         
       
 
-        try(jpeg(filename = fig.name.final,
+        try(png(filename = fig.name.final,
             height = fig.height,
             width = fig.width,
             res=fig.res,
             pointsize = 4,
-            units = "cm"))
+            units = "cm",
+            bg=spectrum.transparency))
         
         try(par(mar=fig.margin+0.1))
 
