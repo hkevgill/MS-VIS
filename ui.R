@@ -532,6 +532,31 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         # # Input: SelectInput ----
+                         # tags$div(
+                         #     title = "File type of the image",
+                         #     selectInput(
+                         #         "spectrumImageFileType",
+                         #         "Desired Image File Type",
+                         #         c(
+                         #             ".jpg" = "jpg",
+                         #             ".png" = "png"
+                         #         ),
+                         #         selected = "png"
+                         #     ),
+                         # ),
+                         
+                         # Input: Checkbox ----
+                         tags$div(
+                             title = "Should the image background be transparent?",
+                             checkboxInput(
+                                 "spectrumPlotPNGTransparency",
+                                 "PNG Background Transparent?",
+                                 value = TRUE,
+                                 width = NULL
+                             ),
+                         ),
+                         
                          tags$div(
                              title = "Figure Height in cm",
                              textInput(
