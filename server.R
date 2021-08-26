@@ -618,7 +618,8 @@ shinyServer(function(input, output, session) {
                                            xaxis.interval = spectrum.xaxis.interval,
                                            yaxis.interval = spectrum.yaxis.interval,
                                            normalize.spectrum = spectrum.normalize.spectrum,
-                                           normalization.value = spectrum.normalization.value))
+                                           normalization.value = spectrum.normalization.value,
+                                           normalize.spectrum.show.as.percent = input$spectrumNormalize.spectrum.show.as.percent))
         
         if (!is.null(peaks.mass.list.filepath) && !is.null(peaks.sheet.name)) {
             try(spectrum.label<-mass.spectrum.label.peaks(mass.list.filepath = peaks.mass.list.filepath,
@@ -647,7 +648,8 @@ shinyServer(function(input, output, session) {
                                                           sn.label.sigfigs=peaks.sn.label.sigfigs,
                                                           if.peak.conflict.use.max = peaks.if.peak.conflict.use.max,
                                                           normalize.spectrum = spectrum.normalize.spectrum,
-                                                          normalization.value = spectrum.normalization.value))
+                                                          normalization.value = spectrum.normalization.value,
+                                                          normalize.spectrum.show.as.percent = input$spectrumNormalize.spectrum.show.as.percent))
         }
         
         try(if(extra.labels.on==T){
@@ -1405,6 +1407,7 @@ shinyServer(function(input, output, session) {
                                                   normalize.spectrum = spectrum.normalize.spectrum,
                                                   first.spectrum.normalization.value = first.spectrum.normalization.value,
                                                   second.spectrum.normalization.value = second.spectrum.normalization.value,
+                                                  normalize.spectrum.show.as.percent = input$overlaidSpectrumNormalize.spectrum.show.as.percent,
                                                   mirror.spectrum = input$overlaidMirrorSpectrum))
 #        }
         
@@ -1472,6 +1475,7 @@ shinyServer(function(input, output, session) {
                                                     if.peak.conflict.use.max = peaks.if.peak.conflict.use.max.first.spectrum,
                                                     normalize.spectrum = spectrum.normalize.spectrum,
                                                     normalization.value = first.spectrum.normalization.value,
+                                                    normalize.spectrum.show.as.percent = input$overlaidSpectrumNormalize.spectrum.show.as.percent,
                                                     mz.label.sigfigs=peaks.mz.label.sigfigs,
                                                     int.label.sigfigs=peaks.int.label.sigfigs,
                                                     sn.label.sigfigs=peaks.sn.label.sigfigs,
@@ -1499,6 +1503,7 @@ shinyServer(function(input, output, session) {
                                                             if.peak.conflict.use.max = peaks.if.peak.conflict.use.max.second.spectrum,
                                                             normalize.spectrum = spectrum.normalize.spectrum,
                                                             normalization.value = second.spectrum.normalization.value,
+                                                            normalize.spectrum.show.as.percent = input$overlaidSpectrumNormalize.spectrum.show.as.percent,
                                                             mz.label.sigfigs=peaks.mz.label.sigfigs,
                                                             int.label.sigfigs=peaks.int.label.sigfigs,
                                                             sn.label.sigfigs=peaks.sn.label.sigfigs,
