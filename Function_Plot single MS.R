@@ -36,7 +36,8 @@ mass.spectrum.create<-function(rawfile.path,
                                custom.axis.ann.line=0, #Distance of custom axis labels to axis
                                custom.axis.ann.title.line, #Distance of main title if ann is F
                                normalization.value=NULL, #If normalize.spectrum is true, all intensity values will be divided by this value
-                               normalize.spectrum=F #Normalize Y/N
+                               normalize.spectrum=F, #Normalize Y/N
+                               normalize.spectrum.show.as.percent=F #Whether or not to show the normalization values as percent 
 )  
 
 {
@@ -76,8 +77,12 @@ mass.spectrum.create<-function(rawfile.path,
     names(mass.spectrum)<-c("m/z","Intensity")
   }
   
-  if(normalize.spectrum==TRUE){
+  if(normalize.spectrum==TRUE && normalize.spectrum.show.as.percent==F){
     mass.spectrum[[2]]<-mass.spectrum[[2]]/normalization.value
+  }
+  
+  if(normalize.spectrum==TRUE && normalize.spectrum.show.as.percent==T){
+    mass.spectrum[[2]]<-mass.spectrum[[2]]/normalization.value*100
   }
   
   if(full.range==FALSE){
