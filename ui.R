@@ -686,6 +686,11 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         # Input: Checkbox ----
+                         tags$div(title="Display Normalized Values in Percent?",
+                                  checkboxInput("spectrumNormalize.spectrum.show.as.percent", "Display Normalized Values in Percent?", value = FALSE, width = NULL),
+                         ),
+                         
                          HTML("</div>"),
                          
                          HTML("</div>"),
@@ -1677,6 +1682,11 @@ shinyUI(fluidPage(
                                  value = "",
                                  placeholder = ""
                              ),
+                         ),
+                         
+                         # Input: Checkbox ----
+                         tags$div(title="Display Normalized Values in Percent?",
+                                  checkboxInput("overlaidSpectrumNormalize.spectrum.show.as.percent", "Display Normalized Values in Percent?", value = FALSE, width = NULL),
                          ),
                          
                          HTML("</div>"),
