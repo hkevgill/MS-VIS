@@ -25,7 +25,8 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
                                     if.peak.conflict.use.max=T,
                                     mirror=F,
                                     normalization.value=NULL, #If normalize.spectrum is true, all intensity values will be divided by this value
-                                    normalize.spectrum=F #Normalize Y/N
+                                    normalize.spectrum=F, #Normalize Y/N
+                                    normalize.spectrum.show.as.percent=F #Whether or not to show the normalization values as percent 
                                     ){
   #mass.list.filepath= file path of mass lsit as character  
   #Sheet.name=Name of excel sheet as string
@@ -87,9 +88,15 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
   colnames(mass.list)[c(column.mz,column.int,column.sn)]<-c("m.z","Intensity","SN")
   
   
-  if(normalize.spectrum==TRUE){
+  if(normalize.spectrum==TRUE && normalize.spectrum.show.as.percent==F){
     #(paste("before norm:",mass.list$"Intensity"))
     mass.list$"Intensity"<-mass.list$"Intensity"/normalization.value
+    #print(paste("after norm:",mass.list$"Intensity"))
+  }
+  
+  if(normalize.spectrum==TRUE && normalize.spectrum.show.as.percent==T){
+    #(paste("before norm:",mass.list$"Intensity"))
+    mass.list$"Intensity"<-mass.list$"Intensity"/normalization.value*100
     #print(paste("after norm:",mass.list$"Intensity"))
   }
   
@@ -294,7 +301,7 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
       label.position.factor<-label.position.factor+1
     }
     
-    if(labels.on[4]==1 & mirror==F){
+    if(labels.on[4]==1 & mirror==F & normalize.spectrum.show.as.percent==F){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-(label.position.factor*label.spread.distance)), 
            labels = paste("Intensity:",round(na.exclude(mass.list$Intensity),digits=int.label.sigfigs)),
@@ -304,10 +311,30 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
       label.position.factor<-label.position.factor+1
     }
     
-    if(labels.on[4]==1 & mirror==T){
+    if(labels.on[4]==1 & mirror==F & normalize.spectrum.show.as.percent==T){
+      text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
+           y=(na.exclude(mass.list$label.y.offset)-(label.position.factor*label.spread.distance)), 
+           labels = paste0("Intensity: ",round(na.exclude(mass.list$Intensity),digits=int.label.sigfigs),"%"),
+           pos=na.exclude(mass.list$position.label),
+           cex=fontsize,
+           col=label.line.col)  
+      label.position.factor<-label.position.factor+1
+    }
+    
+    if(labels.on[4]==1 & mirror==T & normalize.spectrum.show.as.percent==F){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-(label.position.factor*label.spread.distance)), 
            labels = paste("Intensity:",round(na.exclude(-mass.list$Intensity),digits=int.label.sigfigs)),
+           pos=na.exclude(mass.list$position.label),
+           cex=fontsize,
+           col=label.line.col)  
+      label.position.factor<-label.position.factor+1
+    }
+    
+    if(labels.on[4]==1 & mirror==T & normalize.spectrum.show.as.percent==T){
+      text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
+           y=(na.exclude(mass.list$label.y.offset)-(label.position.factor*label.spread.distance)), 
+           labels = paste0("Intensity: ",round(na.exclude(-mass.list$Intensity),digits=int.label.sigfigs),"%"),
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)  
