@@ -43,6 +43,7 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
                                         first.spectrum.normalization.value=NULL, #If normalize.spectrum is true, all intensity values of first spectrum will be divided by this value
                                         second.spectrum.normalization.value=NULL, #If normalize.spectrum is true, all intensity values of first spectrum will be divided by this value
                                         normalize.spectrum=F, #Normalize Y/N
+                                        normalize.spectrum.show.as.percent=F, #Whether or not to show the normalization values as percent
                                         mirror.spectrum=F #Whether to use a mirror spectrum
 ){
   
@@ -75,11 +76,15 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
   # names(full.second.mass.spectrum)<-c("m/z","Intensity")
   
 
-  if(normalize.spectrum==TRUE){
+  if(normalize.spectrum==TRUE && normalize.spectrum.show.as.percent==F){
     full.first.mass.spectrum[[2]]<-full.first.mass.spectrum[[2]]/first.spectrum.normalization.value
     full.second.mass.spectrum[[2]]<-full.second.mass.spectrum[[2]]/second.spectrum.normalization.value
   }
   
+  if(normalize.spectrum==TRUE && normalize.spectrum.show.as.percent==T){
+    full.first.mass.spectrum[[2]]<-full.first.mass.spectrum[[2]]/first.spectrum.normalization.value*100
+    full.second.mass.spectrum[[2]]<-full.second.mass.spectrum[[2]]/second.spectrum.normalization.value*100
+  }
   # #Pull specified mass ranges 
   # first.spectrum.mass.range <- c(first.spectrum.lower.range.limit,first.spectrum.upper.range.limit)
   # second.spectrum.mass.range <- c(second.spectrum.lower.range.limit,second.spectrum.upper.range.limit)
@@ -129,36 +134,36 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
   # }
   
   #check if custom x-axis has been selected
-  if(custom.y.axis==TRUE & mirror.spectrum==F){
+  if(custom.y.axis==TRUE && mirror.spectrum==F){
     yaxis.yesno="n"
   } else {
     yaxis.yesno="s"
   }
   
-  if(custom.axis==TRUE & mirror.spectrum==F){
+  if(custom.axis==TRUE && mirror.spectrum==F){
     xaxis.yesno="n"
   } else {
     xaxis.yesno="s"
   }
   
-  if(custom.axis.ann==TRUE & mirror.spectrum==F){
+  if(custom.axis.ann==TRUE && mirror.spectrum==F){
     ann.yesno=F
   } else {
     ann.yesno=T
   }
 
-  if(custom.y.axis==F & mirror.spectrum==T){
+  if(custom.y.axis==F && mirror.spectrum==T){
     yaxis.interval<-spectrum.y.axis.upper.limit/2
     custom.y.axis.pdj<-(-0.25)
     axis.ticks.fontsize<-2
   }
   
-  if(custom.axis==F & mirror.spectrum==T){
+  if(custom.axis==F && mirror.spectrum==T){
     xaxis.interval<-(spectrum.upper.range.limit-spectrum.lower.range.limit)/5
     custom.axis.pdj<-0.75
   }
   
-  if(custom.axis.ann==F & mirror.spectrum==T){
+  if(custom.axis.ann==F && mirror.spectrum==T){
     custom.axis.ann.line<-1
     axis.fontsize<-1
     custom.axis.ann.title.line<-1
