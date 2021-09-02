@@ -539,7 +539,7 @@ shinyServer(function(input, output, session) {
         }
         
 
-        # Generate the jpg
+        # Generate the png
         try(png(filename = fig.name.final,
                  height = fig.height,
                  width = fig.width,
@@ -1037,6 +1037,9 @@ shinyServer(function(input, output, session) {
         #Distance of the y-axis tick mark labels from the y-axis ticks (if custom axes is true), numeric
         spectrum.custom.yaxis.pdj<-(input$overlaidSpectrumCustomYAxisPdj)
 
+        #Font type
+        spectrum.fonttype<-input$overlaidSpectrumFontType
+      
         #Font size of the axis labels, numeric
         spectrum.axis.fontsize<-input$overlaidSpectrumAxisFontSize
         
@@ -1111,6 +1114,13 @@ shinyServer(function(input, output, session) {
         #Label (in legend) of first mass spectrum, character
         spectrum.label.first.spectrum<- input$overlaidSpectrumLegendLabel1
         
+        #Whether the legend should have a border, boolean
+        if(input$overlaidSpectrumLegendBorder==T){
+          spectrum.legend.border<-"s"
+        } else if(input$overlaidSpectrumLegendBorder==F){
+            spectrum.legend.border<-"n"
+          }
+        
         #Label (in legend) of 2nd mass spectrum, character
         spectrum.label.second.spectrum<- input$overlaidSpectrumLegendLabel2
         
@@ -1125,7 +1135,8 @@ shinyServer(function(input, output, session) {
         
         
         # Spectrum 1 peak labelling variables
-        
+          
+          
         #m/z value of the peaks which should be labeled, numeric vector
         if (input$overlaidPeaks1SelectedMasses == "") {
             peaks.selected.masses.first.spectrum<-c(0)
@@ -1299,18 +1310,18 @@ shinyServer(function(input, output, session) {
         #Number of signifcant digits the S/N value is rounded to, numeric
         peaks.sn.label.sigfigs<-as.numeric(input$overlaidPeaksSnLabelSigFigs)
         
-        
-      
-
+        #generate png
         try(png(filename = fig.name.final,
-            height = fig.height,
-            width = fig.width,
-            res=fig.res,
-            pointsize = 4,
-            units = "cm",
-            bg=spectrum.transparency))
+                height = fig.height,
+                width = fig.width,
+                res=fig.res,
+                pointsize = 4,
+                units = "cm",
+                bg=spectrum.transparency))
         
-        try(par(mar=fig.margin+0.1))
+        try(par(mar=fig.margin+0.1,
+                family=spectrum.fonttype))
+        
 
         spectrum.normalization.value<-NA
 
@@ -1408,7 +1419,14 @@ shinyServer(function(input, output, session) {
                                                   first.spectrum.normalization.value = first.spectrum.normalization.value,
                                                   second.spectrum.normalization.value = second.spectrum.normalization.value,
                                                   normalize.spectrum.show.as.percent = input$overlaidSpectrumNormalize.spectrum.show.as.percent,
-                                                  mirror.spectrum = input$overlaidMirrorSpectrum))
+                                                  mirror.spectrum = input$overlaidMirrorSpectrum,
+                                                  xaxis.title.highlight = input$overlaidSpectrumXaxisLabelHighlight,
+                                                  yaxis.title.highlight = input$overlaidSpectrumYaxisLabelHighlight,
+                                                  spectrum.title.highlight = input$overlaidSpectrumMainLabelHighlight,
+                                                  border = input$overlaidSpectrumBorder,
+                                                  show.x.axis = input$overlaidSpectrumShowXAxis,
+                                                  show.y.axis = input$overlaidSpectrumShowYAxis,
+                                                  legend.bty = spectrum.legend.border))
 #        }
         
         # if (input$overlaidMirrorSpectrum == TRUE) {
