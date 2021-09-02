@@ -44,8 +44,15 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
                                         second.spectrum.normalization.value=NULL, #If normalize.spectrum is true, all intensity values of first spectrum will be divided by this value
                                         normalize.spectrum=F, #Normalize Y/N
                                         normalize.spectrum.show.as.percent=F, #Whether or not to show the normalization values as percent
-                                        mirror.spectrum=F #Whether to use a mirror spectrum
-){
+                                        mirror.spectrum=F, #Whether to use a mirror spectrum
+                                        xaxis.title.highlight=0,
+                                        yaxis.title.highlight=0,
+                                        spectrum.title.highlight=0,
+                                        border="o",
+                                        show.x.axis=T,
+                                        show.y.axis=T,
+                                        legend.bty = "n"
+                                        ){
   
   #get mass spectrum from file
   print(first.spectrum.rawfile.path)
@@ -132,7 +139,7 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
   #   max.second.spectrum<-max(second.mass.spectrum[[2]])
   #   spectrum.y.axis.upper.limit<-max(c(max.first.spectrum,max.second.spectrum))
   # }
-  
+
   #check if custom x-axis has been selected
   if(custom.y.axis==TRUE && mirror.spectrum==F){
     yaxis.yesno="n"
@@ -170,6 +177,42 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
     custom.axis.ann.line<-1
   } 
 
+  if(show.y.axis==F){
+    yaxis.yesno="n"
+  } else {
+    yaxis.yesno="s"
+  }
+  
+  if(show.x.axis==F){
+    xaxis.yesno="n"
+  } else {
+    xaxis.yesno="s"
+  }
+
+  
+  #Set bold/italic status of axis titles
+  if(xaxis.title.highlight==1){
+    xaxis.title<-bquote(bold(.(xaxis.title)))
+  } else if(xaxis.title.highlight==2){
+    xaxis.title<-bquote(italic(.(xaxis.title)))
+  } else if(xaxis.title.highlight==3){
+    xaxis.title<-bquote(underline(.(xaxis.title)))
+  }
+  
+  if(yaxis.title.highlight==1){
+    yaxis.title<-bquote(bold(.(yaxis.title)))
+  } else if(yaxis.title.highlight==2){
+    yaxis.title<-bquote(italic(.(yaxis.title)))
+  } else if(yaxis.title.highlight==3){
+    yaxis.title<-bquote(underline(.(yaxis.title)))
+  }
+  
+  if(spectrum.title.highlight==2){
+    spectrum.title<-bquote(italic(.(spectrum.title)))
+  } else if(spectrum.title.highlight==3){
+    spectrum.title<-bquote(underline(.(spectrum.title)))
+  }
+  
   #Overlaid Spectra
   if(mirror.spectrum==F){
   #create first mass spectrum
@@ -177,17 +220,18 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
        type="l", 
        lty=first.spectrum.line.type,
        xaxt=xaxis.yesno,
-       yaxt=xaxis.yesno,
+       yaxt=yaxis.yesno,
        ann=ann.yesno,
-       xlab=xaxis.title,
-       ylab=yaxis.title, 
-       main=spectrum.title,
+       xlab=as.expression(xaxis.title),
+       ylab=as.expression(yaxis.title), 
+       main=as.expression(spectrum.title),
        col=first.spectrum.color,
        ylim=c(spectrum.y.axis.lower.limit,spectrum.y.axis.upper.limit),
        cex.lab=axis.fontsize,
        cex.main=title.fontsize,
        cex.axis=axis.ticks.fontsize,
-       lwd=first.spectrum.lwd)
+       lwd=first.spectrum.lwd,
+       bty=border)
   
   #create second mass spectrum
   points(second.mass.spectrum$Intensity~second.mass.spectrum$`m/z`,
@@ -197,14 +241,14 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
          lwd=second.spectrum.lwd
   )
   
-  if(custom.axis==TRUE){
+  if(custom.axis==TRUE & show.x.axis==T){
     axis(1,
          at=axisTicks(c(spectrum.lower.range.limit,spectrum.upper.range.limit),log=FALSE,nint = ((spectrum.upper.range.limit-spectrum.lower.range.limit)/xaxis.interval)),
          padj = custom.axis.pdj,
          cex.axis=axis.ticks.fontsize)
   }
   
-  if(custom.y.axis==TRUE){
+  if(custom.y.axis==TRUE & show.y.axis==T){
     axis(2,
          at=axisTicks(c(spectrum.y.axis.lower.limit,spectrum.y.axis.upper.limit),log=FALSE,nint = ((spectrum.y.axis.upper.limit-spectrum.y.axis.lower.limit)/yaxis.interval)),
          padj = custom.y.axis.pdj,
@@ -212,18 +256,22 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
   }
   
   if(custom.axis.ann==TRUE){
-    mtext(side=1,
-          text=xaxis.title,
-          line = custom.axis.ann.line,
-          cex=axis.fontsize)
+    if(show.x.axis==T){
+      mtext(side=1,
+            text=as.expression(xaxis.title),
+            line = custom.axis.ann.line,
+            cex=axis.fontsize)
+    }
     
-    mtext(side=2,
-          text=yaxis.title,
-          line = custom.axis.ann.line,
-          cex=axis.fontsize)
+    if(show.y.axis==T){
+      mtext(side=2,
+            text=as.expression(yaxis.title),
+            line = custom.axis.ann.line,
+            cex=axis.fontsize)
+    }
     
     mtext(side=3,
-          text=spectrum.title,
+          text=as.expression(spectrum.title),
           line = custom.axis.ann.title.line,
           cex=title.fontsize)
   }
@@ -240,17 +288,18 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
          type="l", 
          lty=first.spectrum.line.type,
          xaxt=xaxis.yesno,
-         yaxt=xaxis.yesno,
+         yaxt=yaxis.yesno,
          ann=ann.yesno,
-         xlab=xaxis.title,
-         ylab=yaxis.title, 
-         main=spectrum.title,
+         xlab=as.expression(xaxis.title),
+         ylab=as.expression(yaxis.title), 
+         main=as.expression(spectrum.title),
          col=first.spectrum.color,
          ylim=c(-spectrum.y.axis.upper.limit,spectrum.y.axis.upper.limit),
          cex.lab=axis.fontsize,
          cex.main=title.fontsize,
          cex.axis=axis.ticks.fontsize,
-         lwd=first.spectrum.lwd)
+         lwd=first.spectrum.lwd,
+         bty=border)
     
     #create second mass spectrum
     points((-second.mass.spectrum$Intensity)~second.mass.spectrum$`m/z`,
@@ -260,14 +309,14 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
            lwd=second.spectrum.lwd
     )
 
-    #if(custom.axis==TRUE){
+    if(show.x.axis==TRUE){
     axis(1,
          at=axisTicks(c(first.spectrum.lower.range.limit,first.spectrum.upper.range.limit),log=FALSE,nint = ((first.spectrum.upper.range.limit-first.spectrum.lower.range.limit)/xaxis.interval)),
          padj = custom.axis.pdj,
          cex.axis=axis.ticks.fontsize)
-    #}
+    }
     
-    #if(custom.y.axis==TRUE){
+    if(show.y.axis==TRUE){
     axis.labels<-axisTicks(c(-spectrum.y.axis.upper.limit,spectrum.y.axis.upper.limit),log=FALSE,nint = ((2*spectrum.y.axis.upper.limit)/yaxis.interval))
     
     axis(2,
@@ -275,21 +324,26 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
          padj = custom.y.axis.pdj,
          labels = abs(axis.labels),
          cex.axis = axis.ticks.fontsize)
-    #}
+    }
     
     #if(custom.axis.ann==TRUE){
-    mtext(side=1,
-          text=xaxis.title,
+    if(show.x.axis==TRUE){
+      mtext(side=1,
+          text=as.expression(xaxis.title),
           line = custom.axis.ann.line,
           cex=axis.fontsize)
+    }
     
-    mtext(side=2,
-          text=yaxis.title,
+    
+    if(show.y.axis==TRUE){
+      mtext(side=2,
+          text=as.expression(yaxis.title),
           line = custom.axis.ann.line,
           cex=axis.fontsize)
+    }
     
     mtext(side=3,
-          text=spectrum.title,
+          text=as.expression(spectrum.title),
           line = custom.axis.ann.title.line,
           cex=title.fontsize)
     #}
@@ -301,7 +355,8 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
            lty=c(first.spectrum.line.type,second.spectrum.line.type),
            col=c(first.spectrum.color,second.spectrum.color),
            cex=legend.size,
-           lwd=legend.lwd)
+           lwd=legend.lwd,
+           bty = legend.bty)
   }
   
   #Return
