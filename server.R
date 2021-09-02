@@ -1085,14 +1085,13 @@ shinyServer(function(input, output, session) {
         } else{
             fig.res<-as.numeric(input$overlaidSpectrumFileResolution)    
         }
-        
-        
+
         #Figure margins, numeric
-        fig.margin<-c(as.numeric(input$spectrumMarginBottom),
-                      as.numeric(input$spectrumMarginLeft),
-                      as.numeric(input$spectrumMarginTop),
-                      as.numeric(input$spectrumMarginRight))
-        
+        fig.margin<-c(as.numeric(input$overlaidSpectrumMarginBottom),
+                      as.numeric(input$overlaidSpectrumMarginLeft),
+                      as.numeric(input$overlaidSpectrumMarginTop),
+                      as.numeric(input$overlaidSpectrumMarginRight))
+        print(fig.margin)
         #Whether or not the spectrum should be normalized, as TRUE/FALSE
         spectrum.normalize.spectrum<-input$overlaidSpectrumNormalizeSpectrum
         
