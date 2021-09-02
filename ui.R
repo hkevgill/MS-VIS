@@ -1247,7 +1247,7 @@ shinyUI(fluidPage(
                                  "Position of X-axis and Y-axis Labels:",
                                  min = 1,
                                  max = 10,
-                                 value = 5,
+                                 value = 4,
                                  step = 0.1
                              ),
                          ),
