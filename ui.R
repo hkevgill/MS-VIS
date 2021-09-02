@@ -1195,6 +1195,22 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Highlight x-axis label",
+                             selectInput(
+                                 "overlaidSpectrumXaxisLabelHighlight",
+                                 "Highlight X-axis Label",
+                                 c(
+                                     "None" = 0,
+                                     "Bold" = 1,
+                                     "Italic" = 2,
+                                     "Underline" = 3
+                                 ),
+                                 selected = "0"
+                             ),
+                         ),
+                         
                          # Input: Text ----
                          tags$div(
                              title = "Label below y-axis",
@@ -1204,6 +1220,22 @@ shinyUI(fluidPage(
                                  value = "Intensity",
                                  width = NULL,
                                  placeholder = ""
+                             ),
+                         ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Highlight y-axis label",
+                             selectInput(
+                                 "overlaidSpectrumYaxisLabelHighlight",
+                                 "Highlight Y-axis Label",
+                                 c(
+                                     "None" = 0,
+                                     "Bold" = 1,
+                                     "Italic" = 2,
+                                     "Underline" = 3
+                                 ),
+                                 selected = "0"
                              ),
                          ),
                          
@@ -1229,6 +1261,21 @@ shinyUI(fluidPage(
                                  value = "Overlaid Spectra",
                                  width = NULL,
                                  placeholder = ""
+                             ),
+                         ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Highlight spectrum title",
+                             selectInput(
+                                 "overlaidSpectrumMainLabelHighlight",
+                                 "Highlight Spectrum Title",
+                                 c(
+                                     "None" = 0,
+                                     "Italic" = 2,
+                                     "Underline" = 3
+                                 ),
+                                 selected = "0"
                              ),
                          ),
                          
@@ -1264,6 +1311,25 @@ shinyUI(fluidPage(
                          #         placeholder = NULL
                          #     ),
                          # ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Define the shape of the border of the spectrum",
+                             selectInput(
+                                 "overlaidSpectrumBorder",
+                                 "Shape of the Border Around the Spectrum",
+                                 c(
+                                     "None" = "n",
+                                     "O" = "o",
+                                     "L" = "l",
+                                     "7" = "7",
+                                     "C" = "c",
+                                     "U" = "u",
+                                     "]" = "]"
+                                 ),
+                                 selected = "o"
+                             )
+                         ),
                          
                          # Input: SelectInput ----
                          tags$div(
@@ -1410,6 +1476,28 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         # Input: Checkbox ----
+                         tags$div(
+                             title = "Whether or not to display the x-axis",
+                             checkboxInput(
+                                 "overlaidSpectrumShowXAxis",
+                                 "Show X-Axis",
+                                 value = TRUE,
+                                 width = NULL
+                             ),
+                         ),
+                         
+                         # Input: Checkbox ----
+                         tags$div(
+                             title = "Whether or not to display the y-axis",
+                             checkboxInput(
+                                 "overlaidSpectrumShowYAxis",
+                                 "Show Y-Axis",
+                                 value = TRUE,
+                                 width = NULL
+                             ),
+                         ),
+                         
                          # Input: MaterialSwitch ----
                          tags$div(
                              title = "Whether or not the axis ticks are at custom points",
@@ -1475,6 +1563,21 @@ shinyUI(fluidPage(
                          HTML("<button class=\"inner-accordion\">"),
                          icon("plus-circle", class = NULL, lib = "font-awesome"),
                          HTML("Font Sizes</button><div class=\"panel\">"),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Font",
+                             selectInput(
+                                 "overlaidSpectrumFontType",
+                                 "Font Type",
+                                 c(
+                                     "Arial" = "sans",
+                                     "Times New Roman" = "serif",
+                                     "Courier" = "mono"
+                                 ),
+                                 selected = "sans"
+                             ),
+                         ),
                          
                          # Input: SliderInput ----
                          tags$div(
@@ -1707,6 +1810,17 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         # Input: Checkbox ----
+                         tags$div(
+                             title = "Should the legend have a border?",
+                             checkboxInput(
+                                 "overlaidSpectrumLegendBorder",
+                                 "Legend Border",
+                                 value = TRUE,
+                                 width = NULL
+                             ),
+                         ),
+                         
                          # Input: Text ----
                          tags$div(
                              title = "Label (in legend) of first mass spectrum",
@@ -1859,6 +1973,51 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         HTML("</div>"),
+                         
+                         HTML("<button class=\"inner-accordion\">"),
+                         icon("plus-circle", class = NULL, lib = "font-awesome"),
+                         HTML("Label Style</button><div class=\"panel\">"),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Line width of the line connecting the peak to the peak labels",
+                             sliderInput(
+                                 "overlaidPeakLineWidth1",
+                                 "First Spectrum Peak Line Width:",
+                                 min = 0.01,
+                                 max = 3,
+                                 value = 2,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Fontsize of the peak labels",
+                             textInput(
+                                 "overlaidPeaksFontSize1",
+                                 "First Spectrum Peaks Font Size",
+                                 value = "1.5",
+                                 width = NULL,
+                                 placeholder = NULL
+                             ),
+                         ),
+                         
+                         # Input: ColourInput ----
+                         tags$div(
+                             title = "Colour of the peak labels",
+                             colourInput(
+                                 "overlaidPeaksLabelLineColour1",
+                                 "First Spectrum Peak Label Colour",
+                                 value = "#000000",
+                                 showColour = c("both", "text", "background"),
+                                 palette = c("square", "limited"),
+                                 allowTransparent = FALSE,
+                                 returnName = FALSE
+                             ),
+                         ),
+                         
                          # Input: Text ----
                          tags$div(
                              title = "Distance of the peak labels from the peak",
@@ -1895,48 +2054,18 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # Input: Text ----
-                         tags$div(
-                             title = "Line type of the line connecting the peak to the peak labels, character or color hex code",
-                             textInput(
-                                 "overlaidPeaksLabelLineColour1",
-                                 "First Spectrum Peaks Label Line Colour",
-                                 value = "black,red",
-                                 width = NULL,
-                                 placeholder = NULL
-                             ),
-                         ),
                          
-                         HTML("</div>"),
-                         
-                         HTML("<button class=\"inner-accordion\">"),
-                         icon("plus-circle", class = NULL, lib = "font-awesome"),
-                         HTML("Label Style</button><div class=\"panel\">"),
-                         
-                         # Input: SliderInput ----
-                         tags$div(
-                             title = "Line width of the line connecting the peak to the peak labels",
-                             sliderInput(
-                                 "overlaidPeakLineWidth1",
-                                 "First Spectrum Peak Line Width:",
-                                 min = 0.01,
-                                 max = 3,
-                                 value = 2,
-                                 step = 0.1
-                             ),
-                         ),
-                         
-                         # Input: Text ----
-                         tags$div(
-                             title = "Fontsize of the peak labels",
-                             textInput(
-                                 "overlaidPeaksFontSize1",
-                                 "First Spectrum Peaks Font Size",
-                                 value = "1.5",
-                                 width = NULL,
-                                 placeholder = NULL
-                             ),
-                         ),
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Line type of the line connecting the peak to the peak labels, character or color hex code",
+                         #     textInput(
+                         #         "overlaidPeaksLabelLineColour1",
+                         #         "First Spectrum Peaks Label Line Colour",
+                         #         value = "black,red",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
                          
                          HTML("</div>"),
                          
@@ -2029,6 +2158,52 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+
+                         HTML("</div>"),
+                         
+                         HTML("<button class=\"inner-accordion\">"),
+                         icon("plus-circle", class = NULL, lib = "font-awesome"),
+                         HTML("Label Style</button><div class=\"panel\">"),
+                         
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Line width of the line connecting the peak to the peak labels",
+                             sliderInput(
+                                 "overlaidPeakLineWidth2",
+                                 "First Spectrum Peak Line Width:",
+                                 min = 0.01,
+                                 max = 3,
+                                 value = 2,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         # Input: Text ----
+                         tags$div(
+                             title = "Fontsize of the peak labels",
+                             textInput(
+                                 "overlaidPeaksFontSize2",
+                                 "Second Spectrum Peaks Font Size",
+                                 value = "1.5",
+                                 width = NULL,
+                                 placeholder = NULL
+                             ),
+                         ),
+                         
+                         # Input: ColourInput ----
+                         tags$div(
+                             title = "Colour of the peak lables",
+                             colourInput(
+                                 "overlaidPeaksLabelLineColour2",
+                                 "Second Spectrum Peak Label Colour",
+                                 value = "#000000",
+                                 showColour = c("both", "text", "background"),
+                                 palette = c("square", "limited"),
+                                 allowTransparent = FALSE,
+                                 returnName = FALSE
+                             ),
+                         ),
+                         
                          # Input: Text ----
                          tags$div(
                              title = "Distance of the peak labels from the peak",
@@ -2065,48 +2240,17 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # Input: Text ----
-                         tags$div(
-                             title = "Line type of the line connecting the peak to the peak labels, character or color hex code",
-                             textInput(
-                                 "overlaidPeaksLabelLineColour2",
-                                 "Second Spectrum Peaks Label Line Colour",
-                                 value = "black",
-                                 width = NULL,
-                                 placeholder = NULL
-                             ),
-                         ),
-                         
-                         HTML("</div>"),
-                         
-                         HTML("<button class=\"inner-accordion\">"),
-                         icon("plus-circle", class = NULL, lib = "font-awesome"),
-                         HTML("Label Style</button><div class=\"panel\">"),
-                         
-                         # Input: SliderInput ----
-                         tags$div(
-                             title = "Line width of the line connecting the peak to the peak labels",
-                             sliderInput(
-                                 "overlaidPeakLineWidth2",
-                                 "First Spectrum Peak Line Width:",
-                                 min = 0.01,
-                                 max = 3,
-                                 value = 2,
-                                 step = 0.1
-                             ),
-                         ),
-                         
-                         # Input: Text ----
-                         tags$div(
-                             title = "Fontsize of the peak labels",
-                             textInput(
-                                 "overlaidPeaksFontSize2",
-                                 "Second Spectrum Peaks Font Size",
-                                 value = "1.5",
-                                 width = NULL,
-                                 placeholder = NULL
-                             ),
-                         ),
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Line type of the line connecting the peak to the peak labels, character or color hex code",
+                         #     textInput(
+                         #         "overlaidPeaksLabelLineColour2",
+                         #         "Second Spectrum Peaks Label Line Colour",
+                         #         value = "black",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
                          
                          HTML("</div>"),
                          
