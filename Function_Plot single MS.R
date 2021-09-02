@@ -170,7 +170,7 @@ mass.spectrum.create<-function(rawfile.path,
            ann=ann.yesno,
            xlab=as.expression(xaxis.title),
            ylab=as.expression(yaxis.title), 
-           main=spectrum.title,
+           main=as.expression(spectrum.title),
            col=spectrum.color,
            cex.lab=axis.fontsize,
            cex.main=title.fontsize,
@@ -187,7 +187,7 @@ mass.spectrum.create<-function(rawfile.path,
            ann=ann.yesno,
            xlab=as.expression(xaxis.title),
            ylab=as.expression(yaxis.title), 
-           main=spectrum.title,
+           main=as.expression(spectrum.title),
            col=spectrum.color,
            ylim=c(y.axis.lower.limit,y.axis.upper.limit),
            cex.lab=axis.fontsize,
@@ -214,20 +214,20 @@ mass.spectrum.create<-function(rawfile.path,
     if(custom.axis.ann==TRUE){
       if(show.x.axis==T){
         mtext(side=1,
-              text=xaxis.title,
+              text=as.expression(xaxis.title),
               line = custom.axis.ann.line,
               cex=axis.fontsize)
       }
       
       if(show.y.axis==T){
         mtext(side=2,
-              text=yaxis.title,
+              text=as.expression(yaxis.title),
               line = custom.axis.ann.line,
               cex=axis.fontsize)
       }
       
       mtext(side=3,
-            text=spectrum.title,
+            text=as.expression(spectrum.title),
             line = custom.axis.ann.title.line,
             cex=title.fontsize)
     }    
