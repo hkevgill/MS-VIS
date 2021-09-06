@@ -2104,20 +2104,64 @@ shinyUI(fluidPage(
                                  "First Spectrum Peak Line Width:",
                                  min = 0.01,
                                  max = 3,
-                                 value = 2,
+                                 value = 1,
                                  step = 0.1
                              ),
                          ),
                          
-                         # Input: Text ----
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Fontsize of the peak labels",
+                         #     textInput(
+                         #         "overlaidPeaksFontSize1",
+                         #         "First Spectrum Peaks Font Size",
+                         #         value = "1.5",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
+                         
+                         # Input: SliderInput ----
                          tags$div(
                              title = "Fontsize of the peak labels",
-                             textInput(
+                             sliderInput(
                                  "overlaidPeaksFontSize1",
-                                 "First Spectrum Peaks Font Size",
-                                 value = "1.5",
-                                 width = NULL,
-                                 placeholder = NULL
+                                 "First Spectrum Peaks Font Size:",
+                                 min = 0.01,
+                                 max = 3,
+                                 value = 1,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Line type of the line connecting the peak to the peak labels",
+                         #     textInput(
+                         #         "overlaidPeaksLabelLineType1",
+                         #         "First Spectrum Peaks Label Line Type",
+                         #         value = "3",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Line type of the line connecting the peak to the peak labels",
+                             selectInput(
+                                 "overlaidPeaksLabelLineType1",
+                                 "First Spectrum Peaks Label Line Type:",
+                                 c(
+                                     "Blank" = 0,
+                                     "Solid" = 1,
+                                     "Dashed" = 2,
+                                     "Dotted" = 3,
+                                     "Dotdash" = 4,
+                                     "Longdash" = 5,
+                                     "Twodash" = 6
+                                 ),
+                                 selected = "3"
                              ),
                          ),
                          
@@ -2147,30 +2191,30 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # Input: Text ----
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart",
+                         #     textInput(
+                         #         "overlaidPeaksLabelSpread1",
+                         #         "First Spectrum Peaks Label Spread",
+                         #         value = "0.075",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
+                         
+                         # Input: SliderInput ----
                          tags$div(
                              title = "Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart",
-                             textInput(
+                             sliderInput(
                                  "overlaidPeaksLabelSpread1",
-                                 "First Spectrum Peaks Label Spread",
-                                 value = "0.075",
-                                 width = NULL,
-                                 placeholder = NULL
+                                 "First Spectrum Peaks Label Spread:",
+                                 min = 0,
+                                 max = 0.3,
+                                 value = 0.05,
+                                 step = 0.01
                              ),
                          ),
-                         
-                         # Input: Text ----
-                         tags$div(
-                             title = "Line type of the line connecting the peak to the peak labels",
-                             textInput(
-                                 "overlaidPeaksLabelLineType1",
-                                 "First Spectrum Peaks Label Line Type",
-                                 value = "3",
-                                 width = NULL,
-                                 placeholder = NULL
-                             ),
-                         ),
-                         
                          
                          # # Input: Text ----
                          # tags$div(
@@ -2319,23 +2363,67 @@ shinyUI(fluidPage(
                              title = "Line width of the line connecting the peak to the peak labels",
                              sliderInput(
                                  "overlaidPeakLineWidth2",
-                                 "First Spectrum Peak Line Width:",
+                                 "Second Spectrum Peak Line Width:",
                                  min = 0.01,
                                  max = 3,
-                                 value = 2,
+                                 value = 1,
                                  step = 0.1
                              ),
                          ),
                          
-                         # Input: Text ----
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Fontsize of the peak labels",
+                         #     textInput(
+                         #         "overlaidPeaksFontSize2",
+                         #         "Second Spectrum Peaks Font Size",
+                         #         value = "1.5",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
+                         
+                         # Input: SliderInput ----
                          tags$div(
                              title = "Fontsize of the peak labels",
-                             textInput(
+                             sliderInput(
                                  "overlaidPeaksFontSize2",
-                                 "Second Spectrum Peaks Font Size",
-                                 value = "1.5",
-                                 width = NULL,
-                                 placeholder = NULL
+                                 "Second Spectrum Peaks Font Size:",
+                                 min = 0.01,
+                                 max = 3,
+                                 value = 1,
+                                 step = 0.1
+                             ),
+                         ),
+                         
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Line type of the line connecting the peak to the peak labels",
+                         #     textInput(
+                         #         "overlaidPeaksLabelLineType2",
+                         #         "Second Spectrum Peaks Label Line Type",
+                         #         value = "3",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Line type of the line connecting the peak to the peak labels",
+                             selectInput(
+                                 "overlaidPeaksLabelLineType2",
+                                 "Second Spectrum Peaks Label Line Type:",
+                                 c(
+                                     "Blank" = 0,
+                                     "Solid" = 1,
+                                     "Dashed" = 2,
+                                     "Dotted" = 3,
+                                     "Dotdash" = 4,
+                                     "Longdash" = 5,
+                                     "Twodash" = 6
+                                 ),
+                                 selected = "3"
                              ),
                          ),
                          
@@ -2365,27 +2453,28 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # Input: Text ----
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart",
+                         #     textInput(
+                         #         "overlaidPeaksLabelSpread2",
+                         #         "Second Spectrum Peaks Label Spread",
+                         #         value = "0.075",
+                         #         width = NULL,
+                         #         placeholder = NULL
+                         #     ),
+                         # ),
+                         
+                         # Input: SliderInput ----
                          tags$div(
                              title = "Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart",
-                             textInput(
+                             sliderInput(
                                  "overlaidPeaksLabelSpread2",
-                                 "Second Spectrum Peaks Label Spread",
-                                 value = "0.075",
-                                 width = NULL,
-                                 placeholder = NULL
-                             ),
-                         ),
-                         
-                         # Input: Text ----
-                         tags$div(
-                             title = "Line type of the line connecting the peak to the peak labels",
-                             textInput(
-                                 "overlaidPeaksLabelLineType2",
-                                 "Second Spectrum Peaks Label Line Type",
-                                 value = "3",
-                                 width = NULL,
-                                 placeholder = NULL
+                                 "Second Spectrum Peaks Label Spread:",
+                                 min = 0,
+                                 max = 0.3,
+                                 value = 0.05,
+                                 step = 0.01
                              ),
                          ),
                          
