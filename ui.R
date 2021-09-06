@@ -838,6 +838,38 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Highlight First Label",
+                             selectInput(
+                                 "peaksLabel1Highlight",
+                                 "Highlight First Label",
+                                 c(
+                                     "None" = 0,
+                                     "Bold" = 1,
+                                     "Italic" = 2,
+                                     "Underline" = 3
+                                 ),
+                                 selected = "0"
+                             ),
+                         ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Highlight Second Label",
+                             selectInput(
+                                 "peaksLabel2Highlight",
+                                 "Highlight Second Label",
+                                 c(
+                                     "None" = 0,
+                                     "Bold" = 1,
+                                     "Italic" = 2,
+                                     "Underline" = 3
+                                 ),
+                                 selected = "0"
+                             ),
+                         ),
+                         
                          # Input: Checkbox Group Buttons ----
                          tags$div(
                              title = "Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio)",
@@ -2013,6 +2045,39 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Highlight First Label",
+                             selectInput(
+                                 "overlaidPeaks1Label1Highlight",
+                                 "Highlight First Label",
+                                 c(
+                                     "None" = 0,
+                                     "Bold" = 1,
+                                     "Italic" = 2,
+                                     "Underline" = 3
+                                 ),
+                                 selected = "0"
+                             ),
+                         ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Highlight Second Label",
+                             selectInput(
+                                 "overlaidPeaks1Label2Highlight",
+                                 "Highlight Second Label",
+                                 c(
+                                     "None" = 0,
+                                     "Bold" = 1,
+                                     "Italic" = 2,
+                                     "Underline" = 3
+                                 ),
+                                 selected = "0"
+                             ),
+                         ),
+                         
+                         
                          # Input: Checkbox Group Buttons ----
                          tags$div(
                              title = "Which peak parameters should be displayed. c(1st label, 2nd label, m/z ratio, intensity, S/N ratio)",
@@ -2195,6 +2260,38 @@ shinyUI(fluidPage(
                                  label = "2nd Label",
                                  value = "2nd label Peak #1,2nd label Peak #2",
                                  placeholder = "Example: 2nd Label P1,2nd Label P2. Must have as many entries (seprated by comma) as there are selected peaks"
+                             ),
+                         ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Highlight First Label",
+                             selectInput(
+                                 "overlaidPeaks2Label1Highlight",
+                                 "Highlight First Label",
+                                 c(
+                                     "None" = 0,
+                                     "Bold" = 1,
+                                     "Italic" = 2,
+                                     "Underline" = 3
+                                 ),
+                                 selected = "0"
+                             ),
+                         ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Highlight Second Label",
+                             selectInput(
+                                 "overlaidPeaks2Label2Highlight",
+                                 "Highlight Second Label",
+                                 c(
+                                     "None" = 0,
+                                     "Bold" = 1,
+                                     "Italic" = 2,
+                                     "Underline" = 3
+                                 ),
+                                 selected = "0"
                              ),
                          ),
                          
