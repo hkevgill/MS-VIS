@@ -37,7 +37,8 @@ mass.spectrum.create<-function(rawfile.path,
                                custom.axis.ann.title.line, #Distance of main title if ann is F
                                normalization.value=NULL, #If normalize.spectrum is true, all intensity values will be divided by this value
                                normalize.spectrum=F, #Normalize Y/N
-                               normalize.spectrum.show.as.percent=F #Whether or not to show the normalization values as percent 
+                               normalize.spectrum.show.as.percent=F, #Whether or not to show the normalization values as percent 
+                               axis.line.width=1
 )  
 
 {
@@ -165,8 +166,10 @@ mass.spectrum.create<-function(rawfile.path,
       plot(mass.spectrum$Intensity~mass.spectrum$`m/z`,
            type="l", 
            lty=spectrum.lty,
-           xaxt=xaxis.yesno,
-           yaxt=yaxis.yesno,
+           #xaxt=xaxis.yesno,
+           #yaxt=yaxis.yesno,
+           xaxt="n",
+           yaxt="n",
            ann=ann.yesno,
            xlab=as.expression(xaxis.title),
            ylab=as.expression(yaxis.title), 
@@ -176,14 +179,19 @@ mass.spectrum.create<-function(rawfile.path,
            cex.main=title.fontsize,
            cex.axis=axis.ticks.fontsize,
            lwd=spectrum.line.width,
-           bty=border)
+           bty="n")
+    
+      box(lwd=axis.line.width,
+          bty=border)
       
     } else if(full.range==FALSE){
       plot(mass.spectrum$Intensity~mass.spectrum$`m/z`,
            type="l", 
            lty=spectrum.lty,
-           xaxt=xaxis.yesno,
-           yaxt=yaxis.yesno,
+           #xaxt=xaxis.yesno,
+           #yaxt=yaxis.yesno,
+           xaxt="n",
+           yaxt="n",
            ann=ann.yesno,
            xlab=as.expression(xaxis.title),
            ylab=as.expression(yaxis.title), 
@@ -194,21 +202,34 @@ mass.spectrum.create<-function(rawfile.path,
            cex.main=title.fontsize,
            cex.axis=axis.ticks.fontsize,
            lwd=spectrum.line.width,
-           bty=border)
+           bty="n")
+      
+      box(lwd=axis.line.width,
+          bty=border)
     }
     
     if(custom.axis==TRUE & show.x.axis==T){
       axis(1,
            at=axisTicks(c(lower.range.limit,upper.range.limit),log=FALSE,nint = ((upper.range.limit-lower.range.limit)/xaxis.interval)),
            padj = custom.axis.pdj,
-           cex.axis=axis.ticks.fontsize)
+           cex.axis=axis.ticks.fontsize,
+           lwd=axis.line.width)
+    } else if(custom.axis==F & show.x.axis==T){
+      axis(1,
+           cex.axis=axis.ticks.fontsize,
+           lwd = axis.line.width)
     }
     
     if(custom.y.axis==TRUE & show.y.axis==T){
       axis(2,
            at=axisTicks(c(y.axis.lower.limit,y.axis.upper.limit),log=FALSE,nint = ((y.axis.upper.limit-y.axis.lower.limit)/yaxis.interval)),
            padj = custom.y.axis.pdj,
-           cex.axis = axis.ticks.fontsize)
+           cex.axis = axis.ticks.fontsize,
+           lwd=axis.line.width)
+    } else if(custom.y.axis==F & show.y.axis==T){
+      axis(2,
+           cex.axis = axis.ticks.fontsize,
+           lwd = axis.line.width)
     }
     
     if(custom.axis.ann==TRUE){
