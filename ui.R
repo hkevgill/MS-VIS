@@ -370,6 +370,19 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Axis Line Width",
+                             sliderInput(
+                                 "spectrumAxesLineWidth",
+                                 "Axis Line Width:",
+                                 min = 0.1,
+                                 max = 5,
+                                 value = 1,
+                                 step = 0.1
+                             ),
+                         ),
+                         
                          # Input: Checkbox ----
                          tags$div(
                              title = "Whether or not to display the x-axis",
@@ -494,7 +507,7 @@ shinyUI(fluidPage(
                              sliderInput(
                                  "spectrumTitleFontSize",
                                  "Title Font size:",
-                                 min = 1,
+                                 min = 0.1,
                                  max = 5,
                                  value = 2,
                                  step = 0.1
@@ -507,7 +520,7 @@ shinyUI(fluidPage(
                              sliderInput(
                                  "spectrumAxisTickFontSize",
                                  "Axis Tick Font Size:",
-                                 min = 1,
+                                 min = 0.1,
                                  max = 5,
                                  value = 2,
                                  step = 0.1
@@ -1476,6 +1489,19 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         # Input: SliderInput ----
+                         tags$div(
+                             title = "Axis Line Width",
+                             sliderInput(
+                                 "overlaidSpectrumAxesLineWidth",
+                                 "Axis Line Width:",
+                                 min = 0.1,
+                                 max = 5,
+                                 value = 1,
+                                 step = 0.1
+                             ),
+                         ),
+                         
                          # Input: Checkbox ----
                          tags$div(
                              title = "Whether or not to display the x-axis",
@@ -1598,7 +1624,7 @@ shinyUI(fluidPage(
                              sliderInput(
                                  "overlaidSpectrumTitleFontSize",
                                  "Title Font size:",
-                                 min = 1,
+                                 min = 0.1,
                                  max = 5,
                                  value = 2,
                                  step = 0.1
@@ -1611,7 +1637,7 @@ shinyUI(fluidPage(
                              sliderInput(
                                  "overlaidSpectrumAxisTickFontSize",
                                  "Axis Tick Font Size:",
-                                 min = 1,
+                                 min = 0.1,
                                  max = 5,
                                  value = 2,
                                  step = 0.1
@@ -1860,25 +1886,51 @@ shinyUI(fluidPage(
                              )
                          ),
                          
-                         # Input: Text ----
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Size of legend",
+                         #     textInput(
+                         #         inputId = "overlaidSpectrumLegendSize",
+                         #         label = "Legend Size",
+                         #         value = "2",
+                         #         placeholder = ""
+                         #     ),
+                         # ),
+                         
+                         # Input: SliderInput ----
                          tags$div(
                              title = "Size of legend",
-                             textInput(
-                                 inputId = "overlaidSpectrumLegendSize",
-                                 label = "Legend Size",
-                                 value = "2",
-                                 placeholder = ""
+                             sliderInput(
+                                 "overlaidSpectrumLegendSize",
+                                 "Legend Size:",
+                                 min = 0.1,
+                                 max = 10,
+                                 value = 2,
+                                 step = 0.1
                              ),
                          ),
                          
-                         # Input: Text ----
+                         # # Input: Text ----
+                         # tags$div(
+                         #     title = "Legend line width",
+                         #     textInput(
+                         #         inputId = "overlaidSpectrumLegendLineWidth",
+                         #         label = "Legend Line Width",
+                         #         value = "1",
+                         #         placeholder = ""
+                         #     ),
+                         # ),
+                         
+                         # Input: SliderInput ----
                          tags$div(
                              title = "Legend line width",
-                             textInput(
-                                 inputId = "overlaidSpectrumLegendLineWidth",
-                                 label = "Legend Line Width",
-                                 value = "1",
-                                 placeholder = ""
+                             sliderInput(
+                                 "overlaidSpectrumLegendLineWidth",
+                                 "Legend Line Width:",
+                                 min = 0.1,
+                                 max = 4,
+                                 value = 1,
+                                 step = 0.1
                              ),
                          ),
                          
