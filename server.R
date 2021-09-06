@@ -1094,7 +1094,7 @@ shinyServer(function(input, output, session) {
                       as.numeric(input$overlaidSpectrumMarginLeft),
                       as.numeric(input$overlaidSpectrumMarginTop),
                       as.numeric(input$overlaidSpectrumMarginRight))
-        print(fig.margin)
+
         #Whether or not the spectrum should be normalized, as TRUE/FALSE
         spectrum.normalize.spectrum<-input$overlaidSpectrumNormalizeSpectrum
         
