@@ -305,8 +305,10 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
     plot(first.mass.spectrum$Intensity~first.mass.spectrum$`m/z`,
          type="l", 
          lty=first.spectrum.line.type,
-         xaxt=xaxis.yesno,
-         yaxt=yaxis.yesno,
+         #xaxt=xaxis.yesno,
+         #yaxt=yaxis.yesno,
+         xaxt="n",
+         yaxt="n",
          ann=ann.yesno,
          xlab=as.expression(xaxis.title),
          ylab=as.expression(yaxis.title), 
@@ -317,7 +319,11 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
          cex.main=title.fontsize,
          cex.axis=axis.ticks.fontsize,
          lwd=first.spectrum.lwd,
-         bty=border)
+         bty="n")
+    
+    
+    box(lwd=axis.line.width,
+        bty=border)
     
     #create second mass spectrum
     points((-second.mass.spectrum$Intensity)~second.mass.spectrum$`m/z`,
@@ -331,7 +337,8 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
     axis(1,
          at=axisTicks(c(first.spectrum.lower.range.limit,first.spectrum.upper.range.limit),log=FALSE,nint = ((first.spectrum.upper.range.limit-first.spectrum.lower.range.limit)/xaxis.interval)),
          padj = custom.axis.pdj,
-         cex.axis=axis.ticks.fontsize)
+         cex.axis=axis.ticks.fontsize,
+         lwd = axis.line.width)
     }
     
     if(show.y.axis==TRUE){
@@ -341,7 +348,8 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
          at=axis.labels,
          padj = custom.y.axis.pdj,
          labels = abs(axis.labels),
-         cex.axis = axis.ticks.fontsize)
+         cex.axis = axis.ticks.fontsize,
+         lwd = axis.line.width)
     }
     
     #if(custom.axis.ann==TRUE){
