@@ -26,7 +26,9 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
                                     mirror=F,
                                     normalization.value=NULL, #If normalize.spectrum is true, all intensity values will be divided by this value
                                     normalize.spectrum=F, #Normalize Y/N
-                                    normalize.spectrum.show.as.percent=F #Whether or not to show the normalization values as percent 
+                                    normalize.spectrum.show.as.percent=F, #Whether or not to show the normalization values as percent
+                                    label1.highlight=0,
+                                    label2.highlight=0
                                     ){
   #mass.list.filepath= file path of mass lsit as character  
   #Sheet.name=Name of excel sheet as string
@@ -194,6 +196,27 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
         label.posx.offset<-NA
         label.y.offset<-NA
       }
+
+      #Set bold/italic status of peak label 1 and 2
+      if(label1.highlight==1){
+        label1.title<-bquote(bold(.(grabbed.label.title)))
+      } else if(label1.highlight==2){
+        label1.title<-bquote(italic(.(grabbed.label.title)))
+      } else if(label1.highlight==3){
+        label1.title<-bquote(underline(.(grabbed.label.title)))
+      } else if(label1.highlight==0){
+        label1.title<-grabbed.label.title
+      }
+      
+      if(label2.highlight==1){
+        label2.title<-bquote(bold(.(grabbed.second.label.title)))
+      } else if(label2.highlight==2){
+        label2.title<-bquote(italic(.(grabbed.second.label.title)))
+      } else if(label2.highlight==3){
+        label2.title<-bquote(underline(.(grabbed.second.label.title)))
+      } else if(label2.highlight==0){
+        label2.title<-grabbed.second.label.title
+      }
       
       mass.list.picked.peaks$Intensity[[i]]<-grabbed.Int
       mass.list.picked.peaks$m.z[[i]]<-grabbed.m.z
@@ -201,8 +224,10 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
       mass.list.picked.peaks$position.label[[i]]<-position.label
       mass.list.picked.peaks$label.posx.offset[[i]]<-label.posx.offset
       mass.list.picked.peaks$label.y.offset[[i]]<-label.y.offset
-      mass.list.picked.peaks$label.title[[i]]<-grabbed.label.title 
-      mass.list.picked.peaks$label.second.title[[i]]<-grabbed.second.label.title 
+      #mass.list.picked.peaks$label.title[[i]]<-grabbed.label.title 
+      #mass.list.picked.peaks$label.second.title[[i]]<-grabbed.second.label.title 
+      mass.list.picked.peaks$label.title[[i]]<-label1.title 
+      mass.list.picked.peaks$label.second.title[[i]]<-label2.title 
     }
     
     mass.list<-list()
@@ -213,6 +238,8 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     mass.list$label.y.offset<-as.numeric(mass.list.picked.peaks$label.y.offset)
     mass.list$label.title<-mass.list.picked.peaks$label.title
     mass.list$label.second.title<-mass.list.picked.peaks$label.second.title
+    #mass.list$label.title<-label1.title
+    #mass.list$label.second.title<-label2.title
     
 
     if(mirror==F){
@@ -265,7 +292,7 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     if(labels.on[1]==1){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-label.position.factor*label.spread.distance),
-           labels = na.exclude(mass.list$label.title),
+           labels = as.expression(na.exclude(mass.list$label.title)),
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)  
@@ -285,7 +312,7 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     if(labels.on[2]==1){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-label.position.factor*label.spread.distance),
-           labels = na.exclude(mass.list$label.second.title),
+           labels = as.expression(na.exclude(mass.list$label.second.title)),
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)
