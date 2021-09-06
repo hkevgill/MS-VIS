@@ -619,7 +619,8 @@ shinyServer(function(input, output, session) {
                                            yaxis.interval = spectrum.yaxis.interval,
                                            normalize.spectrum = spectrum.normalize.spectrum,
                                            normalization.value = spectrum.normalization.value,
-                                           normalize.spectrum.show.as.percent = input$spectrumNormalize.spectrum.show.as.percent))
+                                           normalize.spectrum.show.as.percent = input$spectrumNormalize.spectrum.show.as.percent,
+                                           axis.line.width=input$spectrumAxesLineWidth))
         
         if (!is.null(peaks.mass.list.filepath) && !is.null(peaks.sheet.name)) {
             try(spectrum.label<-mass.spectrum.label.peaks(mass.list.filepath = peaks.mass.list.filepath,
@@ -1425,7 +1426,8 @@ shinyServer(function(input, output, session) {
                                                   border = input$overlaidSpectrumBorder,
                                                   show.x.axis = input$overlaidSpectrumShowXAxis,
                                                   show.y.axis = input$overlaidSpectrumShowYAxis,
-                                                  legend.bty = spectrum.legend.border))
+                                                  legend.bty = spectrum.legend.border,
+                                                  axis.line.width = input$overlaidSpectrumAxesLineWidth))
 #        }
         
         # if (input$overlaidMirrorSpectrum == TRUE) {
