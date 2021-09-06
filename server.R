@@ -650,7 +650,9 @@ shinyServer(function(input, output, session) {
                                                           if.peak.conflict.use.max = peaks.if.peak.conflict.use.max,
                                                           normalize.spectrum = spectrum.normalize.spectrum,
                                                           normalization.value = spectrum.normalization.value,
-                                                          normalize.spectrum.show.as.percent = input$spectrumNormalize.spectrum.show.as.percent))
+                                                          normalize.spectrum.show.as.percent = input$spectrumNormalize.spectrum.show.as.percent,
+                                                          label1.highlight=input$peaksLabel1Highlight,
+                                                          label2.highlight=input$peaksLabel2Highlight))
         }
         
         try(if(extra.labels.on==T){
@@ -1498,7 +1500,9 @@ shinyServer(function(input, output, session) {
                                                     mz.label.sigfigs=peaks.mz.label.sigfigs,
                                                     int.label.sigfigs=peaks.int.label.sigfigs,
                                                     sn.label.sigfigs=peaks.sn.label.sigfigs,
-                                                    mirror=F))
+                                                    mirror=F,
+                                                    label1.highlight=input$overlaidPeaks1Label1Highlight,
+                                                    label2.highlight=input$overlaidPeaks1Label2Highlight))
         }
 
         if (!is.null(peaks.mass.list.filepath.second.spectrum) || !is.null(peaks.sheet.name.second.spectrum)) {
@@ -1526,7 +1530,9 @@ shinyServer(function(input, output, session) {
                                                             mz.label.sigfigs=peaks.mz.label.sigfigs,
                                                             int.label.sigfigs=peaks.int.label.sigfigs,
                                                             sn.label.sigfigs=peaks.sn.label.sigfigs,
-                                                            mirror=input$overlaidMirrorSpectrum))
+                                                            mirror=input$overlaidMirrorSpectrum,
+                                                            label1.highlight=input$overlaidPeaks2Label1Highlight,
+                                                            label2.highlight=input$overlaidPeaks2Label2Highlight))
         }
         
         dev.off()
