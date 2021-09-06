@@ -583,6 +583,8 @@ shinyServer(function(input, output, session) {
             
         })
         
+        try(dev.control(displaylist="enable"))
+        
         try(spectrum<-mass.spectrum.create(rawfile.path=spectrum.filepath,
                                            separator=spectrum.separator,
                                            headerTF=spectrum.headerTF,
@@ -663,6 +665,16 @@ shinyServer(function(input, output, session) {
                  cex = extra.labels.fontsize,
                  xpd=NA)
         })
+        
+        try(record.record.single.spectrum.vars<<-data.frame("filename"=fig.name.final,
+                                                           "height"=fig.height,
+                                                           "width"=fig.width,
+                                                           "res"=fig.res,
+                                                           "bg"=spectrum.transparency))
+        
+        
+        try(record.single.spectrum<<-recordPlot())
+        try(dev.control(displaylist="inhibit"))
         
         dev.off()
         
@@ -790,34 +802,60 @@ shinyServer(function(input, output, session) {
         #)
         
         
-        #download handler peak finder
-        output$downloadData <- downloadHandler(
+        ##download handler peak finder
+        # output$downloadData <- downloadHandler(
+        #   filename = function() {
+        #     paste0(peakFinder.save.file.name,".xlsx")
+        #   },
+        #   content = function(con) {
+        #       #write.csv(cars, con)
+        #       #writes excel file
+        #       wb<-createWorkbook()
+        #       
+        #       ##creates as many workbooks as there are selected masses for peak search
+        #       for(i in 1:length(peakFinder.selected.masses)){
+        #           addWorksheet(wb,
+        #                        sheetName = paste("Search Results Peak ",peakFinder.selected.masses[i]))
+        #           writeData(wb,
+        #                     sheet = paste("Search Results Peak ",peakFinder.selected.masses[i]),
+        #                     x=test.search[[i]])
+        #       }
+        #       
+        #        saveWorkbook(wb,
+        #                     file=con,
+        #                     overwrite = T)
+        #       
+        #       #file.copy(from=peakFinder.save.file.name, to=con)
+        #       #file.remove(peakFinder.save.file.name)
+        #       
+        #        output$downloadButton<- renderUI({})
+        #        
+        #   }
+        # )
+        
+        #download handler save figure single spectrum
+        output$downloadFigureSingleSpectrum <- downloadHandler(
           filename = function() {
-            paste0(peakFinder.save.file.name,".xlsx")
+            paste(as.character(record.record.single.spectrum.vars[[1]]))
           },
           content = function(con) {
-              #write.csv(cars, con)
-              #writes excel file
-              wb<-createWorkbook()
-              
-              ##creates as many workbooks as there are selected masses for peak search
-              for(i in 1:length(peakFinder.selected.masses)){
-                  addWorksheet(wb,
-                               sheetName = paste("Search Results Peak ",peakFinder.selected.masses[i]))
-                  writeData(wb,
-                            sheet = paste("Search Results Peak ",peakFinder.selected.masses[i]),
-                            x=test.search[[i]])
-              }
-              
-               saveWorkbook(wb,
-                            file=con,
-                            overwrite = T)
-              
-              #file.copy(from=peakFinder.save.file.name, to=con)
-              #file.remove(peakFinder.save.file.name)
-              
-               output$downloadButton<- renderUI({})
-               
+            try(png(filename = as.character(record.record.single.spectrum.vars[[1]]),
+                    height = as.numeric(record.record.single.spectrum.vars[[2]]),
+                    width = as.numeric(record.record.single.spectrum.vars[[3]]),
+                    res=as.numeric(record.record.single.spectrum.vars[[4]]),
+                    pointsize = 4,
+                    units = "cm",
+                    bg=as.character(record.record.single.spectrum.vars[[5]])))
+            
+            try(replayPlot(record.single.spectrum))
+            
+            dev.off()
+
+            try(file.copy(from=as.character(record.record.single.spectrum.vars[[1]]),
+                          to=con))
+            
+            try(file.remove(as.character(record.record.single.spectrum.vars[[1]])))
+            
           }
         )
         
@@ -1377,7 +1415,8 @@ shinyServer(function(input, output, session) {
                 
         })
 
-
+        try(dev.control(displaylist="enable"))
+        
 #        if (input$overlaidMirrorSpectrum == FALSE) {
           try(spectrum<-mass.spectrum.overlaid.create(first.spectrum.rawfile.path = spectrum.first.spectrum.filepath,
                                                   second.spectrum.rawfile.path = spectrum.second.spectrum.filepath,
@@ -1535,6 +1574,17 @@ shinyServer(function(input, output, session) {
                                                             label2.highlight=input$overlaidPeaks2Label2Highlight))
         }
         
+        try(record.overlaid.spectra.vars<<-data.frame("filename"=fig.name.final,
+                                                            "height"=fig.height,
+                                                            "width"=fig.width,
+                                                            "res"=fig.res,
+                                                            "bg"=spectrum.transparency))
+        
+        
+        try(record.overlaid.spectra<<-recordPlot())
+        try(dev.control(displaylist="inhibit"))
+        
+        
         dev.off()
         
         file.remove(overlaidSpectrumFile1$name)
@@ -1546,6 +1596,32 @@ shinyServer(function(input, output, session) {
         if (!is.null(peaks.mass.list.filepath.second.spectrum) && !is.null(peaks.sheet.name.second.spectrum)) {
             file.remove(overlaidMassListFile2$name)
         }
+        
+        #download handler save figure single spectrum
+        output$downloadFigureOverlaidSpectra <- downloadHandler(
+          filename = function() {
+            paste(as.character(record.overlaid.spectra.vars[[1]]))
+          },
+          content = function(con) {
+            try(png(filename = as.character(record.overlaid.spectra.vars[[1]]),
+                    height = as.numeric(record.overlaid.spectra.vars[[2]]),
+                    width = as.numeric(record.overlaid.spectra.vars[[3]]),
+                    res=as.numeric(record.overlaid.spectra.vars[[4]]),
+                    pointsize = 4,
+                    units = "cm",
+                    bg=as.character(record.overlaid.spectra.vars[[5]])))
+            
+            try(replayPlot(record.overlaid.spectra))
+            
+            dev.off()
+            
+            try(file.copy(from=as.character(record.overlaid.spectra.vars[[1]]),
+                          to=con))
+            
+            try(file.remove(as.character(record.overlaid.spectra.vars[[1]])))
+            
+          }
+        )
         
         list(src = fig.name.final)
         
