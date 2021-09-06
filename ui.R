@@ -1120,8 +1120,8 @@ shinyUI(fluidPage(
                      # Show a plot of the generated distribution
                      mainPanel(
                          # Button
-                         #downloadButton('downloadData', 'Download PeakFinder'),
-                         uiOutput('downloadButton'),
+                         downloadButton('downloadFigureSingleSpectrum', 'Download Figure'),
+                         #uiOutput('downloadButton'),
                          uiOutput('downloadButtonSettings'),
                      
                          tags$div(class = "image-fixed-container", imageOutput("singleSpectrum"))
@@ -2559,6 +2559,9 @@ shinyUI(fluidPage(
                      
                      # Show a plot of the generated distribution
                      mainPanel(
+                         
+                         downloadButton('downloadFigureOverlaidSpectra', 'Download Figure'),
+                         
                          tags$div(class = "image-fixed-container", imageOutput("overlaidSpectrum"))
                      )
                  )
