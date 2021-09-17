@@ -767,6 +767,21 @@ shinyUI(fluidPage(
                          #          textInput(inputId = "peaksMzLabelSigFigs", label = "m/z Label Rounding", value = "2", placeholder = ""),
                          # ),
                          #
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Round to Decimal Place or Significant Digits",
+                             selectInput(
+                                 "peaksMzLabelRounding",
+                                 "Round to Decimal Place or Significant Digits",
+                                 c(
+                                     "To Decimal Place" = "1",
+                                     "To Significant Digits" = "2"
+                                 ),
+                                 selected = "1"
+                             )
+                         ),
+                         
                          # Input: SliderInput ----
                          tags$div(
                              title = "Number of digits after decimal point the m/z value is rounded to",
@@ -2496,6 +2511,20 @@ shinyUI(fluidPage(
                          
                          HTML(
                              "<button class=\"accordion\">Rounding</button><div class=\"panel\">"
+                         ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Round to Decimal Place or Significant Digits",
+                             selectInput(
+                                 "peaksOverlaidSpectraMzLabelRounding",
+                                 "Round to Decimal Place or Significant Digits",
+                                 c(
+                                     "To Decimal Place" = "1",
+                                     "To Significant Digits" = "2"
+                                 ),
+                                 selected = "1"
+                             )
                          ),
                          
                          # Input: SliderInput ----
