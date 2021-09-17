@@ -162,13 +162,13 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
 
   if(custom.y.axis==F && mirror.spectrum==T){
     yaxis.interval<-spectrum.y.axis.upper.limit/2
-    custom.y.axis.pdj<-(-0.25)
-    axis.ticks.fontsize<-2
+    #custom.y.axis.pdj<-(-0.25)
+    #axis.ticks.fontsize<-2
   }
   
   if(custom.axis==F && mirror.spectrum==T){
     xaxis.interval<-(spectrum.upper.range.limit-spectrum.lower.range.limit)/5
-    custom.axis.pdj<-0.75
+    #custom.axis.pdj<-0.75
   }
   
   if(custom.axis.ann==F && mirror.spectrum==T){
