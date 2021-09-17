@@ -19,6 +19,7 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
                                     labels.on=c(1,0,1,1,1),
                                     label.position="r",
                                     fontsize=1.25,
+                                    round.or.sigfig,
                                     mz.label.sigfigs=2,
                                     int.label.sigfigs=1,
                                     sn.label.sigfigs=1,
@@ -289,6 +290,22 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     #   label.position.factor<-label.position.factor+1
     # }
     
+    if(round.or.sigfig==1){
+      #rounded.mz<-round(na.exclude(mass.list$m.z),digits=mz.label.sigfigs)
+      #rounded.int<-round(na.exclude(mass.list$Intensity),digits=int.label.sigfigs)
+      #rounded.SN<-round(na.exclude(mass.list$SN),digits=sn.label.sigfigs)
+      rounded.mz<-formatC(round(abs(na.exclude(mass.list$m.z)),digits=mz.label.sigfigs),format = 'f',digits = mz.label.sigfigs)
+      rounded.int<-formatC(round(abs(na.exclude(mass.list$Intensity)),digits=int.label.sigfigs),format = 'f',digits = int.label.sigfigs)
+      rounded.SN<-formatC(round(abs(na.exclude(mass.list$SN)),digits=sn.label.sigfigs),format = 'f',digits = sn.label.sigfigs)
+    } else if (round.or.sigfig==2){
+          rounded.mz<-signif(abs(na.exclude(mass.list$m.z),digits=mz.label.sigfigs))
+          rounded.int<-signif(abs(na.exclude(mass.list$Intensity),digits=int.label.sigfigs))
+          rounded.SN<-signif(abs(na.exclude(mass.list$SN),digits=sn.label.sigfigs))
+          #rounded.mz<-formatC(signif(na.exclude(mass.list$m.z),digits=mz.label.sigfigs),format = 'f',digits = mz.label.sigfigs)
+          #rounded.int<-formatC(signif(na.exclude(mass.list$Intensity),digits=int.label.sigfigs),format = 'f',digits = int.label.sigfigs)
+          #rounded.SN<-formatC(signif(na.exclude(mass.list$SN),digits=sn.label.sigfigs),format = 'f',digits = sn.label.sigfigs)
+    }
+    
     if(labels.on[1]==1){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-label.position.factor*label.spread.distance),
@@ -321,7 +338,8 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     if(labels.on[3]==1){
       text(x=(na.exclude(mass.list$m.z))+(na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-(label.position.factor*label.spread.distance)), 
-           labels =  paste("m/z:",round(na.exclude(mass.list$m.z),digits=mz.label.sigfigs)),
+           #labels =  paste("m/z:",round(na.exclude(mass.list$m.z),digits=mz.label.sigfigs)),
+           labels =  paste("m/z:",rounded.mz),
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)  
@@ -331,7 +349,8 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     if(labels.on[4]==1 & mirror==F & normalize.spectrum.show.as.percent==F){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-(label.position.factor*label.spread.distance)), 
-           labels = paste("Intensity:",round(na.exclude(mass.list$Intensity),digits=int.label.sigfigs)),
+           #labels = paste("Intensity:",round(na.exclude(mass.list$Intensity),digits=int.label.sigfigs)),
+           labels = paste("Intensity:",rounded.int),
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)  
@@ -341,7 +360,8 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     if(labels.on[4]==1 & mirror==F & normalize.spectrum.show.as.percent==T){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-(label.position.factor*label.spread.distance)), 
-           labels = paste0("Intensity: ",round(na.exclude(mass.list$Intensity),digits=int.label.sigfigs),"%"),
+           #labels = paste0("Intensity: ",round(na.exclude(mass.list$Intensity),digits=int.label.sigfigs),"%"),
+           labels = paste0("Intensity: ",rounded.int,"%"),
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)  
@@ -351,7 +371,8 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     if(labels.on[4]==1 & mirror==T & normalize.spectrum.show.as.percent==F){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-(label.position.factor*label.spread.distance)), 
-           labels = paste("Intensity:",round(na.exclude(-mass.list$Intensity),digits=int.label.sigfigs)),
+           #labels = paste("Intensity:",round(na.exclude(-mass.list$Intensity),digits=int.label.sigfigs)),
+           labels = paste("Intensity:",rounded.int),
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)  
@@ -361,7 +382,8 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     if(labels.on[4]==1 & mirror==T & normalize.spectrum.show.as.percent==T){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-(label.position.factor*label.spread.distance)), 
-           labels = paste0("Intensity: ",round(na.exclude(-mass.list$Intensity),digits=int.label.sigfigs),"%"),
+           #labels = paste0("Intensity: ",round(na.exclude(-mass.list$Intensity),digits=int.label.sigfigs),"%"),
+           labels = paste0("Intensity: ",rounded.int,"%"),
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)  
@@ -371,7 +393,8 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
     if(labels.on[5]==1){
       text(x=(na.exclude(mass.list$m.z)+na.exclude(mass.list$label.posx.offset)),
            y=(na.exclude(mass.list$label.y.offset)-(label.position.factor*max.y*label.spread)), 
-           labels = paste("S/N:",round(na.exclude(mass.list$SN),digits=sn.label.sigfigs)),
+           #labels = paste("S/N:",round(na.exclude(mass.list$SN),digits=sn.label.sigfigs)),
+           labels = paste("S/N:",rounded.SN),
            pos=na.exclude(mass.list$position.label),
            cex=fontsize,
            col=label.line.col)  
