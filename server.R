@@ -17,6 +17,8 @@ source("Function_Overlay Peak List.R")
 source("Function_Plot Mirror MS.R")
 source("Function_Peak Finder.R")
 
+options(shiny.maxRequestSize=30*1024^2)
+
 #Variables from website-----
 ##Variables for jpeg creation
 fig.name<-"Single Spectrum" #figure name, character
