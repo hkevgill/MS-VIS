@@ -84,7 +84,8 @@ peak.finder<-function(mass.list.filepath,
     for(z in 1:length(columns.all)){
       grabbed.columns[z]<-NA
       try(
-        grabbed.columns[z]<-mass.list[[columns.all[z]]][which((floor(mass.list[[columns.all[1]]])<(selected.masses[i]+tolerance))&(floor(mass.list[[columns.all[1]]])>(selected.masses[i]-tolerance)))]
+        #grabbed.columns[z]<-mass.list[[columns.all[z]]][which((floor(mass.list[[columns.all[1]]])<(selected.masses[i]+tolerance))&(floor(mass.list[[columns.all[1]]])>(selected.masses[i]-tolerance)))]
+        grabbed.columns[z]<-mass.list[[columns.all[z]]][which(((mass.list[[columns.all[1]]])<(selected.masses[i]+tolerance))&((mass.list[[columns.all[1]]])>(selected.masses[i]-tolerance)))]
       )
     }
     
