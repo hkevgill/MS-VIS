@@ -1,17 +1,8 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
 library(colourpicker)
 library(shinyWidgets)
 
-# Define UI for application that draws a histogram
+# Define UI for application
 shinyUI(fluidPage(
     tags$head(
         tags$link(rel = "stylesheet", type = "text/css", href = "main.css"),
@@ -45,20 +36,6 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # # Input: Text ----
-                         # tags$div(title="Separator in the mass spectrum csv file",
-                         #          textInput("spectrumSeparator", "Column Separator in the File", value = "", width = NULL, placeholder = "space"),
-                         # ),
-                         
-                         # # Input: SelectInput ----
-                         # tags$div(title="File Type",
-                         #          selectInput("spectrumFiletype",
-                         #                      "File type of the spectrum file",
-                         #                      c("CSV" = "csv",
-                         #                        "MzXML" = "MzXML"),
-                         #                      selected = "CSV"),
-                         # ),
-                         
                          # Input: SelectInput ----
                          tags$div(
                              title = "Separator in the mass spectrum csv file",
@@ -85,11 +62,6 @@ shinyUI(fluidPage(
                                  placeholder = NULL
                              ),
                          ),
-                         
-                         # # Input: Checkbox ----
-                         # tags$div(title="Whether or not the mass spectrum file has column headers",
-                         #          checkboxInput("spectrumHeader", "Does the File have a Header", value = FALSE, width = NULL),
-                         # ),
                          
                          # Input: Select a file ----
                          tags$div(
@@ -366,7 +338,7 @@ shinyUI(fluidPage(
                              numericRangeInput(
                                  inputId = "spectrumRangeYAxis",
                                  label = "Y-axis Range",
-                                 value = c(0, 40000)
+                                 value = c(0, 100)
                              ),
                          ),
                          
@@ -544,20 +516,6 @@ shinyUI(fluidPage(
                                  placeholder = ""
                              ),
                          ),
-                         
-                         # # Input: SelectInput ----
-                         # tags$div(
-                         #     title = "File type of the image",
-                         #     selectInput(
-                         #         "spectrumImageFileType",
-                         #         "Desired Image File Type",
-                         #         c(
-                         #             ".jpg" = "jpg",
-                         #             ".png" = "png"
-                         #         ),
-                         #         selected = "png"
-                         #     ),
-                         # ),
                          
                          # Input: Checkbox ----
                          tags$div(
@@ -762,12 +720,6 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # Input: Text ----
-                         # tags$div(title="Number of digits after decimal point the m/z value is rounded to",
-                         #          textInput(inputId = "peaksMzLabelSigFigs", label = "m/z Label Rounding", value = "2", placeholder = ""),
-                         # ),
-                         #
-                         
                          # Input: SelectInput ----
                          tags$div(
                              title = "Round to Decimal Place or Significant Digits",
@@ -795,11 +747,6 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # Input: Text ----
-                         # tags$div(title="Number of digits after decimal point the intensity value is rounded to",
-                         #          textInput(inputId = "peaksIntLabelSigFigs", label = "Intensity Label Rounding", value = "2", placeholder = ""),
-                         # ),
-                         
                          # Input: SliderInput ----
                          tags$div(
                              title = "Number of digits after decimal point the intensity value is rounded to",
@@ -812,11 +759,6 @@ shinyUI(fluidPage(
                                  step = 1
                              ),
                          ),
-                         
-                         # Input: Text ----
-                         # tags$div(title="Number of digits after decimal point the S/N value is rounded to",
-                         #          textInput(inputId = "peaksSnLabelSigFigs", label = "S/N Label Rounding", value = "0", placeholder = ""),
-                         # ),
                          
                          # Input: SliderInput ----
                          tags$div(
@@ -915,18 +857,6 @@ shinyUI(fluidPage(
                          ),
                          
                          # Input: SliderInput ----
-                         # tags$div(title="Distance of the peak labels from the peak (length of the line connecting the peak to the peak labels). Must have as many entries as there are selected peaks",
-                         #          sliderInput("peaksLabelLength", "Label Distance:",
-                         #                      min = 0, max = 1,
-                         #                      value = 0.1, step = 0.05),
-                         # ),
-                         
-                         # # Input: Text ----
-                         # tags$div(title="Line spacing within labels of one peak (Label1,Label2,S/N/Intensity,Area)",
-                         #          textInput(inputId = "peaksLabelSpread", label = "Label Spacing", value = "0.05", placeholder = ""),
-                         # ),
-                         
-                         # Input: SliderInput ----
                          tags$div(
                              title = "Line spacing within labels of one peak (Label1,Label2,S/N/Intensity,Area)",
                              sliderInput(
@@ -938,11 +868,6 @@ shinyUI(fluidPage(
                                  step = 0.01
                              ),
                          ),
-                         
-                         # # Input: Text ----
-                         # tags$div(title="Line type of the line connecting the peak to the peak labels",
-                         #          textInput(inputId = "peaksLabelLineType", label = "Label Line Type", value = "3", placeholder = ""),
-                         # ),
                          
                          # Input: SelectInput ----
                          tags$div(
@@ -962,11 +887,6 @@ shinyUI(fluidPage(
                                  selected = "2"
                              ),
                          ),
-                         
-                         # # Input: Text ----
-                         # tags$div(title="Line width of the line connecting the peak to the peak labels",
-                         #          textInput(inputId = "peakLabelLineWidth", label = "Label Line Width", value = "1", placeholder = ""),
-                         # ),
                          
                          # Input: SliderInput ----
                          tags$div(
@@ -994,13 +914,6 @@ shinyUI(fluidPage(
                                  returnName = FALSE
                              ),
                          ),
-                         
-                         
-                         
-                         # # Input: Text ----
-                         # tags$div(title="Fontsize of the peak labels",
-                         #          textInput(inputId = "peaksFontSize", label = "Label Font Size", value = "1.5", placeholder = ""),
-                         # ),
                          
                          # Input: SliderInput ----
                          tags$div(
@@ -1031,105 +944,6 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # HTML(
-                         #     "<button class=\"accordion\">Peak Finder</button><div class=\"panel\">"
-                         # ),
-                         # 
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "The first sheet in the excel file to start the peak finder",
-                         #     textInput(
-                         #         inputId = "peakFinderSheetStart",
-                         #         label = "First sheet",
-                         #         value = "1",
-                         #         placeholder = "1"
-                         #     ),
-                         # ),
-                         # 
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "The last sheet in the excel file where the peak finder ends. Can be either 'last' or a nuber",
-                         #     textInput(
-                         #         inputId = "peakFinderSheetEnd",
-                         #         label = "Final sheet",
-                         #         value = "last",
-                         #         placeholder = "last"
-                         #     ),
-                         # ),
-                         # 
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "m/z value of the peaks which should be searched. If several peaks are searched, the m/z values need to be separated by comma.",
-                         #     textInput(
-                         #         inputId = "peakFinderSelectedMasses",
-                         #         label = "m/z Value of Peaks to be Searched",
-                         #         value = "",
-                         #         placeholder = "Example: 1496, 1506"
-                         #     ),
-                         # ),
-                         # 
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Window in dalton from which the peaks selected in 'm/z Value of Peaks to be Searched' are picked (e.g., 1496+-2)",
-                         #     textInput(
-                         #         inputId = "peakFinderTolerance",
-                         #         label = "m/z Tolerance ",
-                         #         value = "2",
-                         #         placeholder = ""
-                         #     ),
-                         # ),
-                         # 
-                         # # Input: MaterialSwitch ----
-                         # tags$div(
-                         #     title = "If two peaks are within the tolerance window for peak picking, the higher one is selected",
-                         #     materialSwitch(
-                         #         inputId = "peakFinderConflictUseMax",
-                         #         label = "Peak Conflict: Use Max Peak",
-                         #         status = "primary",
-                         #         right = TRUE,
-                         #         value = TRUE
-                         #     ),
-                         # ),
-                         # 
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Name of the file containing the results",
-                         #     textInput(
-                         #         inputId = "peakFinderSaveFileName",
-                         #         label = "Name of Save File ",
-                         #         value = "Savefile",
-                         #         placeholder = ""
-                         #     ),
-                         # ),
-                         # 
-                         # # Input: MaterialSwitch ----
-                         # tags$div(
-                         #     title = "Run Peak Finder?",
-                         #     materialSwitch(
-                         #         inputId = "peakFinderRun",
-                         #         label = "Run Peak Finder?",
-                         #         status = "primary",
-                         #         right = TRUE,
-                         #         value = FALSE
-                         #     ),
-                         # ),
-                         # 
-                         # #Run peak finder----
-                         # # tags$div(title="Run Peak Finder",
-                         # #          actionButton("runPeakFinder","Run Peak Finder"),
-                         # # ),
-                         # 
-                         # 
-                         # 
-                         # #selected.masses,
-                         # #tolerance,
-                         # #if.peak.conflict.use.max=T,
-                         # #save.file.name="Peak Finder Results",
-                         # 
-                         # 
-                         # HTML("</div>")
-                         
-                         
                      ),
                      
                      # Show a plot of the generated distribution
@@ -1142,6 +956,7 @@ shinyUI(fluidPage(
                          tags$div(class = "image-fixed-container", imageOutput("singleSpectrum"))
                      )
                  )),
+        
         tabPanel("Overlaid Spectrum",
                  # Sidebar with a slider input for number of bins
                  sidebarLayout(
@@ -1360,18 +1175,6 @@ shinyUI(fluidPage(
                              "Spectrum Border, Colour, and Line Width</button><div class=\"panel\">"
                          ),
                          
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Line type of first mass spectrum",
-                         #     textInput(
-                         #         "overlaidSpectrumLineType1",
-                         #         "First Spectrum Line Type",
-                         #         value = "1",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
-                         
                          # Input: SelectInput ----
                          tags$div(
                              title = "Define the shape of the border of the spectrum",
@@ -1409,20 +1212,6 @@ shinyUI(fluidPage(
                                  selected = "1"
                              ),
                          ),
-                         
-                         
-                         
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Line type of second mass spectrum",
-                         #     textInput(
-                         #         "overlaidSpectrumLineType2",
-                         #         "Second Spectrum Line Type",
-                         #         value = "2",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
                          
                          # Input: SelectInput ----
                          tags$div(
@@ -1498,7 +1287,6 @@ shinyUI(fluidPage(
                          ),
                          
 
-                         
                          HTML("</div>"),
                          
                          HTML("<button class=\"inner-accordion\">"),
@@ -1532,7 +1320,7 @@ shinyUI(fluidPage(
                              numericRangeInput(
                                  inputId = "overlaidSpectrumRangeYAxis",
                                  label = "Y-axis Range",
-                                 value = c(0, 40000)
+                                 value = c(0, 100)
                              ),
                          ),
                          
@@ -1933,17 +1721,6 @@ shinyUI(fluidPage(
                              )
                          ),
                          
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Size of legend",
-                         #     textInput(
-                         #         inputId = "overlaidSpectrumLegendSize",
-                         #         label = "Legend Size",
-                         #         value = "2",
-                         #         placeholder = ""
-                         #     ),
-                         # ),
-                         
                          # Input: SliderInput ----
                          tags$div(
                              title = "Size of legend",
@@ -1956,17 +1733,6 @@ shinyUI(fluidPage(
                                  step = 0.1
                              ),
                          ),
-                         
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Legend line width",
-                         #     textInput(
-                         #         inputId = "overlaidSpectrumLegendLineWidth",
-                         #         label = "Legend Line Width",
-                         #         value = "1",
-                         #         placeholder = ""
-                         #     ),
-                         # ),
                          
                          # Input: SliderInput ----
                          tags$div(
@@ -2124,18 +1890,6 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Fontsize of the peak labels",
-                         #     textInput(
-                         #         "overlaidPeaksFontSize1",
-                         #         "First Spectrum Peaks Font Size",
-                         #         value = "1.5",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
-                         
                          # Input: SliderInput ----
                          tags$div(
                              title = "Fontsize of the peak labels",
@@ -2148,18 +1902,6 @@ shinyUI(fluidPage(
                                  step = 0.1
                              ),
                          ),
-                         
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Line type of the line connecting the peak to the peak labels",
-                         #     textInput(
-                         #         "overlaidPeaksLabelLineType1",
-                         #         "First Spectrum Peaks Label Line Type",
-                         #         value = "3",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
                          
                          # Input: SelectInput ----
                          tags$div(
@@ -2206,18 +1948,6 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart",
-                         #     textInput(
-                         #         "overlaidPeaksLabelSpread1",
-                         #         "First Spectrum Peaks Label Spread",
-                         #         value = "0.075",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
-                         
                          # Input: SliderInput ----
                          tags$div(
                              title = "Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart",
@@ -2230,18 +1960,6 @@ shinyUI(fluidPage(
                                  step = 0.01
                              ),
                          ),
-                         
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Line type of the line connecting the peak to the peak labels, character or color hex code",
-                         #     textInput(
-                         #         "overlaidPeaksLabelLineColour1",
-                         #         "First Spectrum Peaks Label Line Colour",
-                         #         value = "black,red",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
                          
                          HTML("</div>"),
                          
@@ -2386,18 +2104,6 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Fontsize of the peak labels",
-                         #     textInput(
-                         #         "overlaidPeaksFontSize2",
-                         #         "Second Spectrum Peaks Font Size",
-                         #         value = "1.5",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
-                         
                          # Input: SliderInput ----
                          tags$div(
                              title = "Fontsize of the peak labels",
@@ -2410,18 +2116,6 @@ shinyUI(fluidPage(
                                  step = 0.1
                              ),
                          ),
-                         
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Line type of the line connecting the peak to the peak labels",
-                         #     textInput(
-                         #         "overlaidPeaksLabelLineType2",
-                         #         "Second Spectrum Peaks Label Line Type",
-                         #         value = "3",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
                          
                          # Input: SelectInput ----
                          tags$div(
@@ -2468,18 +2162,6 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart",
-                         #     textInput(
-                         #         "overlaidPeaksLabelSpread2",
-                         #         "Second Spectrum Peaks Label Spread",
-                         #         value = "0.075",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
-                         
                          # Input: SliderInput ----
                          tags$div(
                              title = "Distance how far the labels of one peak (Label1,Label2,S/N/Intensity,Area) are spread apart",
@@ -2492,18 +2174,6 @@ shinyUI(fluidPage(
                                  step = 0.01
                              ),
                          ),
-                         
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Line type of the line connecting the peak to the peak labels, character or color hex code",
-                         #     textInput(
-                         #         "overlaidPeaksLabelLineColour2",
-                         #         "Second Spectrum Peaks Label Line Colour",
-                         #         value = "black",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
                          
                          HTML("</div>"),
                          
@@ -2553,11 +2223,6 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # Input: Text ----
-                         # tags$div(title="Number of digits after decimal point the S/N value is rounded to",
-                         #          textInput(inputId = "peaksSnLabelSigFigs", label = "S/N Label Rounding", value = "0", placeholder = ""),
-                         # ),
-                         
                          # Input: SliderInput ----
                          tags$div(
                              title = "Number of digits after decimal point the S/N value is rounded to",
@@ -2595,6 +2260,7 @@ shinyUI(fluidPage(
                      )
                  )
                  ),
+        
         tabPanel("Peak Finder",
                  # Sidebar with a slider input for number of bins
                  sidebarLayout(
@@ -2660,42 +2326,6 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "Names of the columns selected above. Separated by comma (i.e. 'Intensity','S/N')",
-                         #     textInput(
-                         #         "peaksColumnsExtraNamesPeakFinder",
-                         #         "Names of Additional Columns",
-                         #         value = "Intensity,SN",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
-                         
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "The column in the mass list which contains the intensity values",
-                         #     textInput(
-                         #         "peaksColumnIntPeakFinder",
-                         #         "Column in the Mass List Containing Intensity Values",
-                         #         value = "3",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
-                         # 
-                         # # Input: Text ----
-                         # tags$div(
-                         #     title = "The column in the mass list which contains the S/N values",
-                         #     textInput(
-                         #         "peaksColumnSNPeakFinder",
-                         #         "Column in the Mass List Containing S/N Ratios",
-                         #         value = "4",
-                         #         width = NULL,
-                         #         placeholder = NULL
-                         #     ),
-                         # ),
-                         
                          # Input: Text ----
                          tags$div(
                              title = "The first sheet in the excel file to start the peak finder",
@@ -2740,18 +2370,6 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # # Input: MaterialSwitch ----
-                         # tags$div(
-                         #     title = "If two peaks are within the tolerance window for peak picking, the higher one is selected",
-                         #     materialSwitch(
-                         #         inputId = "ConflictUseMaxPeakFinder",
-                         #         label = "Peak Conflict: Use Max Peak",
-                         #         status = "primary",
-                         #         right = TRUE,
-                         #         value = TRUE
-                         #     ),
-                         # ),
-                         
                          # Input: Text ----
                          tags$div(
                              title = "Name of the file containing the results",
@@ -2763,20 +2381,6 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
-                         # # Input: MaterialSwitch ----
-                         # tags$div(
-                         #     title = "Run Peak Finder?",
-                         #     materialSwitch(
-                         #         inputId = "RunPeakFinder",
-                         #         label = "Run Peak Finder?",
-                         #         status = "primary",
-                         #         right = TRUE,
-                         #         value = FALSE
-                         #     ),
-                         # ),
-                         
-                         # Input: MaterialSwitch ----
-                         
                      ),
                      
                      # Show a plot of the generated distribution
@@ -2785,7 +2389,7 @@ shinyUI(fluidPage(
                      )
                  )
         ),
-        tabPanel("About", HTML("<div><h3>About</h3><p>This mass-spectrum online plotting tool is made for visualizing and labelling MALDI mass spectra. The online tool is an easy to use interface for users with no prior programming experience We plan to expand this online tool to accept other data formats to make a more general tool for mass-spectra visualization.</p><p>Citation: DOI: TBD</p><p>Creators: Bjorn Froehlich, Kevin Gill, and Anuj Joshi</p></div>"))
+        tabPanel("About", HTML("<div><h3>About</h3><p>This mass-spectrum online plotting tool is made for visualizing and labelling MALDI mass spectra. The online tool is an easy to use interface for users with no prior programming experience We plan to expand this online tool to accept other data formats to make a more general tool for mass-spectra visualization.</p><p>Citation: DOI: TBD</p><p>Code: <a href=\"https://github.com/hkevgill/MS-VIS\" target=\"_blank\">https://github.com/hkevgill/MS-VIS</a></p><p>Creators: Bjorn Froehlich, Kevin Gill, and Anuj Joshi</p></div>"))
         
     ),
 ))

@@ -1,8 +1,10 @@
 # Docker Mass Spectrum App
 
+## Use the tool at:
+
 www.mass-spectrum.com
 
-## How to get Application working:
+## Getting up and running:
 
 ### Clone App
 
@@ -20,3 +22,7 @@ docker build -t mass-spectrum-image .
 ```
 docker run --rm -it -p 8080:8080 mass-spectrum-image
 ```
+
+## Created by
+
+Bjorn Froehlich, Kevin Gill, and Anuj Joshi
