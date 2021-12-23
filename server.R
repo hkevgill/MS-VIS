@@ -711,8 +711,8 @@ shinyServer(function(input, output, session) {
                 })
             })
         
-        #download handler save figure single spectrum
-        output$downloadFigureSingleSpectrum <- downloadHandler(
+        #download handler save figure single spectrum as png
+        output$downloadFigureSingleSpectrumPng <- downloadHandler(
           filename = function() {
             paste(as.character(record.record.single.spectrum.vars[[1]]))
           },
@@ -729,6 +729,30 @@ shinyServer(function(input, output, session) {
             
             dev.off()
 
+            try(file.copy(from=as.character(record.record.single.spectrum.vars[[1]]),
+                          to=con))
+            
+            try(file.remove(as.character(record.record.single.spectrum.vars[[1]])))
+            
+          }
+        )
+        
+        #download handler save figure single spectrum as pdf
+        output$downloadFigureSingleSpectrumPdf <- downloadHandler(
+          filename = function() {
+            paste(paste0(fig.name,".pdf"))
+          },
+          content = function(con) {
+            try(pdf(file = as.character(record.record.single.spectrum.vars[[1]]),
+                    height = as.numeric(record.record.single.spectrum.vars[[2]]),
+                    width = as.numeric(record.record.single.spectrum.vars[[3]]),
+                    pointsize = 4,
+                    bg=as.character(record.record.single.spectrum.vars[[5]])))
+            
+            try(replayPlot(record.single.spectrum))
+            
+            dev.off()
+            
             try(file.copy(from=as.character(record.record.single.spectrum.vars[[1]]),
                           to=con))
             
@@ -1353,8 +1377,8 @@ shinyServer(function(input, output, session) {
             file.remove(overlaidMassListFile2$name)
         }
         
-        #download handler save figure single spectrum
-        output$downloadFigureOverlaidSpectra <- downloadHandler(
+        #download handler save figure single spectrum as png
+        output$downloadFigureOverlaidSpectraPng <- downloadHandler(
           filename = function() {
             paste(as.character(record.overlaid.spectra.vars[[1]]))
           },
@@ -1365,6 +1389,30 @@ shinyServer(function(input, output, session) {
                     res=as.numeric(record.overlaid.spectra.vars[[4]]),
                     pointsize = 4,
                     units = "cm",
+                    bg=as.character(record.overlaid.spectra.vars[[5]])))
+            
+            try(replayPlot(record.overlaid.spectra))
+            
+            dev.off()
+            
+            try(file.copy(from=as.character(record.overlaid.spectra.vars[[1]]),
+                          to=con))
+            
+            try(file.remove(as.character(record.overlaid.spectra.vars[[1]])))
+            
+          }
+        )
+        
+        #download handler save figure single spectrum as pdf
+        output$downloadFigureOverlaidSpectraPdf <- downloadHandler(
+          filename = function() {
+            paste(paste0(fig.name,".pdf"))
+          },
+          content = function(con) {
+            try(pdf(file = as.character(record.overlaid.spectra.vars[[1]]),
+                    height = as.numeric(record.overlaid.spectra.vars[[2]]),
+                    width = as.numeric(record.overlaid.spectra.vars[[3]]),
+                    pointsize = 4,
                     bg=as.character(record.overlaid.spectra.vars[[5]])))
             
             try(replayPlot(record.overlaid.spectra))

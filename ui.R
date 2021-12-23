@@ -944,13 +944,14 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         # Single spectrum download buttons
+                         downloadButton('downloadFigureSingleSpectrumPng', 'Download Figure as PNG'),
+                         downloadButton('downloadFigureSingleSpectrumPdf', 'Download Figure as PDF'),
+                         
                      ),
                      
                      # Show a plot of the generated distribution
                      mainPanel(
-                         # Button
-                         downloadButton('downloadFigureSingleSpectrum', 'Download Figure'),
-                         #uiOutput('downloadButton'),
                          uiOutput('downloadButtonSettings'),
                      
                          tags$div(class = "image-fixed-container", imageOutput("singleSpectrum"))
@@ -2249,13 +2250,13 @@ shinyUI(fluidPage(
                              ),
                          ),
                          
+                         downloadButton('downloadFigureOverlaidSpectraPng', 'Download Figure as PNG'),
+                         downloadButton('downloadFigureOverlaidSpectraPdf', 'Download Figure as PDF'),
+                         
                      ),
                      
                      # Show a plot of the generated distribution
                      mainPanel(
-                         
-                         downloadButton('downloadFigureOverlaidSpectra', 'Download Figure'),
-                         
                          tags$div(class = "image-fixed-container", imageOutput("overlaidSpectrum"))
                      )
                  )
