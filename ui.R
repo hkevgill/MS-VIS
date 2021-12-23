@@ -32,7 +32,8 @@ shinyUI(fluidPage(
                                  multiple = FALSE,
                                  accept = c("text",
                                             "text/plain",
-                                            "txt")
+                                            "txt",
+                                            "csv")
                              ),
                          ),
                          
@@ -70,7 +71,7 @@ shinyUI(fluidPage(
                                  "file2",
                                  "Upload a Mass List as an Excel File",
                                  multiple = FALSE,
-                                 accept = c(".xlsx")
+                                 accept = c(".xlsx", "xls")
                              ),
                          ),
                          
@@ -973,7 +974,8 @@ shinyUI(fluidPage(
                                  multiple = FALSE,
                                  accept = c("text",
                                             "text/plain",
-                                            "txt")
+                                            "txt",
+                                            "csv")
                              ),
                          ),
                          
@@ -986,7 +988,8 @@ shinyUI(fluidPage(
                                  multiple = FALSE,
                                  accept = c("text",
                                             "text/plain",
-                                            "txt")
+                                            "txt",
+                                            "csv")
                              ),
                          ),
                          
@@ -1012,7 +1015,7 @@ shinyUI(fluidPage(
                                  "overlaidMassListFile1",
                                  "Upload a Mass List as an Excel File for the first spectrum",
                                  multiple = FALSE,
-                                 accept = c(".xlsx")
+                                 accept = c(".xlsx", "xls")
                              ),
                          ),
                          
