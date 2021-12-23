@@ -206,7 +206,7 @@ shinyUI(fluidPage(
                                  "spectrumCustomAxisAnnLine",
                                  "Position of X-axis and Y-axis Labels:",
                                  min = 1,
-                                 max = 10,
+                                 max = 5,
                                  value = 4,
                                  step = 0.1
                              ),
@@ -419,7 +419,7 @@ shinyUI(fluidPage(
                                  "spectrumCustomXAxisPdj",
                                  "Position of X-axis Tick Values:",
                                  min = 0.1,
-                                 max = 5,
+                                 max = 3,
                                  value = 1,
                                  step = 0.1
                              ),
@@ -1125,7 +1125,7 @@ shinyUI(fluidPage(
                                  "overlaidSpectrumCustomAxisAnnLine",
                                  "Position of X-axis and Y-axis Labels:",
                                  min = 1,
-                                 max = 10,
+                                 max = 5,
                                  value = 4,
                                  step = 0.1
                              ),
@@ -1404,7 +1404,7 @@ shinyUI(fluidPage(
                                  "overlaidSpectrumCustomXAxisPdj",
                                  "Position of X-axis Tick Values:",
                                  min = 0.1,
-                                 max = 5,
+                                 max = 3,
                                  value = 1,
                                  step = 0.1
                              ),
