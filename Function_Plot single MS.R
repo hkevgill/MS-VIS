@@ -1,5 +1,6 @@
 mass.spectrum.create<-function(rawfile.path,
                                separator=" ",
+                               decimal=".",
                                first.data.row=1,
                                column.mz=1,
                                column.int=2,
@@ -61,7 +62,8 @@ mass.spectrum.create<-function(rawfile.path,
   print(filetype)
 
   if(filetype=="csv"){
-    mass.spectrum<-read.csv(rawfile.path,sep=separator, skip=(first.data.row-1), colClasses = "numeric",header = headerTF)
+    mass.spectrum<-read.csv(rawfile.path,sep=separator, dec = decimal,skip=(first.data.row-1), colClasses = "numeric",header = headerTF)
+    #mass.spectrum<-read.csv(rawfile.path,sep=separator, dec = decimal,skip=(first.data.row-1), header = headerTF) #Note: UFT-8 csv may cause issues when header is FALSE and colClasses are defined
     mass.spectrum<-data.frame(as.numeric(mass.spectrum[,1]),
                               as.numeric(mass.spectrum[,2]))
 
