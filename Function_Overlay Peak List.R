@@ -125,9 +125,13 @@ mass.spectrum.label.peaks<-function(mass.list.filepath,
       connect.line.x1<-vector()
       connect.line.y1<-vector()
       
-      grabbed.Int<- mass.list$Intensity[which((floor(mass.list$m.z)<(SelectedMasses[i]+tolerance))&(floor(mass.list$m.z)>(SelectedMasses[i]-tolerance)))]
-      grabbed.m.z<- mass.list$m.z[which((floor(mass.list$m.z)<(SelectedMasses[i]+tolerance))&(floor(mass.list$m.z)>(SelectedMasses[i]-tolerance)))]
-      grabbed.SN<- mass.list$SN[which((floor(mass.list$m.z)<(SelectedMasses[i]+tolerance))&(floor(mass.list$m.z)>(SelectedMasses[i]-tolerance)))]
+      grabbed.Int<- mass.list$Intensity[which((mass.list$m.<(SelectedMasses[i]+tolerance))&(mass.list$m.z>(SelectedMasses[i]-tolerance)))]
+      grabbed.m.z<- mass.list$m.z[which((mass.list$m.z<(SelectedMasses[i]+tolerance))&(mass.list$m.z>(SelectedMasses[i]-tolerance)))]
+      grabbed.SN<- mass.list$SN[which((mass.list$m.z<(SelectedMasses[i]+tolerance))&(mass.list$m.z>(SelectedMasses[i]-tolerance)))]
+      
+      # grabbed.Int<- mass.list$Intensity[which((floor(mass.list$m.z)<(SelectedMasses[i]+tolerance))&(floor(mass.list$m.z)>(SelectedMasses[i]-tolerance)))]
+      # grabbed.m.z<- mass.list$m.z[which((floor(mass.list$m.z)<(SelectedMasses[i]+tolerance))&(floor(mass.list$m.z)>(SelectedMasses[i]-tolerance)))]
+      # grabbed.SN<- mass.list$SN[which((floor(mass.list$m.z)<(SelectedMasses[i]+tolerance))&(floor(mass.list$m.z)>(SelectedMasses[i]-tolerance)))]
       
       if(length(grabbed.m.z)==0){
         grabbed.Int<-NA
