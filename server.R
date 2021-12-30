@@ -35,6 +35,62 @@ shinyServer(function(input, output, session) {
         cat(".")
     })
     
+    #Tutorial data tab
+    output$downloadSpectrum1txt <- downloadHandler(
+      filename = function() {
+        paste("Spectrum #1 as txt.txt")
+      },
+      content = function(con) {
+        try(file.copy(from="Example Data/spectrum 1.txt",
+                      to=con))
+        
+      }
+    )
+    
+    output$downloadSpectrum2txt <- downloadHandler(
+      filename = function() {
+        paste("Spectrum #2 as txt.txt")
+      },
+      content = function(con) {
+        try(file.copy(from="Example Data/spectrum 2.txt",
+                      to=con))
+        
+      }
+    )
+    
+    output$downloadSpectrum1csv <- downloadHandler(
+      filename = function() {
+        paste("Spectrum #1 as csv.csv")
+      },
+      content = function(con) {
+        try(file.copy(from="Example Data/spectrum 1.csv",
+                      to=con))
+        
+      }
+    )
+    
+    output$downloadSpectrum2csv <- downloadHandler(
+      filename = function() {
+        paste("Spectrum #2 as csv.csv")
+      },
+      content = function(con) {
+        try(file.copy(from="Example Data/spectrum 2.csv",
+                      to=con))
+        
+      }
+    )
+    
+    output$downloadSpectrum1csv <- downloadHandler(
+      filename = function() {
+        paste("Mass Lists as xlsx.xlsx")
+      },
+      content = function(con) {
+        try(file.copy(from="Example Data/Example Mass Lists.xlsx",
+                      to=con))
+        
+      }
+    )
+    
     
     #Peak Finder tab
     output$downloadDataPeakFinder<-downloadHandler(
@@ -498,6 +554,7 @@ shinyServer(function(input, output, session) {
         
         try(spectrum<-mass.spectrum.create(rawfile.path=spectrum.filepath,
                                            separator=spectrum.separator,
+                                           decimal = input$DecimalSeparator,
                                            headerTF=spectrum.headerTF,
                                            first.data.row = spectrum.first.data.row,
                                            filetype = spectrum.filetype,
@@ -597,6 +654,7 @@ shinyServer(function(input, output, session) {
                                      "Excel File with Mass List"=peaks.mass.list.filepath,
                                      "Mass List Sheet Name"=peaks.sheet.name,
                                      "Column Separator in Spectrum File"=spectrum.separator,
+                                     "Decimal Separator"= input$DecimalSeparator,
                                      "First Data Row in the Spectrum File"=spectrum.first.data.row,
                                      "First Data Row in Mass List"=peaks.first.data.row,
                                      #"Column in the Mass List Containing m/z Values"=peaks.column.mz,
@@ -660,6 +718,7 @@ shinyServer(function(input, output, session) {
                 } else {
                     user.input<<-list("Spectrum File"=spectrum.filepath,
                                      "Column Separator in Spectrum File"=spectrum.separator,
+                                     "Decimal Separator"=input$DecimalSeparator,
                                      "First Data Row in the Spectrum File"=spectrum.first.data.row,
                                      #"fig.name"=fig.name,
                                      "Figure Height in cm"=fig.height,
@@ -1243,6 +1302,7 @@ shinyServer(function(input, output, session) {
         try(spectrum<-mass.spectrum.overlaid.create(first.spectrum.rawfile.path = spectrum.first.spectrum.filepath,
                                                 second.spectrum.rawfile.path = spectrum.second.spectrum.filepath,
                                                 separator=spectrum.separator,
+                                                decimal=input$DecimalSeparator,
                                                 headerTF=spectrum.headerTF,
                                                 xaxis.title=spectrum.xaxis.label,
                                                 yaxis.title=spectrum.yaxis.label,
