@@ -1,5 +1,6 @@
 mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath of the first of two mass spectra to be overlaid, character
                                         separator=" ", #Separating character between m/z and intensity in mass spectrum text file, character
+                                        decimal=".",
                                         second.spectrum.rawfile.path, #Filepath of the second of two mass spectra to be overlaid, character 
                                         first.data.row=1,
                                         column.mz=1,
@@ -59,13 +60,13 @@ mass.spectrum.overlaid.create<-function(first.spectrum.rawfile.path, #Filepath o
   print(second.spectrum.rawfile.path)
   
   if(filetype=="csv"){
-    full.first.mass.spectrum<-read.csv(first.spectrum.rawfile.path,sep=separator, skip=(first.data.row-1), colClasses = "numeric",header = headerTF)
+    full.first.mass.spectrum<-read.csv(first.spectrum.rawfile.path,sep=separator, dec = decimal,skip=(first.data.row-1), colClasses = "numeric",header = headerTF)
     full.first.mass.spectrum<-data.frame(as.numeric(full.first.mass.spectrum[,1]),
                                          as.numeric(full.first.mass.spectrum[,2]))
     
     names(full.first.mass.spectrum)[c(column.mz,column.int)]<-c("m/z","Intensity")
     
-    full.second.mass.spectrum<-read.csv(second.spectrum.rawfile.path,sep=separator, skip=(first.data.row-1), colClasses = "numeric",header = headerTF)
+    full.second.mass.spectrum<-read.csv(second.spectrum.rawfile.path,sep=separator, dec = decimal,skip=(first.data.row-1), colClasses = "numeric",header = headerTF)
     full.second.mass.spectrum<-data.frame(as.numeric(full.second.mass.spectrum[,1]),
                                          as.numeric(full.second.mass.spectrum[,2]))
     
