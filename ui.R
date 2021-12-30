@@ -46,9 +46,24 @@ shinyUI(fluidPage(
                                  c(
                                      "Space" = " ",
                                      "Comma" = ",",
+                                     "Semicolon" = ";",
                                      "Tab" = "\t"
                                  ),
                                  selected = "Space"
+                             ),
+                         ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Character for decimal points in the mass spectrum csv file",
+                             selectInput(
+                                 "DecimalSeparator",
+                                 "Decimal Separator in the File",
+                                 c(
+                                     "Dot" = ".",
+                                     "Comma" = ","
+                                 ),
+                                 selected = "Dot"
                              ),
                          ),
                          
@@ -682,7 +697,7 @@ shinyUI(fluidPage(
                                  inputId = "peaksSelectedMasses",
                                  label = "m/z Value of Peaks to be Labeled",
                                  value = "",
-                                 placeholder = "Example: 1496, 1506"
+                                 placeholder = "Example: 1398, 1496, 1691"
                              ),
                          ),
                          
@@ -716,7 +731,7 @@ shinyUI(fluidPage(
                              textInput(
                                  inputId = "peaksLabelPosition",
                                  label = "Label Position",
-                                 value = "l,r",
+                                 value = "r,l",
                                  placeholder = "Example: r,R, must match length of Peaks Selected Masses"
                              ),
                          ),
@@ -1002,9 +1017,24 @@ shinyUI(fluidPage(
                                  c(
                                      "Space" = " ",
                                      "Comma" = ",",
+                                     "Semicolon" = ";",
                                      "Tab" = "\t"
                                  ),
                                  selected = "Space"
+                             ),
+                         ),
+                         
+                         # Input: SelectInput ----
+                         tags$div(
+                             title = "Character for decimal points in the mass spectrum csv file",
+                             selectInput(
+                                 "DecimalSeparator",
+                                 "Decimal Separator in the File",
+                                 c(
+                                     "Dot" = ".",
+                                     "Comma" = ","
+                                 ),
+                                 selected = "Dot"
                              ),
                          ),
                          
@@ -1770,7 +1800,7 @@ shinyUI(fluidPage(
                                  inputId = "overlaidPeaks1SelectedMasses",
                                  label = "m/z Value of Peaks to be Labeled",
                                  value = "",
-                                 placeholder = "Example: 1496, 1506"
+                                 placeholder = "Example: 1398, 1496, 1691"
                              ),
                          ),
                          
@@ -1803,7 +1833,7 @@ shinyUI(fluidPage(
                              textInput(
                                  inputId = "overlaidPeaks1LabelPosition",
                                  label = "Label Position",
-                                 value = "l,r",
+                                 value = "r,l",
                                  placeholder = "Example: r,R, must match length of Peaks Selected Masses"
                              ),
                          ),
@@ -1984,7 +2014,7 @@ shinyUI(fluidPage(
                                  inputId = "overlaidPeaks2SelectedMasses",
                                  label = "m/z Value of Peaks to be Labeled",
                                  value = "",
-                                 placeholder = "Example: 1496, 1506"
+                                 placeholder = "Example: 1398, 1496, 1691"
                              ),
                          ),
                          
@@ -2017,7 +2047,7 @@ shinyUI(fluidPage(
                              textInput(
                                  inputId = "overlaidPeaks2LabelPosition",
                                  label = "Label Position",
-                                 value = "l,r",
+                                 value = "r,l",
                                  placeholder = "Example: r,R, must match length of Peaks Selected Masses"
                              ),
                          ),
@@ -2359,7 +2389,7 @@ shinyUI(fluidPage(
                                  inputId = "SelectedMassesPeakFinder",
                                  label = "m/z Value of Peaks to be Searched",
                                  value = "",
-                                 placeholder = "Example: 1496, 1506"
+                                 placeholder = "Example: 1398, 1496, 1691"
                              ),
                          ),
                          
@@ -2393,7 +2423,51 @@ shinyUI(fluidPage(
                      )
                  )
         ),
-        tabPanel("About", HTML("<div><h3>About</h3><p>This mass-spectrum online plotting tool is made for visualizing and labelling MALDI mass spectra. The online tool is an easy to use interface for users with no prior programming experience We plan to expand this online tool to accept other data formats to make a more general tool for mass-spectra visualization.</p><p>Citation: DOI: TBD</p><p>Code: <a href=\"https://github.com/hkevgill/MS-VIS\" target=\"_blank\">https://github.com/hkevgill/MS-VIS</a></p><p>Creators: Bjorn Froehlich, Kevin Gill, and Anuj Joshi</p></div>"))
+        tabPanel("About", 
+                 HTML("<div><h3>About</h3><p>This mass-spectrum online plotting tool is made for visualizing and labelling MALDI mass spectra. The online tool is an easy to use interface for users with no prior programming experience We plan to expand this online tool to accept other data formats to make a more general tool for mass-spectra visualization.</p><p>Citation: DOI: TBD</p><p>Code: <a href=\"https://github.com/hkevgill/MS-VIS\" target=\"_blank\">https://github.com/hkevgill/MS-VIS</a></p><p>Creators: Bjorn Froehlich, Kevin Gill, and Anuj Joshi</p></div>")),
+        
+        tabPanel("Tutorial",
+                 
+                 HTML("<div><h3>Spectrum Plotting</h3><p>
+                 This website allows plotting and labelling of a single mass spectrum as well as creating an overlaid plot or mirror plot of two mass spectra. Additionally, parameters of selected peaks such as intensity or S/N ratio can be extracted from a series of mass lists, allowing rapid analysis of large sets of experiments.
+                It uses a text file as input for plotting the mass-spectrum, and an excel file containing the mass list for labelling the peaks. The user can upload a mass spectrum as a ASCII or comma-separated values file after exporting it from peak analysis. The input consists of two columns: m/z and intensity. They are separated by a character such as comma or space, which is selected in 'Column Separator in the File'. The field 'First Data Row in the Spectrum File' defines which row in the spectrum file contains the first entry of m/z and intensity values. 
+                If the user wishes to label peaks in the mass spectrum, the corresponding mass list needs to be uploaded as an '.xlsx' (Microsoft Excel) file. Additionally, the name of the excel sheet within the uploaded '.xlsx' file, containing the mass list, must be provided. The website uses this file to selectively display m/z, intensity and S/N values of the selected peaks. The user has to define which columns contain the m/z, intensity, and S/N values and in which row the data entries start.  
+                The variables for plotting a single spectrum are sorted into two categories: 'Spectrum plotting variables' and 'Peak labelling variables'. 
+                <p> 
+                Among the parameters for spectrum plotting are:
+                Plot labels, Spectrum Border, Colour, and Line Width, Axis range and Intervals, Font Sizes, Figure Margins.
+                <p> 
+                The website gives you the option to normalize and plot the selected mass spectrum. In the drop down menu, there are currently three ways to normalize the data:
+                <p>	-'By using the highest peak in the collected mass range' 
+                <p>	-'By the highest peak in the selected mass range' 
+                <p>	-'By a user defined peak'
+                <p>
+                If using the latter, the user has to enter the m/z value of the peak which they want to use for normalization.
+                <p> <div><h3>Spectrum Labeling</h3>
+                <p>
+                Peak and Label Selection: Allows the user to enter the 'm/z value of the Peaks to be Labeled' in the mass-spectrum. If the user wants to label multiple peaks in the spectrum they should enter the m/z values separated by a comma. The 'm/z Tolerance' defines the m/z window around the selected peak m/z from which the corresponding peak information will be retrieved from the mass list. The 'Label Position' defines the position of the labels relative to the peak. The user can enter r, R, l, L or a numeric value corresponding to the y-coordinate to position the labels.
+                <p>	'r' - Places the labels to the right side of the peak at the height of the peak maximum.
+                <p>	'R' - Places the labels to the right side of the peak at half height of the y-axis range.
+                <p>	'l'  - Places the labels to the left side of the peak at the height of the peak maximum.
+                <p>	'L' - Places the labels to the left side of the peak at half height of the y-axis range.
+                <p>	If numeric values for the y-coordinate are used, using a positive value will place the peak label to the right of the peak while using a negative value will place it to the left. 
+                The m/z, S/N and the intensity that is displayed on the label is rounded to the decimal points selected using the slider. Two user-defined text labels, as well as peak m/z ratio, intensity, and S/N ratio can be displayed. The tool allows for selective display of peak labels and they can be switched on or off to change what information will be displayed next to the peaks. Two user-defined text labels, as well as peak m/z ratio, intensity, and S/N ratio can be displayed. 
+                 </p></div>"),
+                 
+                 HTML("<div><h3>Peak Finder</h3><p>
+                 This tool extracts relevant peak information about a particular m/z, such as intensity, area and S/N, from a large number of mass lists at once. The user has to first upload the excel file which has to be searched and enter the m/z value of the peak they want to search along with other search parameters. After this the results are saved in an excel file which shows whether the selected peak is detected or not, along with other information, such as intensity or S/N, as selected by the user.
+                      </p></div>"),
+                 
+                 HTML("<div><h3>Tutorial Data</h3><p>In order to get familiar with this tool, we provide two mass spectra (in .txt and .csv format), as well as 
+                      the corresponding mass lists (as .xlsx). For simplicity, the mass lists contain only two m/z values per spectrum: m/z 1496.8 and 1691.0 for spectrum #1 and m/z 1398.7 and 1691.0 for spectrum #2. These files can be used as input for the spectra-visualization and the peak finder tools, and work well with the default settings. </p></div>"),
+                 downloadButton('downloadSpectrum1txt', 'Download Spectrum #1 as txt'),
+                 downloadButton('downloadSpectrum2txt', 'Download Spectrum #2 as txt'),
+                 downloadButton('downloadSpectrum1csv', 'Download Spectrum #1 as csv'),
+                 downloadButton('downloadSpectrum2csv', 'Download Spectrum #2 as csv'),
+                 downloadButton('downloadMassList', 'Download Mass Lists as xlsx')
+                 
+                 )
+        
         
     ),
 ))
