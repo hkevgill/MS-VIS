@@ -82,7 +82,7 @@ shinyServer(function(input, output, session) {
       }
     )
     
-    output$downloadSpectrum1csv <- downloadHandler(
+    output$downloadMassList <- downloadHandler(
       filename = function() {
         paste("Mass Lists as xlsx.xlsx")
       },
