@@ -22,6 +22,8 @@ extra.labels.ypos<-c(5,3) #y-coordinates of labels, vector of numeric
 extra.labels.fontsize<-c(3,2) #fontsize of labels, vector of numeric
 extra.labels.col<-c("black","red") #color of labels, vector of color (text or hex)
 
+rv <- reactiveValues(prevNormalizeSpectrum = FALSE, prevOverlaidNormalizeSpectrum = FALSE)
+
 #Single spectrum----
 #fig.name.final<-paste(fig.name,".jpg") #adds file extension to file name
 
@@ -403,6 +405,15 @@ shinyServer(function(input, output, session) {
         spectrum.yaxis.interval<-as.numeric(input$spectrumYAxisInterval)
         
         #Whether or not the spectrum should be normalized, as TRUE/FALSE
+        #Also sets the y-axis range to 0 to 1
+        if (rv$prevNormalizeSpectrum == FALSE && input$spectrumNormalizeSpectrum == TRUE) {
+            # Set y range from 0 to 1
+            updateNumericRangeInput(session = session, inputId = "spectrumRangeYAxis", value = c(0, 1))
+            rv$prevNormalizeSpectrum<-TRUE
+        }
+        else if (rv$prevNormalizeSpectrum == TRUE && input$spectrumNormalizeSpectrum == FALSE) {
+          rv$prevNormalizeSpectrum<-FALSE
+        }
         spectrum.normalize.spectrum<-input$spectrumNormalizeSpectrum
         
         #Which method to use for normalization (values of 1-3): 1= by max peak intensity in entire spectrum, 2= by max peak intensity in selected mass range, 3= by peak intensity of a selected peak
@@ -1016,6 +1027,16 @@ shinyServer(function(input, output, session) {
                       as.numeric(input$overlaidSpectrumMarginRight))
 
         #Whether or not the spectrum should be normalized, as TRUE/FALSE
+        #Also sets the y-axis range to 0 to 1
+        if (rv$prevOverlaidNormalizeSpectrum == FALSE && input$overlaidSpectrumNormalizeSpectrum == TRUE) {
+          # Set y range from 0 to 1
+          updateNumericRangeInput(session = session, inputId = "overlaidSpectrumRangeYAxis", value = c(0, 1))
+          rv$prevOverlaidNormalizeSpectrum<-TRUE
+        }
+        else if (rv$prevOverlaidNormalizeSpectrum == TRUE && input$overlaidSpectrumNormalizeSpectrum == FALSE) {
+          rv$prevOverlaidNormalizeSpectrum<-FALSE
+        }
+
         spectrum.normalize.spectrum<-input$overlaidSpectrumNormalizeSpectrum
         
         #Which method to use for normalization (values of 1-3): 1= by max peak intensity in entire spectrum, 2= by max peak intensity in selected mass range, 3= by peak intensity of a selected peak
