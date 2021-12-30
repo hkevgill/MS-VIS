@@ -1,5 +1,6 @@
 mass.spectra.mirror.create<-function(first.spectrum.rawfile.path, #Filepath of the first of two mass spectra to be overlaid, character
                                      separator=" ", #Separating character between m/z and intensity in mass spectrum text file, character
+                                     decimal =".",
                                      second.spectrum.rawfile.path, #Filepath of the second of two mass spectra to be overlaid, character 
                                      headerTF=FALSE, #TRUE/FALSE if mass spectrum text file has a header, boolean
                                      xaxis.title="m/z", #Title of spectrum x-axis, character
@@ -43,11 +44,11 @@ mass.spectra.mirror.create<-function(first.spectrum.rawfile.path, #Filepath of t
   
   #get mass spectrum from file
   print(first.spectrum.rawfile.path)
-  full.first.mass.spectrum <- read.csv(first.spectrum.rawfile.path,sep=separator, header=headerTF)
+  full.first.mass.spectrum <- read.csv(first.spectrum.rawfile.path,sep=separator,dec = decimal, header=headerTF)
   names(full.first.mass.spectrum)<-c("m/z","Intensity")
   
   print(second.spectrum.rawfile.path)
-  full.second.mass.spectrum <- read.csv(second.spectrum.rawfile.path,sep=separator, header=headerTF)
+  full.second.mass.spectrum <- read.csv(second.spectrum.rawfile.path,sep=separator,dec = decimal, header=headerTF)
   names(full.second.mass.spectrum)<-c("m/z","Intensity")
   
   if(normalize.spectrum==TRUE){
