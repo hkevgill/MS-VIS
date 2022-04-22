@@ -2424,7 +2424,7 @@ shinyUI(fluidPage(
                  )
         ),
         tabPanel("About", 
-                 HTML("<div><h3>About</h3><p>This mass-spectrum online plotting tool is made for visualizing and labelling MALDI mass spectra. The online tool is an easy to use interface for users with no prior programming experience We plan to expand this online tool to accept other data formats to make a more general tool for mass-spectra visualization.</p><p>If you have any feedback, feature requests, or encounter any issues please let us know at: <a href=\"mailto:contact.msvis@gmail.com\">contact.msvis@gmail.com</a></p><p>Citation: DOI: TBD</p><p>Code: <a href=\"https://github.com/hkevgill/MS-VIS\" target=\"_blank\">https://github.com/hkevgill/MS-VIS</a></p><p>Creators: Bjorn Froehlich, Kevin Gill, and Anuj Joshi</p></div>")),
+                 HTML("<div><h3>About</h3><p>This mass-spectrum online plotting tool is made for visualizing and labelling MALDI mass spectra. The online tool is an easy to use interface for users with no prior programming experience We plan to expand this online tool to accept other data formats to make a more general tool for mass-spectra visualization.</p><p>If you have any feedback, feature requests, or encounter any issues please let us know at: <a href=\"mailto:contact.msvis@gmail.com\">contact.msvis@gmail.com</a></p><p>Citation: DOI: <a href=\"https://doi.org/10.1002/rcm.9253\" target=\"_blank\">https://doi.org/10.1002/rcm.9253</a></p><p>Code: <a href=\"https://github.com/hkevgill/MS-VIS\" target=\"_blank\">https://github.com/hkevgill/MS-VIS</a></p><p>Creators: Bjorn Froehlich, Kevin Gill, and Anuj Joshi</p></div>")),
         
         tabPanel("Tutorial",
                  
